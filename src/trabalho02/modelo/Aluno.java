@@ -32,5 +32,4 @@ public class Aluno extends Usuario {
         return tipo;
     }
 
-   
 }

@@ -12,6 +12,7 @@ package trabalho02.iu;
 
 
 
+import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;
 
 /**
@@ -37,6 +38,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jPopupMenu2 = new javax.swing.JPopupMenu();
+        popupMenu1 = new java.awt.PopupMenu();
+        canvas1 = new java.awt.Canvas();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
@@ -67,6 +70,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+
+        popupMenu1.setLabel("popupMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +110,11 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenu5.add(jSeparator6);
 
         botaoSair.setText("Sair");
+        botaoSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSairActionPerformed(evt);
+            }
+        });
         jMenu5.add(botaoSair);
 
         jMenuBar1.add(jMenu5);
@@ -227,9 +237,12 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
-        control.salvarLivros(); //salva livros para arquivo
-        control.salvarUsuarios();
-        control.salvarUsuarios();
+        if(!control.salvarLivros()) JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
+                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo
+        if(!control.salvarUsuarios())JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
+                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo;
+        if(!control.salvarUsuarios())JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
+                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo;
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
@@ -264,6 +277,11 @@ public class IUPrincipal extends javax.swing.JFrame {
         livro.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_botaoSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -277,6 +295,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem botaoSair;
+    private java.awt.Canvas canvas1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -309,5 +328,6 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private java.awt.PopupMenu popupMenu1;
     // End of variables declaration//GEN-END:variables
 }

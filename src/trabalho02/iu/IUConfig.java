@@ -12,11 +12,14 @@
 package trabalho02.iu;
 
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;
 import trabalho02.modelo.Config;
+import trabalho02.modelo.Livro;
+import trabalho02.modelo.Usuario;
 
 /**
  *
@@ -30,6 +33,7 @@ public class IUConfig extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         alerta.setVisible(false);
+        carregaBotao.setEnabled(false);
     }
 
     ///padrao Singleton -- retorna sempre a mesma instancia
@@ -66,6 +70,7 @@ public class IUConfig extends javax.swing.JDialog {
 
         jTextField3 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         diasAluno_Text = new javax.swing.JTextField();
@@ -91,10 +96,17 @@ public class IUConfig extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         alerta = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        removerlivro = new javax.swing.JButton();
+        removeraluno = new javax.swing.JButton();
+        removerprofessor = new javax.swing.JButton();
+        removertudo = new javax.swing.JButton();
 
         jTextField3.setText("jTextField3");
 
         jCheckBox1.setText("jCheckBox1");
+
+        jCheckBox2.setText("jCheckBox2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configurações");
@@ -127,7 +139,7 @@ public class IUConfig extends javax.swing.JDialog {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(diasProfessor_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,12 +187,6 @@ public class IUConfig extends javax.swing.JDialog {
 
         jLabel6.setText("Carregar Outro Arquivo no Sistema (.dat)");
 
-        texto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoActionPerformed(evt);
-            }
-        });
-
         arq2.setText("...");
         arq2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,29 +231,29 @@ public class IUConfig extends javax.swing.JDialog {
                             .addComponent(jLabel1))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(arq2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(carregaBotao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel7)
-                                    .addComponent(emprestimosText, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                                    .addComponent(usuariosText)
-                                    .addComponent(livrosText))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botao2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botao1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(arq2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(carregaBotao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(4, 4, 4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addComponent(livrosText)
+                            .addComponent(usuariosText)
+                            .addComponent(emprestimosText, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botao1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botao2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,7 +287,7 @@ public class IUConfig extends javax.swing.JDialog {
                     .addComponent(carregaBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(arq2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                .addGap(32, 32, 32))
         );
 
         jButton2.setText("Restaurar Padrão");
@@ -298,46 +304,102 @@ public class IUConfig extends javax.swing.JDialog {
             }
         });
 
-        alerta.setForeground(new java.awt.Color(51, 51, 255));
+        alerta.setForeground(new java.awt.Color(255, 0, 0));
         alerta.setText("Arquivo Carregado Com sucesso!");
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Remover (IRREVERSÍVEL)"));
+
+        removerlivro.setText("Livros");
+        removerlivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerlivroActionPerformed(evt);
+            }
+        });
+
+        removeraluno.setText("Alunos");
+        removeraluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeralunoActionPerformed(evt);
+            }
+        });
+
+        removerprofessor.setText("Professores");
+        removerprofessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerprofessorActionPerformed(evt);
+            }
+        });
+
+        removertudo.setText("APAGAR TUDO");
+        removertudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removertudoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(removerlivro)
+                .addGap(18, 18, 18)
+                .addComponent(removeraluno)
+                .addGap(18, 18, 18)
+                .addComponent(removerprofessor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(removertudo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(removerlivro)
+                    .addComponent(removeraluno)
+                    .addComponent(removerprofessor)
+                    .addComponent(removertudo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(alerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(alerta, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(salvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addGap(19, 19, 19)))
+                        .addComponent(jButton3)))
                 .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(salvar)
-                        .addComponent(jButton3))
-                    .addComponent(alerta))
-                .addGap(70, 70, 70))
+                .addGap(11, 11, 11)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(salvar)
+                    .addComponent(alerta)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         pack();
@@ -351,6 +413,7 @@ public class IUConfig extends javax.swing.JDialog {
         configuracoes.setArquivoUsuarios( usuariosText.getText() );
         configuracoes.setArquivoEmprestimos( emprestimosText.getText());
         texto.setText("");
+        alerta.setVisible(false);
         this.setVisible(false);
     }//GEN-LAST:event_salvarActionPerformed
     private String abrirPasta(){
@@ -374,11 +437,6 @@ public class IUConfig extends javax.swing.JDialog {
 
     }//GEN-LAST:event_botaoActionPerformed
 
-    private void textoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_textoActionPerformed
-
     private void arq2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arq2ActionPerformed
         // TODO add your handling code here:
         JFileChooser procurar = new JFileChooser();
@@ -389,6 +447,7 @@ public class IUConfig extends javax.swing.JDialog {
             String nomeDir = dir.getAbsolutePath();
             if(nomeDir.endsWith(".dat")){ 
                 texto.setText(nomeDir);
+                carregaBotao.setEnabled(true);
                 carregaBotao.requestFocus();
             }
             else{
@@ -445,23 +504,26 @@ public class IUConfig extends javax.swing.JDialog {
             Controlador control = new Controlador();
             String t = texto.getText();
          
-                if(t.endsWith("livros.dat") || t.equals("livros.dat")){
+                if(t.endsWith("livros.dat")){
                     control.recuperarLivros();
                     alerta.setText("Dados Carregados");
                     alerta.setVisible(true);
                     texto.setText("");
+                    carregaBotao.setEnabled(false);
                 }
                 else if(t.endsWith("usuarios.dat")){
                     control.recuperarUsuarios();
                     alerta.setText("Dados Carregados");
                     alerta.setVisible(true);
                     texto.setText("");
+                    carregaBotao.setEnabled(false);
                }
                 else if(t.endsWith("emprestimos.dat")){
                     control.recuperarEmprestimos();
                     alerta.setText("Dados Carregados");
                     alerta.setVisible(true);
                     texto.setText("");
+                    carregaBotao.setEnabled(false);
                 }
                 else{
                     alerta.setText("Arquivo Inválido");
@@ -472,8 +534,55 @@ public class IUConfig extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        alerta.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void removertudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removertudoActionPerformed
+        // TODO add your handling code here:
+        Controlador control = new Controlador();
+        ArrayList<Usuario> usuario = control.buscarUsuarioTodos();
+       
+        if(usuario!=null)  usuario.clear();
+        ArrayList<Livro> livro = control.buscarLivroTodos();
+        if(livro!=null)    livro.clear();
+        if(usuario == null && livro == null) alerta.setText("Biblioteca 100Livros Vazia");
+        else alerta.setText("A Biblioteca 100Livros Foi Restaurada Com Sucesso");
+        alerta.setVisible(true);
+    }//GEN-LAST:event_removertudoActionPerformed
+
+    private void removerlivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerlivroActionPerformed
+        // TODO add your handling code here:
+        Controlador control = new Controlador();
+        ArrayList<Livro> livro = control.buscarLivroTodos();
+         if(livro!=null){    livro.clear();
+            alerta.setText("Todos Livros foram Deletado");
+         }
+         else alerta.setText("Não há Livros");
+         alerta.setVisible(true);
+    }//GEN-LAST:event_removerlivroActionPerformed
+
+    private void removeralunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeralunoActionPerformed
+        // TODO add your handling code here:
+        Controlador control = new Controlador();
+        ArrayList<Usuario> usuario = control.getUserBusca("Aluno");
+        if(usuario!=null)  {usuario.clear();
+                alerta.setText("Todos os Alunos foram Deletado");
+        }
+        else alerta.setText("Não há Alunos");
+        alerta.setVisible(true);
+    }//GEN-LAST:event_removeralunoActionPerformed
+
+    private void removerprofessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerprofessorActionPerformed
+        // TODO add your handling code here:
+        Controlador control = new Controlador();
+        ArrayList<Usuario> usuario = control.getUserBusca("Professor");
+        if(usuario!=null)  {usuario.clear();
+                alerta.setText("Todos os Professores foram Deletado");
+        }
+        else alerta.setText("Não há Professores");
+        alerta.setVisible(true);
+    }//GEN-LAST:event_removerprofessorActionPerformed
 
     /**
     * @param args the command line arguments
@@ -505,6 +614,7 @@ public class IUConfig extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -514,9 +624,14 @@ public class IUConfig extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField livrosText;
+    private javax.swing.JButton removeraluno;
+    private javax.swing.JButton removerlivro;
+    private javax.swing.JButton removerprofessor;
+    private javax.swing.JButton removertudo;
     private javax.swing.JButton salvar;
     private javax.swing.JTextField texto;
     private javax.swing.JTextField usuariosText;

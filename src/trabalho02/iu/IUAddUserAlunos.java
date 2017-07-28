@@ -62,6 +62,7 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
         tabela = new javax.swing.JTable();
         removerBotao = new javax.swing.JButton();
         pesquisa = new javax.swing.JTextField();
+        atualizarBotao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -240,6 +241,8 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabela.getTableHeader().setResizingAllowed(false);
+        tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabela);
 
         removerBotao.setText("Remover");
@@ -269,6 +272,13 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
             }
         });
 
+        atualizarBotao.setText("Atualizar");
+        atualizarBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarBotaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -276,11 +286,13 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(removerBotao)
-                        .addGap(28, 28, 28)
-                        .addComponent(pesquisa)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(atualizarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -290,7 +302,9 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(atualizarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(removerBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -302,11 +316,9 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(sairBotao))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sairBotao))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -315,16 +327,18 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
                 .addGap(6, 6, 6)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sairBotao)
-                .addContainerGap())
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
         private void completar(){
+       cancelarBotao.setToolTipText("Limpa Todos Os Campos Preenchidos");
+       atualizarBotao.setToolTipText("Atualizar Tabela");
        Controlador control = new Controlador();
        ArrayList<Usuario> usuario = control.getUserBusca("Aluno");
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
@@ -338,7 +352,7 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
         linha[0] = user.getCodUsuario();
         linha[1] = user.getNome();
         linha[2] = al.getCurso();
-        linha[3] = al.getTipo();
+        linha[3] = al.getAno();
         model.addRow(linha);
         }
         }
@@ -369,33 +383,6 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
             tabela.setRowSorter(null);
         }
     }//GEN-LAST:event_removerBotaoActionPerformed
-
-    private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
-        // TODO add your handling code here:
-        pesquisa.setText("");
-    }//GEN-LAST:event_pesquisaFocusGained
-
-    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pesquisaActionPerformed
-
-    private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
-        // TODO add your handling code here:
-        pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
-        TableRowSorter<TableModel> sorter = null;
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-        sorter = new TableRowSorter<>(model);
-        tabela.setRowSorter(sorter);
-        String texto = pesquisa.getText();
-        if(texto.length() != 0){
-            sorter.setRowFilter(RowFilter.regexFilter(texto));
-        }
-    }//GEN-LAST:event_pesquisaKeyReleased
-
-    private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
-        // TODO add your handling code here:
-        pesquisa.setText("Pesquisar por Nome dos Alunos Cadastrados");
-    }//GEN-LAST:event_pesquisaFocusLost
 
     private void cancelarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBotaoActionPerformed
         // TODO add your handling code here:
@@ -530,6 +517,46 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_codTextFocusLost
 
+    private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
+        // TODO add your handling code here:
+        pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
+        TableRowSorter<TableModel> sorter = null;
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        sorter = new TableRowSorter<>(model);
+        tabela.setRowSorter(sorter);
+        String texto = pesquisa.getText();
+        if(texto.length() != 0){
+            sorter.setRowFilter(RowFilter.regexFilter(texto));
+        }
+    }//GEN-LAST:event_pesquisaKeyReleased
+
+    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisaActionPerformed
+
+    private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
+        // TODO add your handling code here:
+        pesquisa.setText("Pesquisar por Nome dos Alunos Cadastrados");
+    }//GEN-LAST:event_pesquisaFocusLost
+
+    private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
+        // TODO add your handling code here:
+        pesquisa.setText("");
+    }//GEN-LAST:event_pesquisaFocusGained
+
+    private void removerTabela(){
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       int tam = tabela.getRowCount();
+       for(int i=0; i<tam; i++){
+           model.removeRow(0);
+       }
+    } 
+    private void atualizarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBotaoActionPerformed
+        // TODO add your handling code here:
+        removerTabela();
+        completar();
+    }//GEN-LAST:event_atualizarBotaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -575,6 +602,7 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alerta;
     private javax.swing.JTextField anoText;
+    private javax.swing.JButton atualizarBotao;
     private javax.swing.JButton cadastrarBotao;
     private javax.swing.JButton cancelarBotao;
     private javax.swing.JTextField codText;

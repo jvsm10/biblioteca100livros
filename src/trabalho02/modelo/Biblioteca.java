@@ -13,6 +13,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,18 +47,22 @@ public class Biblioteca {
     public void addAluno(String codUsuario, String nome, String curso, int ano){
         Usuario aluno = new Aluno(codUsuario, nome, curso, ano, configuracoes.getDiasAluno());
         this.usuarios.add(aluno);
+        Collections.sort(usuarios);
     }
 
     public void addProfessor(String codUsuario, String nome, String titulacao){
         Usuario professor = new Professor(codUsuario, nome, titulacao, configuracoes.getDiasProfessor());
         this.usuarios.add(professor);
+        Collections.sort(usuarios);
     }
 
     public void addLivro(String codLivro, String nome, String ano) {
         Livro livro = new Livro(codLivro, nome, ano);
         this.livros.add(livro);
+        Collections.sort(livros);
     }
     public ArrayList<Usuario> getUserBusca(String tipo){
+        if(usuarios.isEmpty()) return null;
         ArrayList<Usuario> user = new ArrayList<>();
             for(Usuario perc: usuarios){
                 if(perc.getTipo().equals(tipo))
@@ -73,6 +79,15 @@ public class Biblioteca {
         }
         return null;
     }
+    public ArrayList<Usuario> buscarUsuarioTodos(){
+        if(usuarios.isEmpty()) return null;
+        else return usuarios;
+    }
+    public ArrayList<Livro> buscarLivroTodos(){
+        if(livros.isEmpty()) return null;
+        else return livros;
+    }
+    
     public void removerUsuario(String codUsuario){
         if(usuarios.isEmpty()) return;
         for(Usuario user: usuarios){
@@ -96,7 +111,7 @@ public class Biblioteca {
         return null;
     }
 
-    public void salvarLivros(){
+    public Boolean salvarLivros(){
         String nomeArquivo = configuracoes.getArquivoLivros();
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -109,6 +124,7 @@ public class Biblioteca {
             for (Livro li : livros){
                 oos.writeObject(li);
             }
+            return true;
         }catch (IOException ex) {
             Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -119,6 +135,7 @@ public class Biblioteca {
                 Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return false;
     }
 
     public void recuperarLivros(){
@@ -150,7 +167,7 @@ public class Biblioteca {
             }
         }
     }
-        public void salvarUsuarios() {
+        public Boolean salvarUsuarios() {
         String nomeArquivo = configuracoes.getArquivoUsuarios();
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -161,6 +178,7 @@ public class Biblioteca {
             for (int i = 0; i < usuarios.size(); i++) {
                 oos.writeObject(usuarios.get(i));
             }
+            return true;
         } catch (IOException ex) {
             Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -171,6 +189,7 @@ public class Biblioteca {
                 Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return false;
     }
 
 
@@ -202,7 +221,7 @@ public class Biblioteca {
             }
         }
     }
-    public void salvarEmprestimos() {
+    public Boolean salvarEmprestimos() {
         String nomeArquivo = configuracoes.getArquivoEmprestimos();
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -215,6 +234,7 @@ public class Biblioteca {
             for (int i = 0; i < emprestimos.size(); i++) {
                 oos.writeObject(emprestimos.get(i));
             }
+            return true;
         } catch (IOException ex) {
             Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -225,6 +245,7 @@ public class Biblioteca {
                 Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return false;
     }
 
     public void recuperarEmprestimos() {

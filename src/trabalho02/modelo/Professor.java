@@ -26,6 +26,4 @@ public class Professor extends Usuario{
         return tipo;
     }
 
-    
-    
 }

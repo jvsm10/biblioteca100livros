@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Danilo Medeiros Eler
  */
-    public abstract class Usuario implements Serializable {
+    public abstract class Usuario implements Serializable, Comparable<Usuario> {
     protected String codUsuario;
     protected String nome;
     protected int diasEmprestimo;//numero de dias permitidos para emprestimo
@@ -47,6 +47,11 @@ import java.io.Serializable;
     }  
     public abstract String getTipo();
     
-    
+    @Override
+    public int compareTo(Usuario o) {
+        int cod1 = Integer.parseInt(codUsuario);
+        int cod2 = Integer.parseInt(o.codUsuario); 
+      return  cod1-cod2;
+    } 
     
 }

@@ -43,6 +43,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
     private void initComponents() {
 
         jProgressBar1 = new javax.swing.JProgressBar();
+        jRadioButton1 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         codText = new javax.swing.JTextField();
         nomeText = new javax.swing.JTextField();
@@ -59,6 +60,9 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
         tabela = new javax.swing.JTable();
         removerBotao = new javax.swing.JButton();
         pesquisa = new javax.swing.JTextField();
+        atualizarBotao = new javax.swing.JButton();
+
+        jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -147,7 +151,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                                 .addComponent(nomeText)
                                 .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cursoBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cursoBox, 0, 389, Short.MAX_VALUE)
                         .addGap(26, 26, 26)
                         .addComponent(cadastrarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -208,6 +212,9 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabela.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabela.getTableHeader().setResizingAllowed(false);
+        tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabela);
 
         removerBotao.setText("Remover");
@@ -226,14 +233,16 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                 pesquisaFocusLost(evt);
             }
         });
-        pesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisaActionPerformed(evt);
-            }
-        });
         pesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 pesquisaKeyReleased(evt);
+            }
+        });
+
+        atualizarBotao.setText("Atualizar");
+        atualizarBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarBotaoActionPerformed(evt);
             }
         });
 
@@ -244,11 +253,13 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(removerBotao)
                         .addGap(18, 18, 18)
-                        .addComponent(pesquisa)))
+                        .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(atualizarBotao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -259,7 +270,8 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removerBotao)
-                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atualizarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -274,7 +286,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(sairBotao))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -284,21 +296,23 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sairBotao)
-                .addGap(30, 30, 30))
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void completar(){
+        cancelarBotao.setToolTipText("Limpa Todos Os Campos Preenchidos");
+        atualizarBotao.setToolTipText("Atualizar Tabela");
        Controlador control = new Controlador();
        ArrayList<Usuario> usuario = control.getUserBusca("Professor");
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
        
        Professor prof = null;
-       
+       if(usuario !=null){
        for(Usuario user: usuario){
         prof=(Professor) user;
         Object linha[] = new Object[4];
@@ -307,6 +321,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
         linha[2] = prof.getTitulacao();
         model.addRow(linha);
         }
+       }
     }
     private void codTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codTextActionPerformed
         // TODO add your handling code here:
@@ -421,37 +436,23 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
     private void removerBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        
+        TableRowSorter<TableModel> sorter = null;
         int linha=-1;
         linha = tabela.getSelectedRow();
+        
         if(linha>=0){
             String cod;
-            cod = (String) (tabela.getValueAt(linha, 0));
-            if(linha>=0){
-                DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-                control.removerUsuario(cod);
-                linha=tabela.convertColumnIndexToModel(linha);
-                model.removeRow(linha);
-            }
+            cod = (String) (tabela.getValueAt(linha, 0));           
+            control.removerUsuario(cod);
+            linha=tabela.convertRowIndexToModel(linha);
+            model.removeRow(linha);
+            pesquisa.setText("Pesquisar por Nome dos Professores Cadastrados");   
+            
+            tabela.setRowSorter(null);
         }
     }//GEN-LAST:event_removerBotaoActionPerformed
-
-    private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
-        // TODO add your handling code here:
-        pesquisa.setText("");
-
-    }//GEN-LAST:event_pesquisaFocusGained
-
-    private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
-        // TODO add your handling code here:
-        pesquisa.setText("Pesquisar por Nome dos Professores Cadastrados");
-        TableRowSorter<TableModel> sorter = null;
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-        tabela.setRowSorter(sorter);
-    }//GEN-LAST:event_pesquisaFocusLost
-
-    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pesquisaActionPerformed
 
     private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
         // TODO add your handling code here:
@@ -465,6 +466,29 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }
     }//GEN-LAST:event_pesquisaKeyReleased
+
+    private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
+        // TODO add your handling code here:
+        pesquisa.setText("");
+    }//GEN-LAST:event_pesquisaFocusGained
+
+    private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
+        // TODO add your handling code here:
+        pesquisa.setText("Pesquisar por Nome dos Professores Cadastrados");
+    }//GEN-LAST:event_pesquisaFocusLost
+
+    private void removerTabela(){
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       int tam = tabela.getRowCount();
+       for(int i=0; i<tam; i++){
+           model.removeRow(0);
+       }
+    } 
+    private void atualizarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBotaoActionPerformed
+        // TODO add your handling code here:
+       removerTabela();
+       completar();
+    }//GEN-LAST:event_atualizarBotaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -511,6 +535,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alerta;
+    private javax.swing.JButton atualizarBotao;
     private javax.swing.JButton cadastrarBotao;
     private javax.swing.JButton cancelarBotao;
     private javax.swing.JTextField codText;
@@ -521,6 +546,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nomeText;
     private javax.swing.JTextField pesquisa;

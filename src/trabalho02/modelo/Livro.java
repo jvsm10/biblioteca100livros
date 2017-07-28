@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Danilo Medeiros Eler
  */
-public class Livro implements Serializable{
+public class Livro implements Serializable, Comparable<Livro>{
     private String codLivro;
     private String nome;
     private String ano;
@@ -62,5 +62,12 @@ public class Livro implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public int compareTo(Livro o) {
+        int cod1 = Integer.parseInt(codLivro);
+        int cod2 = Integer.parseInt(o.codLivro); 
+      return cod1-cod2;
     }
 }

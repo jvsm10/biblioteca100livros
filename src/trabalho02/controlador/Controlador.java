@@ -19,20 +19,20 @@ public class Controlador {
     public Config getConfiguracoes(){
         return user.getConfiguracoes();
     }
-    public void salvarLivros(){
-        user.salvarLivros();
+    public Boolean salvarLivros(){
+        return user.salvarLivros();
     }
     public void recuperarLivros(){
         user.recuperarLivros();
     }
-    public void salvarUsuarios(){
-        user.salvarUsuarios();
+    public Boolean salvarUsuarios(){
+       return user.salvarUsuarios();
     }
     public void recuperarUsuarios(){
         user.recuperarUsuarios();
     }
-    public void salvarEmprestimos(){
-        user.salvarEmprestimos();
+    public Boolean salvarEmprestimos(){
+        return user.salvarEmprestimos();
     }
     public void recuperarEmprestimos(){
         user.recuperarEmprestimos();
@@ -52,6 +52,12 @@ public class Controlador {
     }
     public void removerUsuario(String codUsuario){
         user.removerUsuario(codUsuario);
+    }
+    public ArrayList<Usuario> buscarUsuarioTodos(){
+        return user.buscarUsuarioTodos();
+    }
+    public ArrayList<Livro> buscarLivroTodos(){
+        return user.buscarLivroTodos();
     }
     public void addLivro(String codLivro, String nome, String ano){
         user.addLivro(codLivro, nome, ano);

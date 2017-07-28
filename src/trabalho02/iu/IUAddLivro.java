@@ -27,7 +27,6 @@ public class IUAddLivro extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         completar();
-        getRootPane().setDefaultButton(cadastrarBotao);
     }
 
     /**
@@ -53,6 +52,8 @@ public class IUAddLivro extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         removerBotao = new javax.swing.JButton();
+        pesquisa = new javax.swing.JTextField();
+        atualizarBotao = new javax.swing.JButton();
         sairBotao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -150,7 +151,7 @@ public class IUAddLivro extends javax.swing.JDialog {
                                     .addComponent(codText)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(0, 28, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -214,12 +215,41 @@ public class IUAddLivro extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabela.getTableHeader().setResizingAllowed(false);
+        tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabela);
 
         removerBotao.setText("Remover");
         removerBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerBotaoActionPerformed(evt);
+            }
+        });
+
+        pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
+        pesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pesquisaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pesquisaFocusLost(evt);
+            }
+        });
+        pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisaActionPerformed(evt);
+            }
+        });
+        pesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pesquisaKeyReleased(evt);
+            }
+        });
+
+        atualizarBotao.setText("Atualizar");
+        atualizarBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarBotaoActionPerformed(evt);
             }
         });
 
@@ -230,10 +260,13 @@ public class IUAddLivro extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(removerBotao)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(atualizarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -241,7 +274,10 @@ public class IUAddLivro extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(removerBotao)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(removerBotao)
+                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atualizarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -259,11 +295,12 @@ public class IUAddLivro extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(sairBotao)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sairBotao, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -352,7 +389,7 @@ public class IUAddLivro extends javax.swing.JDialog {
         String texto = nomeText.getText();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));       
-        }
+               }
     }//GEN-LAST:event_nomeTextKeyReleased
 
     private void anoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anoTextFocusLost
@@ -417,17 +454,21 @@ public class IUAddLivro extends javax.swing.JDialog {
 
     private void removerBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoActionPerformed
         // TODO add your handling code here:
-        Controlador control = new Controlador();
+       Controlador control = new Controlador();
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         int linha=-1;
+        
+        TableRowSorter<TableModel> sorter = null;
         linha = tabela.getSelectedRow();
+        
         if(linha>=0){
             String cod;
             cod = (String) (tabela.getValueAt(linha, 0));
-            if(linha>=0){
-                DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-                control.removerUsuario(cod);
-                model.removeRow(linha);
-            }
+            control.removerUsuario(cod);
+            linha=tabela.convertRowIndexToModel(linha);     
+            model.removeRow(linha);
+            pesquisa.setText("Pesquisar por Nome dos Livros Cadastradas");
+            tabela.setRowSorter(null);
         }
     }//GEN-LAST:event_removerBotaoActionPerformed
 
@@ -437,21 +478,65 @@ public class IUAddLivro extends javax.swing.JDialog {
 
     }//GEN-LAST:event_sairBotaoActionPerformed
 
+    private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
+        // TODO add your handling code here:
+        pesquisa.setText("");
+    }//GEN-LAST:event_pesquisaFocusGained
+
+    private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
+        // TODO add your handling code here:
+        pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
+    }//GEN-LAST:event_pesquisaFocusLost
+
+    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisaActionPerformed
+
+    private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
+        // TODO add your handling code here:
+        pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
+        TableRowSorter<TableModel> sorter = null;
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        sorter = new TableRowSorter<>(model);
+        tabela.setRowSorter(sorter);
+        String texto = pesquisa.getText();
+        if(texto.length() != 0){
+            sorter.setRowFilter(RowFilter.regexFilter(texto));
+        }
+    }//GEN-LAST:event_pesquisaKeyReleased
+    private void removerTabela(){
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       int tam = tabela.getRowCount();
+       for(int i=0; i<tam; i++){
+           model.removeRow(0);
+       }
+    } 
+    private void atualizarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBotaoActionPerformed
+        // TODO add your handling code here:
+        removerTabela();
+        completar();
+    }//GEN-LAST:event_atualizarBotaoActionPerformed
+
     private void completar(){
+        cancelarBotao.setToolTipText("Limpa Todos Os Campos Preenchidos");
+        atualizarBotao.setToolTipText("Atualizar Tabela");
        Controlador control = new Controlador();
        ArrayList<Livro> li = control.getLivroBusca();
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
        String estado;
-       for(Livro livro: li){
-        if(livro.estaEmprestado()) estado="Emprestado";
-        else estado="Livre";
-        Object linha[] = new Object[4];
-        linha[0] = livro.getCodLivro();
-        linha[1] = livro.getNome();
-        linha[2] = livro.getAno();
-        linha[3] = estado;
-        model.addRow(linha);
+       
+       if(li != null){    
+           for(Livro livro: li){      
+               if(livro.estaEmprestado()) estado="Emprestado";      
+               else estado="Livre";      
+               Object linha[] = new Object[4];       
+               linha[0] = livro.getCodLivro();      
+               linha[1] = livro.getNome();        
+               linha[2] = livro.getAno();       
+               linha[3] = estado;    
+               model.addRow(linha);
         }
+       }
     }
       
     
@@ -500,6 +585,7 @@ public class IUAddLivro extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alerta;
     private javax.swing.JTextField anoText;
+    private javax.swing.JButton atualizarBotao;
     private javax.swing.JButton cadastrarBotao;
     private javax.swing.JButton cancelarBotao;
     private javax.swing.JTextField codText;
@@ -510,6 +596,7 @@ public class IUAddLivro extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nomeText;
+    private javax.swing.JTextField pesquisa;
     private javax.swing.JButton removerBotao;
     private javax.swing.JButton sairBotao;
     private javax.swing.JTable tabela;
