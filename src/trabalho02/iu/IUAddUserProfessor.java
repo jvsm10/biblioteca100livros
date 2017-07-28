@@ -30,6 +30,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
     public IUAddUserProfessor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        completar();
     }
 
     /**
@@ -41,6 +42,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         jPanel1 = new javax.swing.JPanel();
         codText = new javax.swing.JTextField();
         nomeText = new javax.swing.JTextField();
@@ -56,6 +58,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         removerBotao = new javax.swing.JButton();
+        pesquisa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -214,6 +217,26 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
             }
         });
 
+        pesquisa.setText("Pesquisar por Nome dos Professores Cadastrados");
+        pesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pesquisaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pesquisaFocusLost(evt);
+            }
+        });
+        pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisaActionPerformed(evt);
+            }
+        });
+        pesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pesquisaKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -221,19 +244,22 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(removerBotao)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(pesquisa)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(removerBotao)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(removerBotao)
+                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -254,18 +280,34 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(5, 5, 5)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sairBotao)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void completar(){
+       Controlador control = new Controlador();
+       ArrayList<Usuario> usuario = control.getUserBusca("Professor");
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       
+       Professor prof = null;
+       
+       for(Usuario user: usuario){
+        prof=(Professor) user;
+        Object linha[] = new Object[4];
+        linha[0] = user.getCodUsuario();
+        linha[1] = user.getNome();
+        linha[2] = prof.getTitulacao();
+        model.addRow(linha);
+        }
+    }
     private void codTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_codTextActionPerformed
@@ -290,7 +332,9 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
         Usuario codigo = control.buscarUsuario(cod);
         if(codigo!=null){
             cadastrarBotao.setEnabled(false);
-            alerta.setText("Usuário Já Cadastrado");
+            if(codigo.getTipo().equals("Aluno"))
+            alerta.setText("Codigo de Aluno Já Cadastrado");
+            else alerta.setText("Codigo de Professor Já Cadastrado");
             alerta.setVisible(true);
 
             tabela.setRowSorter(sorter);
@@ -385,10 +429,42 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
             if(linha>=0){
                 DefaultTableModel model = (DefaultTableModel) tabela.getModel();
                 control.removerUsuario(cod);
+                linha=tabela.convertColumnIndexToModel(linha);
                 model.removeRow(linha);
             }
         }
     }//GEN-LAST:event_removerBotaoActionPerformed
+
+    private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
+        // TODO add your handling code here:
+        pesquisa.setText("");
+
+    }//GEN-LAST:event_pesquisaFocusGained
+
+    private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
+        // TODO add your handling code here:
+        pesquisa.setText("Pesquisar por Nome dos Professores Cadastrados");
+        TableRowSorter<TableModel> sorter = null;
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        tabela.setRowSorter(sorter);
+    }//GEN-LAST:event_pesquisaFocusLost
+
+    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisaActionPerformed
+
+    private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
+        // TODO add your handling code here:
+        pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
+        TableRowSorter<TableModel> sorter = null;
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        sorter = new TableRowSorter<>(model);
+        tabela.setRowSorter(sorter);
+        String texto = pesquisa.getText();
+        if(texto.length() != 0){
+            sorter.setRowFilter(RowFilter.regexFilter(texto));
+        }
+    }//GEN-LAST:event_pesquisaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -444,8 +520,10 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nomeText;
+    private javax.swing.JTextField pesquisa;
     private javax.swing.JButton removerBotao;
     private javax.swing.JButton sairBotao;
     private javax.swing.JTable tabela;

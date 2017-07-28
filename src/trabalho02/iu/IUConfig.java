@@ -14,6 +14,7 @@ package trabalho02.iu;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;
 import trabalho02.modelo.Config;
 
@@ -70,7 +71,7 @@ public class IUConfig extends javax.swing.JDialog {
         diasAluno_Text = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         diasProfessor_Text = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        salvar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         livrosText = new javax.swing.JTextField();
@@ -86,6 +87,7 @@ public class IUConfig extends javax.swing.JDialog {
         jSeparator2 = new javax.swing.JSeparator();
         botao1 = new javax.swing.JButton();
         botao2 = new javax.swing.JButton();
+        carregaBotao = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         alerta = new javax.swing.JLabel();
@@ -138,10 +140,10 @@ public class IUConfig extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        salvar.setText("Salvar");
+        salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                salvarActionPerformed(evt);
             }
         });
 
@@ -149,7 +151,7 @@ public class IUConfig extends javax.swing.JDialog {
 
         jLabel1.setText("Livros");
 
-        livrosText.setText(".\\livros.dat");
+        livrosText.setText("livros.dat");
         livrosText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 livrosTextActionPerformed(evt);
@@ -158,11 +160,11 @@ public class IUConfig extends javax.swing.JDialog {
 
         jLabel2.setText("Usuarios");
 
-        usuariosText.setText(".\\usuarios.dat");
+        usuariosText.setText("usuarios.dat");
 
         jLabel3.setText("Emprestimos");
 
-        emprestimosText.setText(".\\emprestimos.dat");
+        emprestimosText.setText("emprestimos.dat");
 
         botao.setText("ProcurarPasta");
         botao.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +181,7 @@ public class IUConfig extends javax.swing.JDialog {
             }
         });
 
-        arq2.setText("ProcurarArquivo");
+        arq2.setText("...");
         arq2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 arq2ActionPerformed(evt);
@@ -202,6 +204,13 @@ public class IUConfig extends javax.swing.JDialog {
             }
         });
 
+        carregaBotao.setText("Carregar");
+        carregaBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carregaBotaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -216,16 +225,18 @@ public class IUConfig extends javax.swing.JDialog {
                             .addComponent(jLabel1))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(arq2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(carregaBotao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(arq2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel7)
                                     .addComponent(emprestimosText, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
@@ -265,11 +276,12 @@ public class IUConfig extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(carregaBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(arq2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         jButton2.setText("Restaurar Padrão");
@@ -280,6 +292,11 @@ public class IUConfig extends javax.swing.JDialog {
         });
 
         jButton3.setText("Sair sem Salvar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         alerta.setForeground(new java.awt.Color(51, 51, 255));
         alerta.setText("Arquivo Carregado Com sucesso!");
@@ -298,7 +315,7 @@ public class IUConfig extends javax.swing.JDialog {
                         .addGap(21, 21, 21)
                         .addComponent(alerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(salvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -317,7 +334,7 @@ public class IUConfig extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)
+                        .addComponent(salvar)
                         .addComponent(jButton3))
                     .addComponent(alerta))
                 .addGap(70, 70, 70))
@@ -326,20 +343,16 @@ public class IUConfig extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         // TODO add your handling code here:
         configuracoes.setDiasAluno(Integer.parseInt( diasAluno_Text.getText() ));
         configuracoes.setDiasProfessor(Integer.parseInt( diasProfessor_Text.getText() ));
         configuracoes.setArquivoLivros( livrosText.getText() );
         configuracoes.setArquivoUsuarios( usuariosText.getText() );
         configuracoes.setArquivoEmprestimos( emprestimosText.getText());
-        if(texto.getText().length()!=0){
-            Controlador control = new Controlador();
-            control.salvarLivros();
-        }
-
+        texto.setText("");
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_salvarActionPerformed
     private String abrirPasta(){
         JFileChooser procurar = new JFileChooser();
         procurar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -376,14 +389,12 @@ public class IUConfig extends javax.swing.JDialog {
             String nomeDir = dir.getAbsolutePath();
             if(nomeDir.endsWith(".dat")){ 
                 texto.setText(nomeDir);
-                alerta.setText("Carregado com Sucesso");
-             
+                carregaBotao.requestFocus();
             }
             else{
                 alerta.setText("Arquivo Inválido");
                 
             }
-            alerta.setVisible(true);
         }
 
     }//GEN-LAST:event_arq2ActionPerformed
@@ -414,11 +425,55 @@ public class IUConfig extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        diasAluno_Text.setText("10");
+        diasProfessor_Text.setText("30");
+        livrosText.setText("livros.dat");
+        usuariosText.setText("usuarios.dat");
+        emprestimosText.setText("emprestimos.dat");
+        texto.setText("");
+        alerta.setText("Configurações Padrão");
+        salvar.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void diasAluno_TextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasAluno_TextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_diasAluno_TextActionPerformed
+
+    private void carregaBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregaBotaoActionPerformed
+        // TODO add your handling code here:
+        if(texto.getText().length()!=0){
+            Controlador control = new Controlador();
+            String t = texto.getText();
+         
+                if(t.endsWith("livros.dat") || t.equals("livros.dat")){
+                    control.recuperarLivros();
+                    alerta.setText("Dados Carregados");
+                    alerta.setVisible(true);
+                    texto.setText("");
+                }
+                else if(t.endsWith("usuarios.dat")){
+                    control.recuperarUsuarios();
+                    alerta.setText("Dados Carregados");
+                    alerta.setVisible(true);
+                    texto.setText("");
+               }
+                else if(t.endsWith("emprestimos.dat")){
+                    control.recuperarEmprestimos();
+                    alerta.setText("Dados Carregados");
+                    alerta.setVisible(true);
+                    texto.setText("");
+                }
+                else{
+                    alerta.setText("Arquivo Inválido");
+                    alerta.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_carregaBotaoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -443,10 +498,10 @@ public class IUConfig extends javax.swing.JDialog {
     private javax.swing.JButton botao;
     private javax.swing.JButton botao1;
     private javax.swing.JButton botao2;
+    private javax.swing.JButton carregaBotao;
     private javax.swing.JTextField diasAluno_Text;
     private javax.swing.JTextField diasProfessor_Text;
     private javax.swing.JTextField emprestimosText;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
@@ -462,6 +517,7 @@ public class IUConfig extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField livrosText;
+    private javax.swing.JButton salvar;
     private javax.swing.JTextField texto;
     private javax.swing.JTextField usuariosText;
     // End of variables declaration//GEN-END:variables

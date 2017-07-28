@@ -351,7 +351,7 @@ public class IUAddLivro extends javax.swing.JDialog {
         tabela.setRowSorter(sorter);
         String texto = nomeText.getText();
         if(texto.length() != 0){
-            sorter.setRowFilter(RowFilter.regexFilter(texto));
+            sorter.setRowFilter(RowFilter.regexFilter(texto));       
         }
     }//GEN-LAST:event_nomeTextKeyReleased
 
@@ -443,9 +443,8 @@ public class IUAddLivro extends javax.swing.JDialog {
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
        String estado;
        for(Livro livro: li){
-       
-           if(livro.estaEmprestado()) estado="Emprestado";
-           else estado="Livre";
+        if(livro.estaEmprestado()) estado="Emprestado";
+        else estado="Livre";
         Object linha[] = new Object[4];
         linha[0] = livro.getCodLivro();
         linha[1] = livro.getNome();

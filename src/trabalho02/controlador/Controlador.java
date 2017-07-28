@@ -17,13 +17,25 @@ import trabalho02.modelo.Usuario;
 public class Controlador {
     private static Biblioteca user = new Biblioteca();
     public Config getConfiguracoes(){
-        return BD.biblioteca.getConfiguracoes();
+        return user.getConfiguracoes();
     }
     public void salvarLivros(){
-        BD.biblioteca.salvarLivros();
+        user.salvarLivros();
     }
     public void recuperarLivros(){
-        BD.biblioteca.recuperarLivros();
+        user.recuperarLivros();
+    }
+    public void salvarUsuarios(){
+        user.salvarUsuarios();
+    }
+    public void recuperarUsuarios(){
+        user.recuperarUsuarios();
+    }
+    public void salvarEmprestimos(){
+        user.salvarEmprestimos();
+    }
+    public void recuperarEmprestimos(){
+        user.recuperarEmprestimos();
     }
     public void addAluno(String codUsuario, String nome, String curso, int ano){
         user.addAluno(codUsuario, nome, curso, ano);
