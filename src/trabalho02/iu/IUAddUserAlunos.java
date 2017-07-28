@@ -273,6 +273,7 @@ public class IUAddUserAlunos extends javax.swing.JDialog {
             }
         });
 
+        atualizarBotao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/atualizar.png"))); // NOI18N
         atualizarBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 atualizarBotaoActionPerformed(evt);
