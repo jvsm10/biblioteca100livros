@@ -286,4 +286,44 @@ public class Biblioteca {
         }
     }
     }
+    
+    public String salvarConfig(){
+        
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = new FileOutputStream("config.dat");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(configuracoes);
+            oos.close();
+            fos.close();
+            return "";
+        }catch (IOException ex) {
+            Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.getMessage();
+            }
+    }
+        public void recuperarConfig() {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+                
+            fis = new FileInputStream("config.dat");
+            ois = new ObjectInputStream(fis);
+            configuracoes = (Config) ois.readObject(); 
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                ois.close();
+                fis.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
 }

@@ -493,8 +493,7 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_livrosTextActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    private void configPadrao(){
         diasAluno_Text.setText("10");
         diasProfessor_Text.setText("30");
         livrosText.setText("livros.dat");
@@ -503,6 +502,10 @@ public class IUConfig extends javax.swing.JDialog {
         texto.setText("");
         alerta.setText("Configurações Padrão");
         salvar.requestFocus();
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        configPadrao();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void diasAluno_TextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasAluno_TextActionPerformed
@@ -558,8 +561,12 @@ public class IUConfig extends javax.swing.JDialog {
         ArrayList<Livro> livro = control.buscarLivroTodos();
         if(livro!=null)    livro.clear();
         if(usuario == null && livro == null) alerta.setText("Biblioteca 100Livros Vazia");
-        else alerta.setText("A Biblioteca 100Livros Foi Restaurada Com Sucesso");
+        else{
+            configPadrao();
+            alerta.setText("A Biblioteca 100Livros Foi Restaurada Com Sucesso");
+        }
         alerta.setVisible(true);
+        
     }//GEN-LAST:event_removertudoActionPerformed
 
     private void removerlivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerlivroActionPerformed

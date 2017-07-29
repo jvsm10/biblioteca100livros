@@ -246,6 +246,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         if(!msg.isEmpty()) msgf+= msg+"\n";
         msg=control.salvarEmprestimos();
         if(!msg.isEmpty()) msgf+= msg+"\n";
+        msg=control.salvarConfig();
+        if(!msg.isEmpty()) msgf+=msg+"\n";
         
         if(!msgf.isEmpty())JOptionPane.showMessageDialog(rootPane, msgf+"\nPOR FAVOR, Altere"
         + " o caminho dos arquivos \n\tcorrompidos em configurações (Ctrl+F)","ERROR", HEIGHT); 
@@ -258,6 +260,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         control.recuperarLivros(); //carrega livros do arquivo
         control.recuperarUsuarios();
         control.recuperarEmprestimos();
+        control.recuperarConfig();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed

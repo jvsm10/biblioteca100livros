@@ -37,6 +37,12 @@ public class Controlador {
     public void recuperarEmprestimos(){
         user.recuperarEmprestimos();
     }
+    public String salvarConfig(){
+        return user.salvarConfig();
+    }
+    public void recuperarConfig(){
+        user.recuperarConfig();
+    }
     public void addAluno(String codUsuario, String nome, String curso, int ano){
         user.addAluno(codUsuario, nome, curso, ano);
 }
