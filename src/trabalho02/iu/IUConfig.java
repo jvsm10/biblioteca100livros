@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import trabalho02.controlador.Controlador;
 import trabalho02.modelo.Config;
 import trabalho02.modelo.Livro;
@@ -194,7 +196,7 @@ public class IUConfig extends javax.swing.JDialog {
             }
         });
 
-        jLabel7.setText("Caminho Padrao dos Arquivos");
+        jLabel7.setText("Caminho Padrão dos Arquivos");
 
         botao1.setText("ProcurarPasta");
         botao1.addActionListener(new java.awt.event.ActionListener() {
@@ -324,6 +326,7 @@ public class IUConfig extends javax.swing.JDialog {
         });
 
         removerprofessor.setText("Professores");
+        removerprofessor.setToolTipText("");
         removerprofessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerprofessorActionPerformed(evt);
@@ -331,6 +334,7 @@ public class IUConfig extends javax.swing.JDialog {
         });
 
         removertudo.setText("APAGAR TUDO");
+        removertudo.setToolTipText("VOCÊ TEM CERTEZA?");
         removertudo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removertudoActionPerformed(evt);
@@ -349,7 +353,7 @@ public class IUConfig extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(removerprofessor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(removertudo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(removertudo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -372,15 +376,18 @@ public class IUConfig extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(alerta, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(salvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(alerta, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(salvar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))))
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -394,11 +401,12 @@ public class IUConfig extends javax.swing.JDialog {
                 .addGap(11, 11, 11)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salvar)
-                    .addComponent(alerta)
-                    .addComponent(jButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton3)
+                        .addComponent(alerta)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
 
@@ -417,7 +425,7 @@ public class IUConfig extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_salvarActionPerformed
     private String abrirPasta(){
-        JFileChooser procurar = new JFileChooser();
+        JFileChooser procurar = new JFileChooser("..\\");
         procurar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int pasta = procurar.showOpenDialog(null);
         if(pasta == JFileChooser.APPROVE_OPTION){
@@ -439,8 +447,10 @@ public class IUConfig extends javax.swing.JDialog {
 
     private void arq2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arq2ActionPerformed
         // TODO add your handling code here:
-        JFileChooser procurar = new JFileChooser();
-        procurar.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        JFileChooser procurar = new JFileChooser(".\\");
+        FileFilter filter = new FileNameExtensionFilter("Arquivo Bliblioteca100Livros [.dat]","dat");
+        procurar.setFileFilter(filter);
+        procurar.addChoosableFileFilter(filter);
        int pasta = procurar.showOpenDialog(null);
         if(pasta == JFileChooser.APPROVE_OPTION){
             File dir = procurar.getSelectedFile();

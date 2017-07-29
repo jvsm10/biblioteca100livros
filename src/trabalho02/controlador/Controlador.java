@@ -19,19 +19,19 @@ public class Controlador {
     public Config getConfiguracoes(){
         return user.getConfiguracoes();
     }
-    public Boolean salvarLivros(){
+    public String salvarLivros(){
         return user.salvarLivros();
     }
     public void recuperarLivros(){
         user.recuperarLivros();
     }
-    public Boolean salvarUsuarios(){
+    public String salvarUsuarios(){
        return user.salvarUsuarios();
     }
     public void recuperarUsuarios(){
         user.recuperarUsuarios();
     }
-    public Boolean salvarEmprestimos(){
+    public String salvarEmprestimos(){
         return user.salvarEmprestimos();
     }
     public void recuperarEmprestimos(){

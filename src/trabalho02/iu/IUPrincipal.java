@@ -237,12 +237,19 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
-        if(!control.salvarLivros()) JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
-                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo
-        if(!control.salvarUsuarios())JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
-                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo;
-        if(!control.salvarUsuarios())JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
-                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo;
+        String msg;
+        String msgf="";
+        
+        msg= control.salvarLivros();
+        if(!msg.isEmpty()) msgf+= msg+"\n";
+        msg = control.salvarUsuarios();
+        if(!msg.isEmpty()) msgf+= msg+"\n";
+        msg=control.salvarEmprestimos();
+        if(!msg.isEmpty()) msgf+= msg+"\n";
+        
+        if(!msgf.isEmpty())JOptionPane.showMessageDialog(rootPane, msgf+"\nPOR FAVOR, Altere"
+        + " o caminho dos arquivos \n\tcorrompidos em configurações (Ctrl+F)","ERROR", HEIGHT); 
+       
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed

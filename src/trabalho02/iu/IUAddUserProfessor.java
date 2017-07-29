@@ -95,7 +95,7 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
 
         jLabel2.setText("Nome do Professor");
 
-        cursoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { ".", "Especialização", "MBA", "Mestrado", "Mestrado Profissional", "Douturado" }));
+        cursoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { ".", "Especialização", "MBA (Master in Business Administration)", "Mestrado Profissional", "Mestrado Acadêmico", "Douturado", "Livre-Docência" }));
         cursoBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cursoBoxActionPerformed(evt);
@@ -152,9 +152,9 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                                 .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cursoBox, 0, 389, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cadastrarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(cadastrarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(cancelarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -298,9 +298,9 @@ public class IUAddUserProfessor extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sairBotao)
-                .addGap(25, 25, 25))
+                .addGap(30, 30, 30))
         );
 
         pack();
