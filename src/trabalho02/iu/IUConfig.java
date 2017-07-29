@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import trabalho02.controlador.Controlador;
+import trabalho02.modelo.Aluno;
 import trabalho02.modelo.Config;
 import trabalho02.modelo.Livro;
 import trabalho02.modelo.Usuario;
@@ -576,19 +577,30 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         Controlador control = new Controlador();
         ArrayList<Usuario> usuario = control.getUserBusca("Aluno");
-        if(usuario!=null)  {usuario.clear();
-                alerta.setText("Todos os Alunos foram Deletado");
+        
+        if(usuario!=null && !usuario.isEmpty())  {
+            int tam = usuario.size();
+            for(int i=0; i<tam; i++){
+                control.removerUsuario(usuario.get(i).getCodUsuario());
+            }
+            alerta.setText("Todos os Alunos foram Deletado");
         }
         else alerta.setText("Não há Alunos");
         alerta.setVisible(true);
+        usuario=null;
     }//GEN-LAST:event_removeralunoActionPerformed
 
     private void removerprofessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerprofessorActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
         ArrayList<Usuario> usuario = control.getUserBusca("Professor");
-        if(usuario!=null)  {usuario.clear();
-                alerta.setText("Todos os Professores foram Deletado");
+       
+        if(usuario!=null && !usuario.isEmpty())  {
+            int tam = usuario.size();
+            for(int i=0; i<tam; i++){
+                control.removerUsuario(usuario.get(i).getCodUsuario());
+            }
+            alerta.setText("Todos os Professores foram Deletado");
         }
         else alerta.setText("Não há Professores");
         alerta.setVisible(true);
