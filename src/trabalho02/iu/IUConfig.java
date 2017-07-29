@@ -587,6 +587,7 @@ public class IUConfig extends javax.swing.JDialog {
         }
         else alerta.setText("Não há Alunos");
         alerta.setVisible(true);
+        usuario=null;
     }//GEN-LAST:event_removeralunoActionPerformed
 
     private void removerprofessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerprofessorActionPerformed
