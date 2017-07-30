@@ -108,11 +108,6 @@ public class IUAddLivro extends javax.swing.JDialog {
 
         jLabel2.setText("Nome do Livro");
 
-        anoText.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                anoTextFocusLost(evt);
-            }
-        });
         anoText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 anoTextKeyPressed(evt);
@@ -398,11 +393,6 @@ public class IUAddLivro extends javax.swing.JDialog {
                }
     }//GEN-LAST:event_nomeTextKeyReleased
 
-    private void anoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anoTextFocusLost
-        // TODO add your handling code here:
-        String sano = anoText.getText();
-    }//GEN-LAST:event_anoTextFocusLost
-
     private void anoTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anoTextKeyPressed
         // TODO add your handling code here:
           if(evt.getKeyCode() == KeyEvent.VK_ENTER){
@@ -413,7 +403,7 @@ public class IUAddLivro extends javax.swing.JDialog {
 
     private void anoTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anoTextKeyReleased
         // TODO add your handling code here:
-        anoText.setText(anoText.getText().replaceAll("[^0-9 |^.]",""));
+        anoText.setText(anoText.getText().replaceAll("[^0-9]",""));
     }//GEN-LAST:event_anoTextKeyReleased
 
     private void cadastrarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBotaoActionPerformed

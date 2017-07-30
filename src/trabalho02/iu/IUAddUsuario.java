@@ -119,11 +119,6 @@ public class IUAddUsuario extends javax.swing.JDialog {
             }
         });
 
-        nomeText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeTextActionPerformed(evt);
-            }
-        });
         nomeText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nomeTextKeyPressed(evt);
@@ -476,10 +471,9 @@ public class IUAddUsuario extends javax.swing.JDialog {
                                     .addComponent(codText2))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel11Layout.createSequentialGroup()
-                                        .addComponent(jLabel2P, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(nomeText2, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel2P, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nomeText2, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(alerta2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addComponent(cursoBox2, 0, 479, Short.MAX_VALUE)
@@ -930,7 +924,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
             linha[0] = cod;
             linha[1] = nome;
             linha[2] = curso;
-            linha[3] = ano;
+            linha[3] = sano;
             model.addRow(linha);
             alerta.setText("Aluno Cadastrado");
             alerta.setVisible(true);
@@ -944,7 +938,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
 
     private void anoTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anoTextKeyTyped
         // TODO add your handling code here:
-        if(anoText.getText().length() == 4){
+        if(anoText.getText().length() == 2){
             evt.consume();
         }
     }//GEN-LAST:event_anoTextKeyTyped
@@ -964,6 +958,12 @@ public class IUAddUsuario extends javax.swing.JDialog {
     private void anoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anoTextFocusLost
         // TODO add your handling code here:
         String sano = anoText.getText();
+        if(!sano.isEmpty()){
+        if(sano.length()<2){
+            sano = "0"+sano;
+        }
+        anoText.setText(sano);
+        }
     }//GEN-LAST:event_anoTextFocusLost
 
     private void cursoBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cursoBoxKeyPressed
@@ -988,10 +988,6 @@ public class IUAddUsuario extends javax.swing.JDialog {
             anoText.requestFocus();
         }
     }//GEN-LAST:event_nomeTextKeyPressed
-
-    private void nomeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeTextActionPerformed
 
     private void codTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyTyped
         // TODO add your handling code here:
@@ -1097,16 +1093,21 @@ public class IUAddUsuario extends javax.swing.JDialog {
        ArrayList<Usuario> usuario = control.getUserBusca("Aluno");
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
        
-       Aluno al;
+       String sano;
        
+       Aluno al;
        if(usuario!= null){
        for(Usuario user: usuario){
         al=(Aluno) user;
+        
+        sano = String.valueOf(al.getAno());
+        if(sano.length()<2) sano = "0"+sano;
+        
         Object linha[] = new Object[4];
         linha[0] = user.getCodUsuario();
         linha[1] = user.getNome();
         linha[2] = al.getCurso();
-        linha[3] = al.getAno();
+        linha[3] = sano;
         model.addRow(linha);
         }
         }
