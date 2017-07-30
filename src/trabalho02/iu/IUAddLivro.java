@@ -77,6 +77,9 @@ public class IUAddLivro extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 codTextKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codTextKeyTyped(evt);
+            }
         });
 
         nomeText.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -96,6 +99,9 @@ public class IUAddLivro extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nomeTextKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomeTextKeyTyped(evt);
+            }
         });
 
         jLabel1.setText("Código");
@@ -113,6 +119,9 @@ public class IUAddLivro extends javax.swing.JDialog {
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 anoTextKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                anoTextKeyTyped(evt);
             }
         });
 
@@ -148,16 +157,16 @@ public class IUAddLivro extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(codText)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 28, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 27, Short.MAX_VALUE)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(273, 273, 273))
-                                    .addComponent(nomeText)))
+                                        .addGap(281, 281, 281))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nomeText))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(cadastrarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -173,15 +182,17 @@ public class IUAddLivro extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nomeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(anoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nomeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(anoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,6 +332,29 @@ public class IUAddLivro extends javax.swing.JDialog {
 
     private void codTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTextFocusLost
         // TODO add your handling code here:
+        String codFormatar = codText.getText();
+        if(!codFormatar.isEmpty()){
+        while(codFormatar.length()<6){
+            codFormatar = "0"+codFormatar;
+        }
+        codText.setText(codFormatar);
+
+        Controlador control = new Controlador();
+        String cod = codText.getText();
+        Livro codigo = control.buscaLivro(cod);
+        if(codigo!=null){
+            cadastrarBotao.setEnabled(false);
+            alerta.setText("Codigo '"+codFormatar+"' do Livro '"+codigo.getNome()+"' Já Está Cadastrado");
+            alerta.setVisible(true);
+            codText.requestFocus();
+            codText.setText("");
+        }
+        else{   
+
+            cadastrarBotao.setEnabled(true);
+            alerta.setVisible(false);
+        }
+        }
     }//GEN-LAST:event_codTextFocusLost
 
     private void codTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codTextActionPerformed
@@ -333,35 +367,6 @@ public class IUAddLivro extends javax.swing.JDialog {
             nomeText.requestFocus();
         }
     }//GEN-LAST:event_codTextKeyPressed
-
-    private void codTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyReleased
-        // TODO add your handling code here:
-        TableRowSorter<TableModel> sorter = null;
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-        sorter = new TableRowSorter<>(model);
-        
-        codText.setText(codText.getText().replaceAll("[^0-9 | ^.]",""));
-
-        Controlador control = new Controlador();
-        String cod = codText.getText();
-        Livro codigo = control.buscaLivro(cod);
-        if(codigo!=null){
-            cadastrarBotao.setEnabled(false);
-            alerta.setText("Codigo do Livro Já Cadastrado");
-            alerta.setVisible(true);
-            
-            tabela.setRowSorter(sorter);
-            String texto = codText.getText();
-            if(texto.length() != 0){
-                sorter.setRowFilter(RowFilter.regexFilter(texto, 0));
-            }
-        }
-        else{   
-            tabela.setRowSorter(sorter);
-            cadastrarBotao.setEnabled(true);
-            alerta.setVisible(false);
-        }
-    }//GEN-LAST:event_codTextKeyReleased
 
     private void nomeTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomeTextFocusLost
         // TODO add your handling code here:
@@ -517,6 +522,32 @@ public class IUAddLivro extends javax.swing.JDialog {
         removerTabela();
         completar();
     }//GEN-LAST:event_atualizarBotaoActionPerformed
+
+    private void codTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyTyped
+        // TODO add your handling code here:
+        if(codText.getText().length() == 6){
+            evt.consume();
+        }
+    }//GEN-LAST:event_codTextKeyTyped
+
+    private void nomeTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeTextKeyTyped
+        // TODO add your handling code here:
+        if(nomeText.getText().length() == 60){
+            evt.consume();
+        }
+    }//GEN-LAST:event_nomeTextKeyTyped
+
+    private void anoTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anoTextKeyTyped
+        // TODO add your handling code here:
+        if(anoText.getText().length() == 4){
+            evt.consume();
+        }
+    }//GEN-LAST:event_anoTextKeyTyped
+
+    private void codTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyReleased
+        // TODO add your handling code here:
+      codText.setText(codText.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_codTextKeyReleased
 
     private void completar(){
         cancelarBotao.setToolTipText("Limpa Todos Os Campos Preenchidos");
