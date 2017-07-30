@@ -12,6 +12,7 @@ package trabalho02.iu;
 
 
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;
 
@@ -24,6 +25,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     /** Creates new form IUPrincipal */
     public IUPrincipal() {
         initComponents();
+        iconJanela();
     }
 
     /** This method is called from within the constructor to
@@ -210,6 +212,10 @@ public class IUPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void iconJanela(){
+        ImageIcon img = new ImageIcon(".\\src\\Imagens\\book.png");
+        setIconImage(img.getImage());
+    }
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
