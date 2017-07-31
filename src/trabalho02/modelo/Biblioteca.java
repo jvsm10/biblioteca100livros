@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -28,6 +29,7 @@ public class Biblioteca {
     private ArrayList<Usuario> usuarios;
     private ArrayList<Emprestimo> emprestimos;
     private ArrayList<Livro> livros;
+    private ArrayList<Item> itens;
 
     public Biblioteca() {
         this.usuarios = new ArrayList<Usuario>();
@@ -119,6 +121,30 @@ public class Biblioteca {
         return null;
     }
 
+    
+    public void addEmprestimo(String codEmprestimo, Usuario usuario, ArrayList<Item> itens){
+        Emprestimo empresta = new Emprestimo(codEmprestimo, usuario);
+        empresta.setItens(itens);
+         Calendar d = Calendar.getInstance();
+         empresta.setDataEmprestimo(d);
+         int dia = usuario.getDiasEmprestimo();
+         d.add(Calendar.DAY_OF_MONTH, dia);
+         empresta.setDataDevolucao(d);
+        this.emprestimos.add(empresta);
+    }
+    
+    public boolean procuraEmprestimo(String codemprestimo){
+        if(emprestimos.isEmpty()) return false;
+        for (int i = 0; i < emprestimos.size(); i++) {
+            if (emprestimos.get(i).getCodEmprestimo().equals(codemprestimo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    
     public String salvarLivros(){
         String nomeArquivo = configuracoes.getArquivoLivros();
         FileOutputStream fos = null;

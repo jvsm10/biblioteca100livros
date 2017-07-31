@@ -144,6 +144,11 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Movimentação");
 
         jMenuItem4.setText("Empréstimo");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setText("Devolução");
@@ -279,6 +284,13 @@ public class IUPrincipal extends javax.swing.JFrame {
         user.setLocationRelativeTo(this);
         user.setVisible(true);
     }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        IUEmprestimo empresta = new IUEmprestimo(this,true);
+        empresta.setLocationRelativeTo(this);
+        empresta.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
