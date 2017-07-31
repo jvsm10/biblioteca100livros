@@ -145,7 +145,7 @@ public class Biblioteca {
     
     
     
-    public Boolean salvarLivros(){
+    public String salvarLivros(){
         String nomeArquivo = configuracoes.getArquivoLivros();
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -158,18 +158,13 @@ public class Biblioteca {
             for (Livro li : livros){
                 oos.writeObject(li);
             }
-            return true;
+            oos.close();
+            fos.close();
+            return "";
         }catch (IOException ex) {
             Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                oos.close();
-                fos.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.getMessage();
             }
-        }
-        return false;
     }
 
     public void recuperarLivros(){
@@ -201,7 +196,8 @@ public class Biblioteca {
             }
         }
     }
-        public Boolean salvarUsuarios() {
+    
+    public String salvarUsuarios() {
         String nomeArquivo = configuracoes.getArquivoUsuarios();
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -212,18 +208,21 @@ public class Biblioteca {
             for (int i = 0; i < usuarios.size(); i++) {
                 oos.writeObject(usuarios.get(i));
             }
-            return true;
+            oos.close();
+            fos.close();
+            return "";
         } catch (IOException ex) {
             Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                oos.close();
-                fos.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            return ex.getMessage();
+        
+//        } finally {
+//            try {
+//                oos.close();
+//                fos.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
-        return false;
     }
 
 
@@ -255,7 +254,7 @@ public class Biblioteca {
             }
         }
     }
-    public Boolean salvarEmprestimos() {
+    public String salvarEmprestimos() {
         String nomeArquivo = configuracoes.getArquivoEmprestimos();
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -268,18 +267,18 @@ public class Biblioteca {
             for (int i = 0; i < emprestimos.size(); i++) {
                 oos.writeObject(emprestimos.get(i));
             }
-            return true;
+            return "";
         } catch (IOException ex) {
             Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                oos.close();
-                fos.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
+//        } finally {
+//            try {
+//                oos.close();
+//                fos.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            return ex.getMessage();
+        }  
     }
 
     public void recuperarEmprestimos() {
@@ -313,4 +312,44 @@ public class Biblioteca {
         }
     }
     }
+    
+    public String salvarConfig(){
+        
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = new FileOutputStream("config.dat");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(configuracoes);
+            oos.close();
+            fos.close();
+            return "";
+        }catch (IOException ex) {
+            Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.getMessage();
+            }
+    }
+        public void recuperarConfig() {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+                
+            fis = new FileInputStream("config.dat");
+            ois = new ObjectInputStream(fis);
+            configuracoes = (Config) ois.readObject(); 
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                ois.close();
+                fis.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Biblioteca.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
 }

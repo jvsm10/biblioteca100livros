@@ -12,6 +12,8 @@ package trabalho02.iu;
 
 
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;
 
@@ -24,6 +26,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     /** Creates new form IUPrincipal */
     public IUPrincipal() {
         initComponents();
+        iconJanela();
     }
 
     /** This method is called from within the constructor to
@@ -50,9 +53,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         botaoSair = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -121,25 +122,13 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cadastros");
 
-        jMenu3.setText("Usuários");
-
-        jMenuItem1.setText("Aluno");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem19.setText("Usuários");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItem19ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
-
-        jMenuItem2.setText("Professor");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem2);
-
-        jMenu1.add(jMenu3);
+        jMenu1.add(jMenuItem19);
 
         jMenuItem3.setText("Livros");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -229,6 +218,10 @@ public class IUPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void iconJanela(){
+        ImageIcon img = new ImageIcon(".\\src\\Imagens\\book.png");
+        setIconImage(img.getImage());
+    }
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
@@ -242,12 +235,22 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
-        if(!control.salvarLivros()) JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
-                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo
-        if(!control.salvarUsuarios())JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
-                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo;
-        if(!control.salvarUsuarios())JOptionPane.showMessageDialog(rootPane, "Caminho Especificado Sem Permissão,\nPor Favor Altere-o em Configurações(CTRL-F)",
-                "ERROR: caminho do Arquivo", HEIGHT); //salva livros para arquivo;
+        String msg;
+        String msgf="";
+        ImageIcon icon = new ImageIcon(".\\src\\Imagens\\error.png");
+        
+        msg= control.salvarLivros();
+        if(!msg.isEmpty()) msgf+= msg+"\n";
+        msg = control.salvarUsuarios();
+        if(!msg.isEmpty()) msgf+= msg+"\n";
+        msg=control.salvarEmprestimos();
+        if(!msg.isEmpty()) msgf+= msg+"\n";
+        msg=control.salvarConfig();
+        if(!msg.isEmpty()) msgf+=msg+"\n";
+    
+        if(!msgf.isEmpty())JOptionPane.showMessageDialog(rootPane, msgf+"\nPOR FAVOR, Altere"
+        + " o caminho dos arquivos \n\tcorrompidos em configurações (Ctrl+F)","ERROR", HEIGHT, icon); 
+       
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
@@ -256,25 +259,12 @@ public class IUPrincipal extends javax.swing.JFrame {
         control.recuperarLivros(); //carrega livros do arquivo
         control.recuperarUsuarios();
         control.recuperarEmprestimos();
+        control.recuperarConfig();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    IUAddUserAlunos alunos = new IUAddUserAlunos(this, true);
-    alunos.setLocationRelativeTo(this);
-    alunos.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        IUAddUserProfessor prof = new IUAddUserProfessor(this, true);
-        prof.setLocationRelativeTo(this);
-        prof.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         IUAddLivro livro = new IUAddLivro(this, true);
@@ -286,6 +276,13 @@ public class IUPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_botaoSairActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        // TODO add your handling code here:
+        IUAddUsuario user = new IUAddUsuario(this, true);
+        user.setLocationRelativeTo(this);
+        user.setVisible(true);
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
@@ -311,11 +308,9 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
@@ -325,7 +320,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

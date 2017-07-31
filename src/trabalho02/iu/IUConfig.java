@@ -13,10 +13,14 @@ package trabalho02.iu;
 
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import trabalho02.controlador.Controlador;
+import trabalho02.modelo.Aluno;
 import trabalho02.modelo.Config;
 import trabalho02.modelo.Livro;
 import trabalho02.modelo.Usuario;
@@ -194,7 +198,7 @@ public class IUConfig extends javax.swing.JDialog {
             }
         });
 
-        jLabel7.setText("Caminho Padrao dos Arquivos");
+        jLabel7.setText("Caminho Padrão dos Arquivos");
 
         botao1.setText("ProcurarPasta");
         botao1.addActionListener(new java.awt.event.ActionListener() {
@@ -324,6 +328,7 @@ public class IUConfig extends javax.swing.JDialog {
         });
 
         removerprofessor.setText("Professores");
+        removerprofessor.setToolTipText("");
         removerprofessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerprofessorActionPerformed(evt);
@@ -331,6 +336,7 @@ public class IUConfig extends javax.swing.JDialog {
         });
 
         removertudo.setText("APAGAR TUDO");
+        removertudo.setToolTipText("VOCÊ TEM CERTEZA?");
         removertudo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removertudoActionPerformed(evt);
@@ -349,7 +355,7 @@ public class IUConfig extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(removerprofessor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(removertudo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(removertudo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -372,15 +378,18 @@ public class IUConfig extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(alerta, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(salvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(alerta, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(salvar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))))
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -394,11 +403,12 @@ public class IUConfig extends javax.swing.JDialog {
                 .addGap(11, 11, 11)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salvar)
-                    .addComponent(alerta)
-                    .addComponent(jButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton3)
+                        .addComponent(alerta)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
 
@@ -417,7 +427,7 @@ public class IUConfig extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_salvarActionPerformed
     private String abrirPasta(){
-        JFileChooser procurar = new JFileChooser();
+        JFileChooser procurar = new JFileChooser("..\\");
         procurar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int pasta = procurar.showOpenDialog(null);
         if(pasta == JFileChooser.APPROVE_OPTION){
@@ -439,8 +449,10 @@ public class IUConfig extends javax.swing.JDialog {
 
     private void arq2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arq2ActionPerformed
         // TODO add your handling code here:
-        JFileChooser procurar = new JFileChooser();
-        procurar.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        JFileChooser procurar = new JFileChooser(".\\");
+        FileFilter filter = new FileNameExtensionFilter("Arquivo Bliblioteca100Livros [.dat]","dat");
+        procurar.setFileFilter(filter);
+        procurar.addChoosableFileFilter(filter);
        int pasta = procurar.showOpenDialog(null);
         if(pasta == JFileChooser.APPROVE_OPTION){
             File dir = procurar.getSelectedFile();
@@ -482,8 +494,7 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_livrosTextActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    private void configPadrao(){
         diasAluno_Text.setText("10");
         diasProfessor_Text.setText("30");
         livrosText.setText("livros.dat");
@@ -492,6 +503,10 @@ public class IUConfig extends javax.swing.JDialog {
         texto.setText("");
         alerta.setText("Configurações Padrão");
         salvar.requestFocus();
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        configPadrao();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void diasAluno_TextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasAluno_TextActionPerformed
@@ -542,13 +557,23 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         Controlador control = new Controlador();
         ArrayList<Usuario> usuario = control.buscarUsuarioTodos();
-       
-        if(usuario!=null)  usuario.clear();
         ArrayList<Livro> livro = control.buscarLivroTodos();
-        if(livro!=null)    livro.clear();
-        if(usuario == null && livro == null) alerta.setText("Biblioteca 100Livros Vazia");
-        else alerta.setText("A Biblioteca 100Livros Foi Restaurada Com Sucesso");
-        alerta.setVisible(true);
+        ImageIcon icon = new ImageIcon(".\\src\\Imagens\\atencao.png");
+        if(usuario!= null || livro !=null){ 
+            if(JOptionPane.showConfirmDialog(null, "Deseja Realmente DELETAR TODOS os Dados?", "ATENCAO", HEIGHT,HEIGHT, icon)==0){
+            if(usuario != null) usuario.clear();
+            if(livro != null)   livro.clear();
+            configPadrao();
+            alerta.setText("A Biblioteca 100Livros Foi Restaurada Com Sucesso");
+            alerta.setVisible(true);
+            }
+        }
+        else{
+             alerta.setText("Biblioteca 100Livros Vazia");
+             alerta.setVisible(true);
+        }
+        
+        
     }//GEN-LAST:event_removertudoActionPerformed
 
     private void removerlivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerlivroActionPerformed
@@ -566,8 +591,13 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         Controlador control = new Controlador();
         ArrayList<Usuario> usuario = control.getUserBusca("Aluno");
-        if(usuario!=null)  {usuario.clear();
-                alerta.setText("Todos os Alunos foram Deletado");
+        
+        if(usuario!=null && !usuario.isEmpty())  {
+            int tam = usuario.size();
+            for(int i=0; i<tam; i++){
+                control.removerUsuario(usuario.get(i).getCodUsuario());
+            }
+            alerta.setText("Todos os Alunos foram Deletado");
         }
         else alerta.setText("Não há Alunos");
         alerta.setVisible(true);
@@ -577,8 +607,13 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         Controlador control = new Controlador();
         ArrayList<Usuario> usuario = control.getUserBusca("Professor");
-        if(usuario!=null)  {usuario.clear();
-                alerta.setText("Todos os Professores foram Deletado");
+       
+        if(usuario!=null && !usuario.isEmpty())  {
+            int tam = usuario.size();
+            for(int i=0; i<tam; i++){
+                control.removerUsuario(usuario.get(i).getCodUsuario());
+            }
+            alerta.setText("Todos os Professores foram Deletado");
         }
         else alerta.setText("Não há Professores");
         alerta.setVisible(true);
