@@ -70,19 +70,9 @@ public class IUEmprestimo extends javax.swing.JDialog {
 
         jLabel2.setText("Nome aluno");
 
-        lista2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(lista2);
         lista2.getAccessibleContext().setAccessibleDescription("");
 
-        lista1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(lista1);
 
         jButton3.setText("Adicionar");
@@ -114,41 +104,46 @@ public class IUEmprestimo extends javax.swing.JDialog {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(empretext, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addGap(57, 57, 57))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))))
+                        .addComponent(jLabel4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(empretext, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cb1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jButton3)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(115, 115, 115))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane2))))
+                            .addComponent(jScrollPane2)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,16 +156,13 @@ public class IUEmprestimo extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -198,13 +190,14 @@ public class IUEmprestimo extends javax.swing.JDialog {
        lista1.setModel(list);
        lista2.setModel(list2);
        ArrayList<Usuario> usuario = control.buscarUsuarioTodos();
+       if(usuario!=null){
        String str = null;  
             for(int i = 0;i<usuario.size(); i++ ){  
                 str = usuario.get(i).getCodUsuario();
                 str = str + " " + usuario.get(i).getNome();
                cb1.addItem(str);  
            }
-    }
+    }}
     
     private void empretextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empretextKeyPressed
         // TODO add your handling code here:
@@ -229,7 +222,7 @@ public class IUEmprestimo extends javax.swing.JDialog {
         Calendar d = Calendar.getInstance();
         int i;
         String msg;
-        if(empretext.getText()!=null && cb1.getItemAt(cb1.getSelectedIndex()) != null && lista2.getSize()!=null){
+        if(empretext.getText()!="" && cb1.getItemAt(cb1.getSelectedIndex()) != null && !list2.isEmpty()){
         if(control.procuraEmprestimo(empretext.getText())==true)
             JOptionPane.showMessageDialog(null, "Código ja existente, digite outro");
         else{
