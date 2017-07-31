@@ -168,6 +168,11 @@ public class IUConfig extends javax.swing.JDialog {
         jLabel1.setText("Livros");
 
         livrosText.setText("livros.dat");
+        livrosText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                livrosTextFocusLost(evt);
+            }
+        });
         livrosText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 livrosTextActionPerformed(evt);
@@ -177,10 +182,20 @@ public class IUConfig extends javax.swing.JDialog {
         jLabel2.setText("Usuarios");
 
         usuariosText.setText("usuarios.dat");
+        usuariosText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                usuariosTextFocusLost(evt);
+            }
+        });
 
         jLabel3.setText("Emprestimos");
 
         emprestimosText.setText("emprestimos.dat");
+        emprestimosText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emprestimosTextFocusLost(evt);
+            }
+        });
 
         botao.setText("ProcurarPasta");
         botao.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +205,12 @@ public class IUConfig extends javax.swing.JDialog {
         });
 
         jLabel6.setText("Carregar Outro Arquivo no Sistema (.dat)");
+
+        texto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textoKeyReleased(evt);
+            }
+        });
 
         arq2.setText("...");
         arq2.addActionListener(new java.awt.event.ActionListener() {
@@ -267,9 +288,9 @@ public class IUConfig extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(livrosText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(livrosText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -521,23 +542,29 @@ public class IUConfig extends javax.swing.JDialog {
          
                 if(t.endsWith("livros.dat")){
                     control.recuperarLivros();
-                    alerta.setText("Dados Carregados");
+                    alerta.setText("Dados Livros Carregados");
                     alerta.setVisible(true);
                     texto.setText("");
                     carregaBotao.setEnabled(false);
                 }
                 else if(t.endsWith("usuarios.dat")){
                     control.recuperarUsuarios();
-                    alerta.setText("Dados Carregados");
+                    alerta.setText("Dados Usuarios Carregados");
                     alerta.setVisible(true);
                     texto.setText("");
                     carregaBotao.setEnabled(false);
                }
                 else if(t.endsWith("emprestimos.dat")){
                     control.recuperarEmprestimos();
-                    alerta.setText("Dados Carregados");
+                    alerta.setText("Dados Emprestimos Carregados");
                     alerta.setVisible(true);
                     texto.setText("");
+                    carregaBotao.setEnabled(false);
+                }
+                else if(t.endsWith("config.dat")){
+                    control.recuperarConfig();
+                    alerta.setText("Configurações Carregadas");
+                    alerta.setVisible(true); 
                     carregaBotao.setEnabled(false);
                 }
                 else{
@@ -618,6 +645,46 @@ public class IUConfig extends javax.swing.JDialog {
         else alerta.setText("Não há Professores");
         alerta.setVisible(true);
     }//GEN-LAST:event_removerprofessorActionPerformed
+
+    private void livrosTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_livrosTextFocusLost
+        // TODO add your handling code here:
+        String msg = livrosText.getText();
+        if(!msg.endsWith("livros.dat")){
+            alerta.setText("Caminho Inválido");
+            alerta.setVisible(true);
+            livrosText.setText("livros.dat");
+        }
+    }//GEN-LAST:event_livrosTextFocusLost
+
+    private void usuariosTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuariosTextFocusLost
+        // TODO add your handling code here:
+        String msg = usuariosText.getText();
+        if(!msg.endsWith("usuarios.dat")){
+            alerta.setText("Caminho Inválido");
+            alerta.setVisible(true);
+            usuariosText.setText("usuarios.dat");
+        }
+    }//GEN-LAST:event_usuariosTextFocusLost
+
+    private void emprestimosTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emprestimosTextFocusLost
+        // TODO add your handling code here:
+        String msg = emprestimosText.getText();
+        if(!msg.endsWith("emprestimos.dat")){
+            alerta.setText("Caminho Inválido");
+            alerta.setVisible(true);
+            emprestimosText.setText("emprestimos.dat");
+        }
+    }//GEN-LAST:event_emprestimosTextFocusLost
+
+    private void textoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoKeyReleased
+        // TODO add your handling code here:
+        String msg = texto.getText();
+        if(msg.endsWith("\\livros.dat") || msg.endsWith("\\usuarios.dat") || msg.endsWith("\\emprestimos.dat") 
+                || msg.endsWith("\\config.dat")){
+            carregaBotao.setEnabled(true);
+        }
+        else carregaBotao.setEnabled(false);
+    }//GEN-LAST:event_textoKeyReleased
 
     /**
     * @param args the command line arguments
