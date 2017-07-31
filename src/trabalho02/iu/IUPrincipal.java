@@ -75,6 +75,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         popupMenu1.setLabel("popupMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(500, 400));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Olá Marilene");

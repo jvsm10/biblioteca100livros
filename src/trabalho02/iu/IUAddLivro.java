@@ -57,6 +57,8 @@ public class IUAddLivro extends javax.swing.JDialog {
         sairBotao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(750, 560));
+        setMinimumSize(new java.awt.Dimension(720, 550));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastrar Livro"));
 
@@ -161,7 +163,7 @@ public class IUAddLivro extends javax.swing.JDialog {
                                     .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 27, Short.MAX_VALUE)
+                                        .addGap(18, 18, Short.MAX_VALUE)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(281, 281, 281))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -272,7 +274,7 @@ public class IUAddLivro extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(removerBotao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -307,12 +309,11 @@ public class IUAddLivro extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sairBotao, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGap(0, 586, Short.MAX_VALUE)
+                        .addComponent(sairBotao))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -418,9 +419,16 @@ public class IUAddLivro extends javax.swing.JDialog {
         String cod = codText.getText();
         String nome = nomeText.getText();
         String ano= anoText.getText();
+
         if(cod.isEmpty() || nome.isEmpty() || ano.isEmpty()){
             alerta.setText("Preencha todos os campos");
             alerta.setVisible(true);
+        }
+        else if(Integer.parseInt(ano)>2017 || ano.length() == 1 || ano.length() == 3){
+            alerta.setText("Ano Inválido, (dois ou quatro digítos) e Dentro o Ano no Intervalo {0000..2017}");
+            alerta.setVisible(true);
+            anoText.setText("");
+            anoText.requestFocus();    
         }
         else{
 
@@ -559,10 +567,9 @@ public class IUAddLivro extends javax.swing.JDialog {
             anoText.setText(ano+sano);
         }
         else if(sano.length() == 3 || sano.length() == 1){
-            alerta.setText("Ano Inválido, (dois ou quatro digítos e Intervalo{0000, 2017})");
+            alerta.setText("Ano Inválido, (dois ou quatro digítos) e Dentro o Ano no Intervalo {0000..2017}");
             alerta.setVisible(true);
-            anoText.setText("");
-            anoText.requestFocus();
+          //  anoText.requestFocus();
         }    
     }//GEN-LAST:event_anoTextFocusLost
 
