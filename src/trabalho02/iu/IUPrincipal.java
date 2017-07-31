@@ -12,6 +12,7 @@ package trabalho02.iu;
 
 
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;
@@ -231,6 +232,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         Controlador control = new Controlador();
         String msg;
         String msgf="";
+        ImageIcon icon = new ImageIcon(".\\src\\Imagens\\error.png");
         
         msg= control.salvarLivros();
         if(!msg.isEmpty()) msgf+= msg+"\n";
@@ -240,9 +242,9 @@ public class IUPrincipal extends javax.swing.JFrame {
         if(!msg.isEmpty()) msgf+= msg+"\n";
         msg=control.salvarConfig();
         if(!msg.isEmpty()) msgf+=msg+"\n";
-        
+    
         if(!msgf.isEmpty())JOptionPane.showMessageDialog(rootPane, msgf+"\nPOR FAVOR, Altere"
-        + " o caminho dos arquivos \n\tcorrompidos em configurações (Ctrl+F)","ERROR", HEIGHT); 
+        + " o caminho dos arquivos \n\tcorrompidos em configurações (Ctrl+F)","ERROR", HEIGHT, icon); 
        
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 

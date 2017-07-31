@@ -13,6 +13,7 @@ package trabalho02.iu;
 
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -556,16 +557,22 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         Controlador control = new Controlador();
         ArrayList<Usuario> usuario = control.buscarUsuarioTodos();
-       
-        if(usuario!=null)  usuario.clear();
         ArrayList<Livro> livro = control.buscarLivroTodos();
-        if(livro!=null)    livro.clear();
-        if(usuario == null && livro == null) alerta.setText("Biblioteca 100Livros Vazia");
-        else{
+        ImageIcon icon = new ImageIcon(".\\src\\Imagens\\atencao.png");
+        if(usuario!= null || livro !=null){ 
+            if(JOptionPane.showConfirmDialog(null, "Deseja Realmente DELETAR TODOS os Dados?", "ATENCAO", HEIGHT,HEIGHT, icon)==0){
+            if(usuario != null) usuario.clear();
+            if(livro != null)   livro.clear();
             configPadrao();
             alerta.setText("A Biblioteca 100Livros Foi Restaurada Com Sucesso");
+            alerta.setVisible(true);
+            }
         }
-        alerta.setVisible(true);
+        else{
+             alerta.setText("Biblioteca 100Livros Vazia");
+             alerta.setVisible(true);
+        }
+        
         
     }//GEN-LAST:event_removertudoActionPerformed
 

@@ -8,14 +8,10 @@ package trabalho02.iu;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.MaskFormatter;
 import trabalho02.controlador.Controlador;
 import trabalho02.modelo.Aluno;
 import trabalho02.modelo.Professor;
@@ -28,6 +24,8 @@ public class IUAddUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form IUAddUsuario
+     * @param parent
+     * @param modal
      */
     public IUAddUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -389,11 +387,6 @@ public class IUAddUsuario extends javax.swing.JDialog {
         codText2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codText2FocusLost(evt);
-            }
-        });
-        codText2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codText2ActionPerformed(evt);
             }
         });
         codText2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -880,10 +873,6 @@ public class IUAddUsuario extends javax.swing.JDialog {
             nomeText2.requestFocus();
         }
     }//GEN-LAST:event_codText2KeyPressed
-
-    private void codText2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codText2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codText2ActionPerformed
 
     private void codText2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codText2KeyTyped
         // TODO add your handling code here:

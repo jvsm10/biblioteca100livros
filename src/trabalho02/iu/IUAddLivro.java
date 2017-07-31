@@ -108,6 +108,11 @@ public class IUAddLivro extends javax.swing.JDialog {
 
         jLabel2.setText("Nome do Livro");
 
+        anoText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                anoTextFocusLost(evt);
+            }
+        });
         anoText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 anoTextKeyPressed(evt);
@@ -538,6 +543,29 @@ public class IUAddLivro extends javax.swing.JDialog {
         // TODO add your handling code here:
       codText.setText(codText.getText().replaceAll("[^0-9]",""));
     }//GEN-LAST:event_codTextKeyReleased
+
+    private void anoTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anoTextFocusLost
+        // TODO add your handling code here:
+        String sano= anoText.getText();
+        String ano;
+        int nano=0;
+        if(!sano.isEmpty()) nano = Integer.parseInt(sano);
+        if(sano.length() == 2){
+            
+            if(nano>17){
+                ano = "19"; 
+        }   
+            else ano = "20";
+            anoText.setText(ano+sano);
+        }
+        else if(sano.length() == 3 || sano.length() == 1){
+            alerta.setText("Ano Inválido, (dois ou quatro digítos e Intervalo{0000, 2017})");
+            alerta.setVisible(true);
+            anoText.setText("");
+            anoText.requestFocus();
+        }  
+        //alerta.setVisible(false);
+    }//GEN-LAST:event_anoTextFocusLost
 
     private void completar(){
         cancelarBotao.setToolTipText("Limpa Todos Os Campos Preenchidos");
