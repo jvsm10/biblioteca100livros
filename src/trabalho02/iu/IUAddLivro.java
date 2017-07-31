@@ -551,7 +551,7 @@ public class IUAddLivro extends javax.swing.JDialog {
         int nano=0;
         if(!sano.isEmpty()) nano = Integer.parseInt(sano);
         if(sano.length() == 2){
-            
+            alerta.setVisible(false);
             if(nano>17){
                 ano = "19"; 
         }   
@@ -563,8 +563,7 @@ public class IUAddLivro extends javax.swing.JDialog {
             alerta.setVisible(true);
             anoText.setText("");
             anoText.requestFocus();
-        }  
-        //alerta.setVisible(false);
+        }    
     }//GEN-LAST:event_anoTextFocusLost
 
     private void completar(){
