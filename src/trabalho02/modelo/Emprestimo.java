@@ -70,5 +70,9 @@ public class Emprestimo implements Serializable {
         this.itens = itens;
     }
     
+     public void addItem(String codEmprestimo, String codLivro){
+        Item it = new  Item(codEmprestimo,codLivro);
+        this.itens.add(it);
+    }
 
 }

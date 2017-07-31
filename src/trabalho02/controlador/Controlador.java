@@ -8,6 +8,8 @@ package trabalho02.controlador;
 import java.util.ArrayList;
 import trabalho02.modelo.Biblioteca;
 import trabalho02.modelo.Config;
+import trabalho02.modelo.Emprestimo;
+import trabalho02.modelo.Item;
 import trabalho02.modelo.Livro;
 import trabalho02.modelo.Usuario;
 /**
@@ -71,4 +73,10 @@ public class Controlador {
     public Livro buscaLivro(String codLivro) {
         return user.buscaLivro(codLivro);
     }
+    public void emprestimo(String codEmprestimo,Usuario usuario,ArrayList<Item> itens){
+        user.addEmprestimo(codEmprestimo, usuario, itens);
+    }
+    public boolean procuraEmprestimo(String codemprestimo){
+        return user.procuraEmprestimo(codemprestimo);
+    } 
 }
