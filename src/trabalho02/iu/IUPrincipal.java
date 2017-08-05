@@ -12,9 +12,15 @@ package trabalho02.iu;
 
 
 
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import trabalho02.controlador.Controlador;
+import trabalho02.modelo.Livro;
 
 /**
  *
@@ -43,6 +49,10 @@ public class IUPrincipal extends javax.swing.JFrame {
         popupMenu1 = new java.awt.PopupMenu();
         canvas1 = new java.awt.Canvas();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        pesquisa = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -75,10 +85,86 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 400));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Olá Marilene");
         jLabel1.setEnabled(false);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Livros Cadastrados"));
+
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Ano", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabela.getTableHeader().setResizingAllowed(false);
+        tabela.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tabela);
+
+        pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
+        pesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pesquisaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pesquisaFocusLost(evt);
+            }
+        });
+        pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisaActionPerformed(evt);
+            }
+        });
+        pesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pesquisaKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                    .addComponent(pesquisa))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
 
         jMenu5.setText("Dados");
 
@@ -211,6 +297,8 @@ public class IUPrincipal extends javax.swing.JFrame {
                 .addContainerGap(327, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,6 +306,11 @@ public class IUPrincipal extends javax.swing.JFrame {
                 .addContainerGap(354, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(46, 46, 46)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(32, Short.MAX_VALUE)))
         );
 
         pack();
@@ -265,6 +358,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         control.recuperarUsuarios();
         control.recuperarEmprestimos();
         control.recuperarConfig();
+        removerTabela();
+        completar();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -303,6 +398,64 @@ public class IUPrincipal extends javax.swing.JFrame {
         devolucao.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
+        // TODO add your handling code here:
+        pesquisa.setText("");
+    }//GEN-LAST:event_pesquisaFocusGained
+
+    private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
+        // TODO add your handling code here:
+        pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
+    }//GEN-LAST:event_pesquisaFocusLost
+
+    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisaActionPerformed
+
+    private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
+        // TODO add your handling code here:
+        pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
+        TableRowSorter<TableModel> sorter = null;
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        sorter = new TableRowSorter<>(model);
+        tabela.setRowSorter(sorter);
+        String texto = pesquisa.getText();
+        if(texto.length() != 0){
+            sorter.setRowFilter(RowFilter.regexFilter(texto));
+        }
+    }//GEN-LAST:event_pesquisaKeyReleased
+    private void removerTabela(){
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       int tam = tabela.getRowCount();
+       for(int i=0; i<tam; i++){
+           model.removeRow(0);
+       }
+    } 
+    private void completar(){
+       Controlador control = new Controlador();
+       ArrayList<Livro> li = control.getLivroBusca();
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       String estado;
+       
+       if(li != null){    
+           for(Livro livro: li){      
+               if(livro.estaEmprestado()) estado="Emprestado";      
+               else estado="Livre";      
+               Object linha[] = new Object[4];       
+               linha[0] = livro.getCodLivro();      
+               linha[1] = livro.getNome();        
+               linha[2] = livro.getAno();       
+               linha[3] = estado;    
+               model.addRow(linha);
+        }
+       }
+    }
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        removerTabela();
+        completar();
+    }//GEN-LAST:event_formWindowGainedFocus
+
     /**
      * @param args the command line arguments
      */
@@ -340,13 +493,17 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JTextField pesquisa;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

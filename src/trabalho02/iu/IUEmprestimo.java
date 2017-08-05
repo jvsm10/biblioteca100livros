@@ -73,6 +73,9 @@ public class IUEmprestimo extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 empretextKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                empretextKeyTyped(evt);
+            }
         });
 
         jLabel2.setText("Código/Nome usuário");
@@ -300,6 +303,13 @@ public class IUEmprestimo extends javax.swing.JDialog {
         lista1.setModel(list);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void empretextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empretextKeyTyped
+        // TODO add your handling code here:
+        if(empretext.getText().length() == 6){
+            evt.consume();
+        }
+    }//GEN-LAST:event_empretextKeyTyped
 
     /**
      * @param args the command line arguments

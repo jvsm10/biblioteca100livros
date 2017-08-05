@@ -308,7 +308,7 @@ public class Biblioteca {
         String nomeArquivo = configuracoes.getArquivoEmprestimos();
         FileInputStream fis = null;
         ObjectInputStream ois = null;
-        File f = new File("emprestimos.dat");
+        File f = new File(nomeArquivo);
         if(f.exists()){
         try {
             fis = new FileInputStream(nomeArquivo);
