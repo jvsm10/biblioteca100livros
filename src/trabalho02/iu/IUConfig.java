@@ -170,9 +170,6 @@ public class IUConfig extends javax.swing.JDialog {
 
         livrosText.setText("livros.dat");
         livrosText.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                livrosTextFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 livrosTextFocusLost(evt);
             }
@@ -669,6 +666,8 @@ public class IUConfig extends javax.swing.JDialog {
             alerta.setVisible(true);
             livrosText.setText(".\\livros.dat");
         }
+        if(msg.charAt(0) == '\\')
+            livrosText.setText('.'+msg);
     }//GEN-LAST:event_livrosTextFocusLost
 
     private void usuariosTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuariosTextFocusLost
@@ -679,20 +678,27 @@ public class IUConfig extends javax.swing.JDialog {
             alerta.setVisible(true);
             usuariosText.setText(".\\usuarios.dat");
         }
+        if(msg.charAt(0) == '\\')
+            usuariosText.setText('.'+msg);
     }//GEN-LAST:event_usuariosTextFocusLost
 
     private void emprestimosTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emprestimosTextFocusLost
         // TODO add your handling code here:
-        String msg = usuariosText.getText();
+        String msg = emprestimosText.getText();
         if(!msg.endsWith("\\emprestimos.dat")){
             alerta.setText("Caminho Inválido");
             alerta.setVisible(true);
             emprestimosText.setText(".\\emprestimos.dat");
         }
+        if(msg.charAt(0) == '\\')
+            emprestimosText.setText('.'+msg);
     }//GEN-LAST:event_emprestimosTextFocusLost
 
     private void textoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textoFocusLost
         // TODO add your handling code here:
+       String msg = texto.getText();
+        if(msg.charAt(0) == '\\')
+            texto.setText('.'+msg);
     }//GEN-LAST:event_textoFocusLost
 
     private void textoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoKeyReleased
@@ -729,10 +735,6 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         texto.setText(".\\");
     }//GEN-LAST:event_textoFocusGained
-
-    private void livrosTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_livrosTextFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_livrosTextFocusGained
 
     /**
     * @param args the command line arguments
