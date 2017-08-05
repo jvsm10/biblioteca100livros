@@ -6,19 +6,15 @@ package trabalho02.modelo;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -161,7 +157,7 @@ public class Biblioteca {
         for (int i = 0; i < emprestimos.size(); i++) {
             if (emprestimos.get(i).getCodEmprestimo().equals(codempresta)) {
                 emprestimos.get(i).removerItem(codlivro);
-                if(emprestimos.get(i).getItens() == null)
+                if(emprestimos.get(i).getItens().isEmpty())
                     emprestimos.remove(i);
             }
         }

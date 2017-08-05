@@ -12,7 +12,6 @@ package trabalho02.iu;
 
 
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;

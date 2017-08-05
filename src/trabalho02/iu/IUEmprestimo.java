@@ -7,11 +7,7 @@ package trabalho02.iu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Vector;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import trabalho02.controlador.Controlador;
 import trabalho02.modelo.Emprestimo;

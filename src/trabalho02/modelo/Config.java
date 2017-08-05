@@ -12,9 +12,9 @@ import java.io.Serializable;
  * @author Danilo Medeiros Eler
  */
 public class Config implements Serializable{
-    private String arquivoLivros = "livros.dat";
-    private String arquivoUsuarios = "usuarios.dat";
-    private String arquivoEmprestimos = "emprestimos.dat";
+    private String arquivoLivros = ".\\livros.dat";
+    private String arquivoUsuarios = ".\\usuarios.dat";
+    private String arquivoEmprestimos = ".\\emprestimos.dat";
     private int diasAluno = 10;
     private int diasProfessor = 20;
 
