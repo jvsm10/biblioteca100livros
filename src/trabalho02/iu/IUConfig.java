@@ -170,6 +170,9 @@ public class IUConfig extends javax.swing.JDialog {
 
         livrosText.setText("livros.dat");
         livrosText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                livrosTextFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 livrosTextFocusLost(evt);
             }
@@ -530,9 +533,9 @@ public class IUConfig extends javax.swing.JDialog {
     private void configPadrao(){
         diasAluno_Text.setText("10");
         diasProfessor_Text.setText("30");
-        livrosText.setText("livros.dat");
-        usuariosText.setText("usuarios.dat");
-        emprestimosText.setText("emprestimos.dat");
+        livrosText.setText(".\\livros.dat");
+        usuariosText.setText(".\\usuarios.dat");
+        emprestimosText.setText(".\\emprestimos.dat");
         texto.setText("");
         alerta.setText("Configurações Padrão");
         salvar.requestFocus();
@@ -726,6 +729,10 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         texto.setText(".\\");
     }//GEN-LAST:event_textoFocusGained
+
+    private void livrosTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_livrosTextFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_livrosTextFocusGained
 
     /**
     * @param args the command line arguments
