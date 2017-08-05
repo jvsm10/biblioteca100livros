@@ -84,5 +84,14 @@ public class Controlador {
     }
     public boolean procuraEmprestimo(String codemprestimo){
         return user.procuraEmprestimo(codemprestimo);
-    } 
+    }
+    public ArrayList<Emprestimo> buscarEmprestimoTodos(){
+        return user.buscarEmprestimosTodos();
+    }
+    public Emprestimo buscarEmprestimo(String codemprestimo){
+        return user.buscarEmprestimo(codemprestimo);
+    }
+    public void Devolver(String codlivro,String codempresta){
+        user.Devolver(codlivro, codempresta);
+    }
 }

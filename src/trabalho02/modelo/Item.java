@@ -17,6 +17,10 @@ public class Item implements Serializable{
     private String codLivro;
     private Calendar dataDevolucao;
 
+    public String getCodLivro() {
+        return codLivro;
+    }
+
     
     public Item(String codEmprestimo, String codLivro) {
         this.codEmprestimo = codEmprestimo;
@@ -24,6 +28,10 @@ public class Item implements Serializable{
         //a data de devolução é atribuida na devolução do livro,
         //não é passada no construtor
         this.dataDevolucao = null;
+    }
+
+    public void setCodLivro(String codLivro) {
+        this.codLivro = codLivro;
     }
 
     public Calendar getDataDevolucao() {

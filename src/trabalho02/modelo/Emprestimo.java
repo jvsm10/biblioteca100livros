@@ -74,5 +74,13 @@ public class Emprestimo implements Serializable {
         Item it = new  Item(codEmprestimo,codLivro);
         this.itens.add(it);
     }
+     
+    public void removerItem(String codLivro){
+        for (int i = 0; i < itens.size(); i++) {
+            if (itens.get(i).getCodLivro().equals(codLivro)) {
+                itens.remove(i);
+            }
+        }
+    }
 
 }

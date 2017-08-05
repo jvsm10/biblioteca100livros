@@ -142,8 +142,35 @@ public class Biblioteca {
         }
         return false;
     }
+    public ArrayList<Emprestimo> buscarEmprestimosTodos(){
+        if(emprestimos.isEmpty()) return null;
+        else return emprestimos;
+    }
     
+    public Emprestimo buscarEmprestimo(String codemprestimo){
+        if(emprestimos.isEmpty()) return null;
+        for (int i = 0; i < emprestimos.size(); i++) {
+            if (emprestimos.get(i).getCodEmprestimo().equals(codemprestimo)) {
+                return emprestimos.get(i);
+            }
+        }
+        return null;
+    }
     
+    public void Devolver(String codlivro,String codempresta){
+        for (int i = 0; i < emprestimos.size(); i++) {
+            if (emprestimos.get(i).getCodEmprestimo().equals(codempresta)) {
+                emprestimos.get(i).removerItem(codlivro);
+                if(emprestimos.get(i).getItens() == null)
+                    emprestimos.remove(i);
+            }
+        }
+        for (int i = 0; i < livros.size(); i++) {
+            if (livros.get(i).getCodLivro().equals(codlivro)) {
+                livros.get(i).devolver();
+            }
+    }
+    }   
     
     public String salvarLivros(){
         String nomeArquivo = configuracoes.getArquivoLivros();
