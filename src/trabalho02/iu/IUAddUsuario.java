@@ -91,9 +91,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(750, 560));
         setMinimumSize(new java.awt.Dimension(720, 550));
-        setPreferredSize(new java.awt.Dimension(720, 550));
 
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(700, 520));
@@ -724,7 +722,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         sorter = new TableRowSorter<>(model);
         tabela.setRowSorter(sorter);
-        String texto = pesquisa.getText();
+        String texto = pesquisa.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }
@@ -793,7 +791,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model2 = (DefaultTableModel) tabela2.getModel();
 
         String cod = codText2.getText();
-        String nome = nomeText2.getText();
+        String nome = nomeText2.getText().toUpperCase();
         String curso = (String) cursoBox2.getSelectedItem();
         if(cod.isEmpty() || nome.isEmpty() ||  curso == "."){
             alerta2.setText("Preencha todos os campos");
@@ -860,7 +858,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela2.getModel();
         sorter = new TableRowSorter<>(model);
         tabela2.setRowSorter(sorter);
-        String texto = pesquisa2.getText();
+        String texto = pesquisa2.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }
@@ -918,7 +916,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 
         String cod = codText.getText();
-        String nome = nomeText.getText();
+        String nome = nomeText.getText().toUpperCase();
         String sano= anoText.getText();
         String curso = (String) cursoBox.getSelectedItem();
         if(cod.isEmpty() || nome.isEmpty() || sano.isEmpty() || curso == "."){

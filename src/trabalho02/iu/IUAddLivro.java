@@ -57,7 +57,6 @@ public class IUAddLivro extends javax.swing.JDialog {
         sairBotao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(750, 560));
         setMinimumSize(new java.awt.Dimension(720, 550));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastrar Livro"));
@@ -393,7 +392,7 @@ public class IUAddLivro extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         sorter = new TableRowSorter<>(model);
         tabela.setRowSorter(sorter);
-        String texto = nomeText.getText();
+        String texto = nomeText.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));       
                }
@@ -417,7 +416,7 @@ public class IUAddLivro extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 
         String cod = codText.getText();
-        String nome = nomeText.getText();
+        String nome = nomeText.getText().toUpperCase();
         String ano= anoText.getText();
 
         if(cod.isEmpty() || nome.isEmpty() || ano.isEmpty()){
@@ -508,7 +507,7 @@ public class IUAddLivro extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         sorter = new TableRowSorter<>(model);
         tabela.setRowSorter(sorter);
-        String texto = pesquisa.getText();
+        String texto = pesquisa.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }

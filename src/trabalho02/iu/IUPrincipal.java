@@ -53,6 +53,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         pesquisa = new javax.swing.JTextField();
+        alerta = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -125,6 +126,11 @@ public class IUPrincipal extends javax.swing.JFrame {
         tabela.getTableHeader().setResizingAllowed(false);
         tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabela);
+        if (tabela.getColumnModel().getColumnCount() > 0) {
+            tabela.getColumnModel().getColumn(0).setResizable(false);
+            tabela.getColumnModel().getColumn(1).setResizable(false);
+            tabela.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
         pesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -165,6 +171,8 @@ public class IUPrincipal extends javax.swing.JFrame {
                 .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(71, Short.MAX_VALUE))
         );
+
+        alerta.setText("jLabel2");
 
         jMenu5.setText("Dados");
 
@@ -294,7 +302,9 @@ public class IUPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(327, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(alerta, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +314,9 @@ public class IUPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(354, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(alerta))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -348,6 +360,10 @@ public class IUPrincipal extends javax.swing.JFrame {
     
         if(!msgf.isEmpty())JOptionPane.showMessageDialog(rootPane, msgf+"\nPOR FAVOR, Altere"
         + " o caminho dos arquivos \n\tcorrompidos em configurações (Ctrl+F)","ERROR", HEIGHT, icon); 
+        else{
+            alerta.setText("Dados Salvos com Sucesso");
+            alerta.setVisible(true);
+        }
        
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
@@ -360,6 +376,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         control.recuperarConfig();
         removerTabela();
         completar();
+        alerta.setText("Dados Carregados com Sucesso");
+        alerta.setVisible(true);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -406,6 +424,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
         // TODO add your handling code here:
         pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
+        tabela.setRowSorter(null);
     }//GEN-LAST:event_pesquisaFocusLost
 
     private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
@@ -419,7 +438,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         sorter = new TableRowSorter<>(model);
         tabela.setRowSorter(sorter);
-        String texto = pesquisa.getText();
+        String texto = pesquisa.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }
@@ -454,6 +473,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         removerTabela();
         completar();
+        alerta.setVisible(false);
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**
@@ -468,6 +488,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel alerta;
     private javax.swing.JMenuItem botaoSair;
     private java.awt.Canvas canvas1;
     private javax.swing.JLabel jLabel1;
