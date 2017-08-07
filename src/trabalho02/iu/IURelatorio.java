@@ -102,6 +102,12 @@ public class IURelatorio extends javax.swing.JFrame {
 
         Root.setLayout(new java.awt.CardLayout());
 
+        Inicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                InicioFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
         Inicio.setLayout(InicioLayout);
         InicioLayout.setHorizontalGroup(
@@ -1227,6 +1233,11 @@ public class IURelatorio extends javax.swing.JFrame {
        }
        
     }//GEN-LAST:event_menuUsariosAtrasoActionPerformed
+
+    private void InicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_InicioFocusGained
+        // TODO add your handling code here:
+        menuTodosUsuarios.requestFocus();
+    }//GEN-LAST:event_InicioFocusGained
 
     /**
      * @param args the command line arguments

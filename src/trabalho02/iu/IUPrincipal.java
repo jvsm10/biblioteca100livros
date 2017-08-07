@@ -32,7 +32,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     public IUPrincipal() {
         initComponents();
         iconJanela();
-        tamColuna();
+        tam();
     }
 
     /** This method is called from within the constructor to
@@ -77,7 +77,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        todosUser = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -291,21 +291,21 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Relatórios");
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
-            }
-        });
 
-        jMenuItem6.setText("Todos Usuários");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        todosUser.setText("Todos Usuários");
+        todosUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                todosUserActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem6);
+        jMenu4.add(todosUser);
 
         jMenuItem7.setText("Todos Alunos");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem7);
 
         jMenuItem8.setText("Todos Professores");
@@ -392,7 +392,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon(".\\src\\Imagens\\book.png");
         setIconImage(img.getImage());
     }
-    private void tamColuna(){
+    private void tam(){
         tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
@@ -595,23 +595,20 @@ public class IUPrincipal extends javax.swing.JFrame {
         completar();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-        // TODO add your handling code here:
-        IURelatorio relatorio = new IURelatorio();
-        relatorio.setLocationRelativeTo(this);
-        relatorio.setVisible(true);
-    }//GEN-LAST:event_jMenu4ActionPerformed
-
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+    private void todosUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todosUserActionPerformed
         IURelatorio relatorio = new IURelatorio();
         relatorio.setLocationRelativeTo(this);
+        relatorio.setTitle("Relatorio");
         relatorio.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_todosUserActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -651,7 +648,6 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
@@ -670,5 +666,6 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField pesquisa;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTable tabela;
+    private javax.swing.JMenuItem todosUser;
     // End of variables declaration//GEN-END:variables
 }
