@@ -27,8 +27,16 @@ public class IUDevolucao extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         completar();
+        tamColuna();
     }
     
+    private void tamColuna(){
+        tabela1.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tabela1.getColumnModel().getColumn(1).setPreferredWidth(40);
+        tabela1.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tabela1.getColumnModel().getColumn(3).setPreferredWidth(50);
+
+    }
      private void completar(){
        Controlador control = new Controlador();
        ArrayList<Emprestimo> emprest = control.buscarEmprestimoTodos();
@@ -119,12 +127,12 @@ public class IUDevolucao extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 262, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

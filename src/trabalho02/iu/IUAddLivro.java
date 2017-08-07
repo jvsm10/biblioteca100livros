@@ -29,6 +29,7 @@ public class IUAddLivro extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         completar();
+        tamColuna();
     }
 
     /**
@@ -330,6 +331,12 @@ public class IUAddLivro extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        private void tamColuna(){
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
+    }
     private void codTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTextFocusLost
         // TODO add your handling code here:
         String codFormatar = codText.getText();

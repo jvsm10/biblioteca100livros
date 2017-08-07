@@ -8,6 +8,7 @@ package trabalho02.iu;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -32,7 +33,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         initComponents();
         completar();
         completarProfessor();
-   
+        tamColuna();
     }
 
     /**
@@ -683,6 +684,17 @@ public class IUAddUsuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        private void tamColuna(){
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
+        
+        tabela2.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabela2.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabela2.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tabela2.getColumnModel().getColumn(3).setPreferredWidth(80);
+    }
     private void completarProfessor(){
        cancelarBotao2.setToolTipText("Limpa Todos Os Campos Preenchidos");
        atualizarBotao2.setToolTipText("Atualizar Tabela");

@@ -32,6 +32,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     public IUPrincipal() {
         initComponents();
         iconJanela();
+        tamColuna();
     }
 
     /** This method is called from within the constructor to
@@ -109,6 +110,7 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Livros Cadastrados"));
 
+        tabela.setAutoCreateRowSorter(true);
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -379,6 +381,12 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void iconJanela(){
         ImageIcon img = new ImageIcon(".\\src\\Imagens\\book.png");
         setIconImage(img.getImage());
+    }
+    private void tamColuna(){
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
     }
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
