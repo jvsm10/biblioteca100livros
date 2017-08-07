@@ -837,41 +837,9 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
-       for(int i = 0; i<usuario.size();i++){
+       if(usuario != null ){
+            for(int i = 0; i<usuario.size();i++){
             
-            linha[0] = usuario.get(i).getCodUsuario();
-            linha[1] = usuario.get(i).getNome();
-            emprestimos = control.buscarEmprestimoUsuario(usuario.get(i).getCodUsuario());
-            if(emprestimos != null){
-                linha[2] = "SIM";
-                if(emprestimos.getDataDevolucao().compareTo(d) == -1){
-                   linha[3] = "SIM";
-                }else{
-                    linha[3] = "NÃO";
-                }
-            }else{
-                linha[2] = "NÃO";
-                linha[3] = "NÃO";
-            }
-            model.addRow(linha);
-       }
-
-    }//GEN-LAST:event_menuTodosUsuariosActionPerformed
-
-    private void menuTodosProfessoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTodosProfessoresActionPerformed
-        // TODO add your handling code here:
-         CardLayout c1 = (CardLayout) Root.getLayout();
-        c1.show(Root,"TodosProfessores");
-        
-       Controlador control = new Controlador();
-       ArrayList<Usuario> usuario = control.buscarUsuarioTodos();
-       Emprestimo emprestimos;
-       DefaultTableModel model = (DefaultTableModel) tabela2.getModel();
-       Object linha[] = new Object[4];
-       Calendar d = Calendar.getInstance();
-       
-       for(int i = 0; i<usuario.size();i++){
-            if("Professor".equals(usuario.get(i).getTipo())){
                 linha[0] = usuario.get(i).getCodUsuario();
                 linha[1] = usuario.get(i).getNome();
                 emprestimos = control.buscarEmprestimoUsuario(usuario.get(i).getCodUsuario());
@@ -889,6 +857,44 @@ public class IURelatorio extends javax.swing.JFrame {
                 model.addRow(linha);
            }
         }
+       
+
+    }//GEN-LAST:event_menuTodosUsuariosActionPerformed
+
+    private void menuTodosProfessoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTodosProfessoresActionPerformed
+        // TODO add your handling code here:
+         CardLayout c1 = (CardLayout) Root.getLayout();
+        c1.show(Root,"TodosProfessores");
+        
+       Controlador control = new Controlador();
+       ArrayList<Usuario> usuario = control.buscarUsuarioTodos();
+       Emprestimo emprestimos;
+       DefaultTableModel model = (DefaultTableModel) tabela2.getModel();
+       Object linha[] = new Object[4];
+       Calendar d = Calendar.getInstance();
+       
+       if(usuario != null){
+            for(int i = 0; i<usuario.size();i++){
+                if("Professor".equals(usuario.get(i).getTipo())){
+                    linha[0] = usuario.get(i).getCodUsuario();
+                    linha[1] = usuario.get(i).getNome();
+                    emprestimos = control.buscarEmprestimoUsuario(usuario.get(i).getCodUsuario());
+                    if(emprestimos != null){
+                        linha[2] = "SIM";
+                        if(emprestimos.getDataDevolucao().compareTo(d) == -1){
+                           linha[3] = "SIM";
+                        }else{
+                            linha[3] = "NÃO";
+                        }
+                    }else{
+                        linha[2] = "NÃO";
+                        linha[3] = "NÃO";
+                    }
+                    model.addRow(linha);
+               }
+            }
+        }
+       
     }//GEN-LAST:event_menuTodosProfessoresActionPerformed
 
     private void menuRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatoriosActionPerformed
@@ -916,27 +922,27 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
-       for(int i = 0; i<usuario.size();i++){
-            if("Aluno".equals(usuario.get(i).getTipo())){
-                linha[0] = usuario.get(i).getCodUsuario();
-                linha[1] = usuario.get(i).getNome();
-                emprestimos = control.buscarEmprestimoUsuario(usuario.get(i).getCodUsuario());
-                if(emprestimos != null){
-                    linha[2] = "SIM";
-                    if(emprestimos.getDataDevolucao().compareTo(d) == -1){
-                       linha[3] = "SIM";
+       if(usuario != null){
+             for(int i = 0; i<usuario.size();i++){
+                if("Aluno".equals(usuario.get(i).getTipo())){
+                    linha[0] = usuario.get(i).getCodUsuario();
+                    linha[1] = usuario.get(i).getNome();
+                    emprestimos = control.buscarEmprestimoUsuario(usuario.get(i).getCodUsuario());
+                    if(emprestimos != null){
+                        linha[2] = "SIM";
+                        if(emprestimos.getDataDevolucao().compareTo(d) == -1){
+                           linha[3] = "SIM";
+                        }else{
+                            linha[3] = "NÃO";
+                        }
                     }else{
+                        linha[2] = "NÃO";
                         linha[3] = "NÃO";
                     }
-                }else{
-                    linha[2] = "NÃO";
-                    linha[3] = "NÃO";
-                }
-                model.addRow(linha);
-           }
+                    model.addRow(linha);
+               }
+            }
         }
-           
-        
     }//GEN-LAST:event_menuTodosAlunosActionPerformed
 
     private void text1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text1ActionPerformed
@@ -957,28 +963,30 @@ public class IURelatorio extends javax.swing.JFrame {
        Calendar d = Calendar.getInstance();
        
         String codUsuario = text1.getText();
-        
-       for(int i = 0; i<emprestimos.size();i++){
+        if(codUsuario != null && emprestimos != null){
+            for(int i = 0; i<emprestimos.size();i++){
             
-            if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
-                itens = emprestimos.get(i).getItens();
-                for(int j = 0; j<itens.size();j++){
-                    livros = control.buscaLivro(itens.get(j).getCodLivro());
-                    linha[0] = livros.getCodLivro();
-                    linha[1] = livros.getNome();
-                    
-                    if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
-                        linha[2] = "ATRASADO";
-                    }else{
-                        linha[2] = "EMPRESTADO";
+                if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
+                    itens = emprestimos.get(i).getItens();
+                    for(int j = 0; j<itens.size();j++){
+                        livros = control.buscaLivro(itens.get(j).getCodLivro());
+                        linha[0] = livros.getCodLivro();
+                        linha[1] = livros.getNome();
+
+                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
+                            linha[2] = "ATRASADO";
+                        }else{
+                            linha[2] = "EMPRESTADO";
+                        }
+
+
+                        model.addRow(linha);
                     }
-                    
-                    
-                    model.addRow(linha);
-                }
- 
-           }
+
+               }
+             }
         }
+       
        
         
     }//GEN-LAST:event_btn_confirmarActionPerformed
@@ -1006,30 +1014,32 @@ public class IURelatorio extends javax.swing.JFrame {
        Calendar d = Calendar.getInstance();
        
         String codUsuario = text2.getText();
-        
-       for(int i = 0; i<emprestimos.size();i++){
+        if(codUsuario != null){
+            for(int i = 0; i<emprestimos.size();i++){
             
-            if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
-                itens = emprestimos.get(i).getItens();
-                for(int j = 0; j<itens.size();j++){
-                    livros = control.buscaLivro(itens.get(j).getCodLivro());
-                    linha[0] = livros.getCodLivro();
-                    linha[1] = livros.getNome();
-                   
-                    if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() != null ){
-                        linha[2] = "DEVOLVIDO";
-                    }else if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
-                        linha[2] = "ATRASADO";
-                    }else{
-                        linha[2] = "EMPRESTADO";
+                if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
+                    itens = emprestimos.get(i).getItens();
+                    for(int j = 0; j<itens.size();j++){
+                        livros = control.buscaLivro(itens.get(j).getCodLivro());
+                        linha[0] = livros.getCodLivro();
+                        linha[1] = livros.getNome();
+
+                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() != null ){
+                            linha[2] = "DEVOLVIDO";
+                        }else if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
+                            linha[2] = "ATRASADO";
+                        }else{
+                            linha[2] = "EMPRESTADO";
+                        }
+
+
+                        model.addRow(linha);
                     }
-                    
-                    
-                    model.addRow(linha);
-                }
- 
-           }
+
+               }
+             }
         }
+       
     }//GEN-LAST:event_btn_confirmar1ActionPerformed
 
     private void menuLivrosNaoDevolvidosUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivrosNaoDevolvidosUsuarioActionPerformed
@@ -1051,8 +1061,8 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
       
         
-       
-       for(int i=0;i<livros.size();i++){
+       if(livros != null){
+           for(int i=0;i<livros.size();i++){
            linha[0] = livros.get(i).getCodLivro();
            linha[1] = livros.get(i).getNome();
            linha[2] = livros.get(i).getAno();
@@ -1063,6 +1073,8 @@ public class IURelatorio extends javax.swing.JFrame {
            }
            model.addRow(linha);
        }    
+       }
+       
        
     }//GEN-LAST:event_menuTodosLivrosActionPerformed
 
@@ -1077,17 +1089,19 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
       
         
-       
-       for(int i=0;i<livros.size();i++){
+       if(livros != null){
+           for(int i=0;i<livros.size();i++){
            
-           if(livros.get(i).estaEmprestado() == false){
-                linha[0] = livros.get(i).getCodLivro();
-                linha[1] = livros.get(i).getNome();
-                linha[2] = livros.get(i).getAno();
-                 model.addRow(linha);
-           }
-          
-       }    
+            if(livros.get(i).estaEmprestado() == false){
+                 linha[0] = livros.get(i).getCodLivro();
+                 linha[1] = livros.get(i).getNome();
+                 linha[2] = livros.get(i).getAno();
+                  model.addRow(linha);
+            }
+
+          }    
+       }
+       
        
         
     }//GEN-LAST:event_menuLivrosDisponiveisActionPerformed
@@ -1103,16 +1117,18 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
       
         
+       if(livros != null){
+           for(int i=0;i<livros.size();i++){
+            if(livros.get(i).estaEmprestado()){
+                 linha[0] = livros.get(i).getCodLivro();
+                 linha[1] = livros.get(i).getNome();
+                 linha[2] = livros.get(i).getAno();
+                 model.addRow(linha);
+            }
+
+         }    
+       }
        
-       for(int i=0;i<livros.size();i++){
-           if(livros.get(i).estaEmprestado()){
-                linha[0] = livros.get(i).getCodLivro();
-                linha[1] = livros.get(i).getNome();
-                linha[2] = livros.get(i).getAno();
-                model.addRow(linha);
-           }
-           
-       }    
     }//GEN-LAST:event_menuLivrosEmprestadosActionPerformed
 
     private void menuLivrosAtrasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivrosAtrasoActionPerformed
@@ -1128,7 +1144,8 @@ public class IURelatorio extends javax.swing.JFrame {
         Object linha[] = new Object[4];
         Calendar d = Calendar.getInstance();
  
-       for(int i = 0; i<emprestimos.size();i++){
+        if(emprestimos != null){
+            for(int i = 0; i<emprestimos.size();i++){
                 itens = emprestimos.get(i).getItens();
                 if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
                     for(int j = 0; j<itens.size();j++){
@@ -1139,7 +1156,9 @@ public class IURelatorio extends javax.swing.JFrame {
                         model.addRow(linha);
                     }
                 }
+             }
         }
+       
  
     }//GEN-LAST:event_menuLivrosAtrasoActionPerformed
 
@@ -1155,14 +1174,17 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
-       for(int i = 0; i<emprestimos.size();i++){
-            if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
-                  linha[0] = emprestimos.get(i).getCodUsuario();
-                  linha[1] = control.buscarUsuario(emprestimos.get(i).getCodUsuario());
-                  model.addRow(linha);
-            }
+       if(emprestimos != null){
+           for(int i = 0; i<emprestimos.size();i++){
+                if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
+                      linha[0] = emprestimos.get(i).getCodUsuario();
+                      linha[1] = control.buscarUsuario(emprestimos.get(i).getCodUsuario());
+                      model.addRow(linha);
+                }
 
+           }
        }
+       
     }//GEN-LAST:event_menuUsariosAtrasoActionPerformed
 
     /**
