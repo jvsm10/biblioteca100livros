@@ -126,6 +126,11 @@ public class IUAddUsuario extends javax.swing.JDialog {
             }
         });
 
+        nomeText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeTextActionPerformed(evt);
+            }
+        });
         nomeText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nomeTextKeyPressed(evt);
@@ -143,6 +148,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         jLabel2.setText("Nome do Aluno");
 
         cursoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { ".", "Arquitetura e Urbanismo", "Ciência da Computação", "Educação Fisica", "Engenharia Cartografica", "Estatística", "Física", "Fisioterapia", "Matemática", "Química" }));
+        cursoBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cursoBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cursoBoxActionPerformed(evt);
@@ -1096,6 +1102,10 @@ public class IUAddUsuario extends javax.swing.JDialog {
         // TODO add your handling code here:
         codText.setText(codText.getText().replaceAll("[^0-9]",""));
     }//GEN-LAST:event_codTextKeyReleased
+
+    private void nomeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeTextActionPerformed
 
     private void completar(){
        cancelarBotao.setToolTipText("Limpa Todos Os Campos Preenchidos");

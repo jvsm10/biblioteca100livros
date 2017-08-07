@@ -138,6 +138,28 @@ public class Biblioteca {
         }
         return false;
     }
+    
+    public Emprestimo buscarEmprestimoUsuario(String codusuario){
+        if(emprestimos.isEmpty()) return null;
+        for (int i = 0; i < emprestimos.size(); i++) {
+            if (emprestimos.get(i).getCodUsuario().equals(codusuario)) {
+                return emprestimos.get(i);
+            }
+        }
+        return null;
+    }
+    
+    public boolean procuraEmprestimoUsuarioAtrasado(String codusuario){
+        if(emprestimos.isEmpty()) return false;
+        for (int i = 0; i < emprestimos.size(); i++) {
+            if (emprestimos.get(i).getCodUsuario().equals(codusuario)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
     public ArrayList<Emprestimo> buscarEmprestimosTodos(){
         if(emprestimos.isEmpty()) return null;
         else return emprestimos;

@@ -104,6 +104,11 @@ public class IUEmprestimo extends javax.swing.JDialog {
         jLabel4.setText("Código empréstimo");
 
         cb1.setNextFocusableComponent(lista1);
+        cb1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("<< Remover");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -310,6 +315,10 @@ public class IUEmprestimo extends javax.swing.JDialog {
             evt.consume();
         }
     }//GEN-LAST:event_empretextKeyTyped
+
+    private void cb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb1ActionPerformed
 
     /**
      * @param args the command line arguments
