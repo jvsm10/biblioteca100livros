@@ -837,6 +837,11 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
+       int tam = tabela.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
+       
        if(usuario != null ){
             for(int i = 0; i<usuario.size();i++){
             
@@ -873,6 +878,10 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
+       int tam = tabela2.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
        if(usuario != null){
             for(int i = 0; i<usuario.size();i++){
                 if("Professor".equals(usuario.get(i).getTipo())){
@@ -922,6 +931,10 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
+       int tam = tabela1.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
        if(usuario != null){
              for(int i = 0; i<usuario.size();i++){
                 if("Aluno".equals(usuario.get(i).getTipo())){
@@ -963,6 +976,10 @@ public class IURelatorio extends javax.swing.JFrame {
        Calendar d = Calendar.getInstance();
        
         String codUsuario = text1.getText();
+        int tam = tabela3.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
         if(codUsuario != null && emprestimos != null){
             for(int i = 0; i<emprestimos.size();i++){
             
@@ -1014,6 +1031,10 @@ public class IURelatorio extends javax.swing.JFrame {
        Calendar d = Calendar.getInstance();
        
         String codUsuario = text2.getText();
+        int tam = tabela4.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
         if(codUsuario != null){
             for(int i = 0; i<emprestimos.size();i++){
             
@@ -1060,7 +1081,10 @@ public class IURelatorio extends javax.swing.JFrame {
        DefaultTableModel model = (DefaultTableModel) tabela5.getModel();
        Object linha[] = new Object[4];
       
-        
+        int tam = tabela5.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
        if(livros != null){
            for(int i=0;i<livros.size();i++){
            linha[0] = livros.get(i).getCodLivro();
@@ -1088,7 +1112,10 @@ public class IURelatorio extends javax.swing.JFrame {
        DefaultTableModel model = (DefaultTableModel) tabela6.getModel();
        Object linha[] = new Object[4];
       
-        
+        int tam = tabela6.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
        if(livros != null){
            for(int i=0;i<livros.size();i++){
            
@@ -1116,8 +1143,12 @@ public class IURelatorio extends javax.swing.JFrame {
        DefaultTableModel model = (DefaultTableModel) tabela7.getModel();
        Object linha[] = new Object[4];
       
-        
+        int tam = tabela7.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
        if(livros != null){
+           
            for(int i=0;i<livros.size();i++){
             if(livros.get(i).estaEmprestado()){
                  linha[0] = livros.get(i).getCodLivro();
@@ -1144,7 +1175,12 @@ public class IURelatorio extends javax.swing.JFrame {
         Object linha[] = new Object[4];
         Calendar d = Calendar.getInstance();
  
+        int tam = tabela8.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+         }
         if(emprestimos != null){
+            
             for(int i = 0; i<emprestimos.size();i++){
                 itens = emprestimos.get(i).getItens();
                 if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
@@ -1174,7 +1210,12 @@ public class IURelatorio extends javax.swing.JFrame {
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
+       int tam = tabela9.getRowCount();
+        for(int i=0; i<tam; i++){
+             model.removeRow(0);
+        }
        if(emprestimos != null){
+           
            for(int i = 0; i<emprestimos.size();i++){
                 if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
                       linha[0] = emprestimos.get(i).getCodUsuario();
