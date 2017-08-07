@@ -1149,17 +1149,16 @@ public class IURelatorio extends javax.swing.JFrame {
         c1.show(Root,"UsuariosComAtraso");
         
         Controlador control = new Controlador();
-       ArrayList<Usuario> usuario = control.buscarUsuarioTodos();
-       Emprestimo emprestimos;
-       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       
+       ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
+       DefaultTableModel model = (DefaultTableModel) tabela9.getModel();
        Object linha[] = new Object[4];
        Calendar d = Calendar.getInstance();
        
-       for(int i = 0; i<usuario.size();i++){
-            emprestimos = control.buscarEmprestimoUsuario(usuario.get(i).getCodUsuario());
-            if(emprestimos.getDataDevolucao().compareTo(d) == -1){
-                  linha[0] = usuario.get(i).getCodUsuario();
-                  linha[1] = usuario.get(i).getNome();
+       for(int i = 0; i<emprestimos.size();i++){
+            if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
+                  linha[0] = emprestimos.get(i).getCodUsuario();
+                  linha[1] = control.buscarUsuario(emprestimos.get(i).getCodUsuario());
                   model.addRow(linha);
             }
 
