@@ -66,8 +66,6 @@ public class Livro implements Serializable, Comparable<Livro>{
 
     @Override
     public int compareTo(Livro o) {
-        int cod1 = Integer.parseInt(codLivro);
-        int cod2 = Integer.parseInt(o.codLivro); 
-      return cod1-cod2;
+        return nome.compareTo(o.nome);
     }
 }

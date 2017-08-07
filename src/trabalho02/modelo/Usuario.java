@@ -49,9 +49,7 @@ import java.io.Serializable;
     
     @Override
     public int compareTo(Usuario o) {
-        int cod1 = Integer.parseInt(codUsuario);
-        int cod2 = Integer.parseInt(o.codUsuario); 
-      return  cod1-cod2;
+      return  nome.compareTo(o.nome);
     } 
     
 }

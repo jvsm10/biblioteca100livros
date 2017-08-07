@@ -7,6 +7,8 @@ package trabalho02.iu;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -160,14 +162,12 @@ public class IUAddLivro extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nomeText, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, Short.MAX_VALUE)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(281, 281, 281))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(nomeText))))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(cadastrarBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -466,17 +466,24 @@ public class IUAddLivro extends javax.swing.JDialog {
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         int linha=-1;
         
+        ImageIcon icon = new ImageIcon(".\\src\\Imagens\\atencao.png");
+        Livro li;
+        
         TableRowSorter<TableModel> sorter = null;
         linha = tabela.getSelectedRow();
         
         if(linha>=0){
             String cod;
             cod = (String) (tabela.getValueAt(linha, 0));
-            control.removerLivro(cod);
-            linha=tabela.convertRowIndexToModel(linha);     
-            model.removeRow(linha);
-            pesquisa.setText("Pesquisar por Nome dos Livros Cadastradas");
-            tabela.setRowSorter(null);
+            li=control.buscaLivro(cod);
+            if(li.estaEmprestado()) JOptionPane.showMessageDialog(rootPane, "Livro Emprestado, Deve estar Livre para Removê-lo", "ERRO: Livro Emprestado", HEIGHT, icon);
+            else{
+                control.removerLivro(cod);          
+                linha=tabela.convertRowIndexToModel(linha);     
+                model.removeRow(linha);
+                pesquisa.setText("Pesquisar por Nome dos Livros Cadastradas");
+                tabela.setRowSorter(null);
+            }
         }
     }//GEN-LAST:event_removerBotaoActionPerformed
 

@@ -782,7 +782,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
     private void cursoBox2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cursoBox2KeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            getRootPane().setDefaultButton(cadastrarBotao2);
+            cadastrarBotao2.requestFocus();
         }
     }//GEN-LAST:event_cursoBox2KeyPressed
 

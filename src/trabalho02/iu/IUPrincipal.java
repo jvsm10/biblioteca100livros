@@ -339,16 +339,16 @@ public class IUPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(alerta, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(alerta, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 253, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -363,8 +363,8 @@ public class IUPrincipal extends javax.swing.JFrame {
                     .addComponent(jRadioButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(alerta))
+                    .addComponent(alerta)
+                    .addComponent(jLabel1))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -526,6 +526,8 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
+        alerta.setText("Livros Emprestados");
+        alerta.setVisible(true);
         removerTabela();
         Controlador control = new Controlador();
        ArrayList<Livro> li = control.getLivroBusca();
@@ -533,7 +535,7 @@ public class IUPrincipal extends javax.swing.JFrame {
        String estado;
        
        if(li != null){    
-           for(Livro livro: li){      
+           for(Livro livro: li){ 
                if(livro.estaEmprestado()){ estado="Emprestado";            
                Object linha[] = new Object[4];       
                linha[0] = livro.getCodLivro();      
@@ -548,13 +550,15 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
+        alerta.setText("Livros Livres");
+        alerta.setVisible(true);
         removerTabela();
         Controlador control = new Controlador();
        ArrayList<Livro> li = control.getLivroBusca();
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
        String estado;
        
-       if(li != null){    
+       if(li != null){  
            for(Livro livro: li){      
                if(!livro.estaEmprestado()) {
                estado="Livre";      
@@ -571,6 +575,8 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
+        alerta.setText("Todos os Livros");
+        alerta.setVisible(true);
         removerTabela();
         completar();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
