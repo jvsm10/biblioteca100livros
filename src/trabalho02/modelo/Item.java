@@ -7,7 +7,6 @@ package trabalho02.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
-
 /**
  *
  * @author Danilo Medeiros Eler
@@ -41,5 +40,5 @@ public class Item implements Serializable{
     public void setDataDevolucao(Calendar dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
-    
+
 }

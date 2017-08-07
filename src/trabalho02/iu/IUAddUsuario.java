@@ -8,6 +8,7 @@ package trabalho02.iu;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -32,7 +33,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         initComponents();
         completar();
         completarProfessor();
-   
+        tamColuna();
     }
 
     /**
@@ -91,9 +92,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(750, 560));
         setMinimumSize(new java.awt.Dimension(720, 550));
-        setPreferredSize(new java.awt.Dimension(720, 550));
 
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(700, 520));
@@ -527,7 +526,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,16 +599,17 @@ public class IUAddUsuario extends javax.swing.JDialog {
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2P, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                     .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addComponent(removerBotao2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pesquisa2)
+                        .addComponent(pesquisa2, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(atualizarBotao2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2P, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(atualizarBotao2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE)))
+                .addGap(33, 33, 33))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,18 +631,15 @@ public class IUAddUsuario extends javax.swing.JDialog {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 320, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -650,14 +647,14 @@ public class IUAddUsuario extends javax.swing.JDialog {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 715, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Professor", jPanel6);
@@ -691,6 +688,17 @@ public class IUAddUsuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        private void tamColuna(){
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(130);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(40);
+        
+        tabela2.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabela2.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabela2.getColumnModel().getColumn(2).setPreferredWidth(130);
+      
+    }
     private void completarProfessor(){
        cancelarBotao2.setToolTipText("Limpa Todos Os Campos Preenchidos");
        atualizarBotao2.setToolTipText("Atualizar Tabela");
@@ -730,7 +738,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         sorter = new TableRowSorter<>(model);
         tabela.setRowSorter(sorter);
-        String texto = pesquisa.getText();
+        String texto = pesquisa.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }
@@ -790,7 +798,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
     private void cursoBox2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cursoBox2KeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            getRootPane().setDefaultButton(cadastrarBotao2);
+            cadastrarBotao2.requestFocus();
         }
     }//GEN-LAST:event_cursoBox2KeyPressed
 
@@ -799,7 +807,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model2 = (DefaultTableModel) tabela2.getModel();
 
         String cod = codText2.getText();
-        String nome = nomeText2.getText();
+        String nome = nomeText2.getText().toUpperCase();
         String curso = (String) cursoBox2.getSelectedItem();
         if(cod.isEmpty() || nome.isEmpty() ||  curso == "."){
             alerta2.setText("Preencha todos os campos");
@@ -866,7 +874,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela2.getModel();
         sorter = new TableRowSorter<>(model);
         tabela2.setRowSorter(sorter);
-        String texto = pesquisa2.getText();
+        String texto = pesquisa2.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }
@@ -924,7 +932,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 
         String cod = codText.getText();
-        String nome = nomeText.getText();
+        String nome = nomeText.getText().toUpperCase();
         String sano= anoText.getText();
         String curso = (String) cursoBox.getSelectedItem();
         if(cod.isEmpty() || nome.isEmpty() || sano.isEmpty() || curso == "."){

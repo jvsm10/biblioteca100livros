@@ -121,11 +121,11 @@ public class Biblioteca {
     public void addEmprestimo(String codEmprestimo, Usuario usuario, ArrayList<Item> itens){
         Emprestimo empresta = new Emprestimo(codEmprestimo, usuario);
         empresta.setItens(itens);
-         Calendar d = Calendar.getInstance();
-         empresta.setDataEmprestimo(d);
-         int dia = usuario.getDiasEmprestimo();
-         d.add(Calendar.DAY_OF_MONTH, dia);
-         empresta.setDataDevolucao(d);
+        Calendar d = Calendar.getInstance();
+        empresta.setDataEmprestimo(d);
+        int dia = usuario.getDiasEmprestimo();
+        d.add(Calendar.DAY_OF_MONTH, dia);
+        empresta.setDataDevolucao(d);
         this.emprestimos.add(empresta);
     }
     
@@ -189,7 +189,7 @@ public class Biblioteca {
             }
     }
     }   
-    
+
     public String salvarLivros(){
         String nomeArquivo = configuracoes.getArquivoLivros();
         FileOutputStream fos = null;
