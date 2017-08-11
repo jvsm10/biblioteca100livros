@@ -828,6 +828,7 @@ public class IUPrincipal extends javax.swing.JFrame {
                  linha[0] = li.get(i).getCodLivro();
                  linha[1] = li.get(i).getNome();
                  linha[2] = li.get(i).getAno();
+                 linha[3] = "SIM";
                  model.addRow(linha);
             }
             }
@@ -839,6 +840,7 @@ public class IUPrincipal extends javax.swing.JFrame {
                          linha[0] = li.get(i).getCodLivro();
                          linha[1] = li.get(i).getNome();
                          linha[2] = li.get(i).getAno();
+                         linha[3] = "NAO";
                          model.addRow(linha);
                     }
 
@@ -974,7 +976,6 @@ public class IUPrincipal extends javax.swing.JFrame {
                         }else{
                             linha[2] = "EMPRESTADO";
                         }
-
 
                         model.addRow(linha);
                     }
