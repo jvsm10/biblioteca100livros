@@ -85,7 +85,7 @@ public class Biblioteca {
         if(livros.isEmpty()) return null;
         else return livros;
     }
-    
+
     public void removerUsuario(String codUsuario){
         if(usuarios.isEmpty()) return;
         for(Usuario user: usuarios){

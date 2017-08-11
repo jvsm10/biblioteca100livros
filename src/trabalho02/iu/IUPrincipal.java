@@ -12,7 +12,11 @@ package trabalho02.iu;
 
 
 
+import java.awt.CardLayout;
+import java.awt.LayoutManager;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -20,7 +24,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import trabalho02.controlador.Controlador;
+import trabalho02.modelo.Emprestimo;
+import trabalho02.modelo.Item;
 import trabalho02.modelo.Livro;
+import trabalho02.modelo.Usuario;
 
 /**
  *
@@ -33,6 +40,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         initComponents();
         iconJanela();
         tam();
+        relatorio.setSelectedIndex(0);
     }
 
     /** This method is called from within the constructor to
@@ -54,14 +62,38 @@ public class IUPrincipal extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
-        pesquisa = new javax.swing.JTextField();
         alerta = new javax.swing.JLabel();
+        relatorio = new javax.swing.JComboBox<>();
+        Root = new javax.swing.JPanel();
+        Inicio = new javax.swing.JPanel();
+        TodosUsuarios = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton7 = new javax.swing.JRadioButton();
+        pesquisa1 = new javax.swing.JTextField();
+        LivrosEmprestadosUsuario = new javax.swing.JPanel();
+        text1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btn_confirmar = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaEmprestado = new javax.swing.JTable();
+        LivrosNaoDevolvidosUsuario = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        codText = new javax.swing.JTextField();
+        btn_confirmar1 = new javax.swing.JButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        tabelaNaoDevolvido = new javax.swing.JTable();
+        TodosLivros = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabelaLivros = new javax.swing.JTable();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
+        jRadioButton8 = new javax.swing.JRadioButton();
+        pesquisa = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -76,19 +108,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        todosUser = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -108,15 +127,42 @@ public class IUPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Olá Marilene");
         jLabel1.setEnabled(false);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Livros Cadastrados"));
+        alerta.setText("jLabel2");
 
-        tabela.setAutoCreateRowSorter(true);
+        relatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Relatorios", "Usuarios", "Livros", "Todos Livros já Emprestados para um Usuário", "Livros não Devolvidos por um Usuário" }));
+        relatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioActionPerformed(evt);
+            }
+        });
+
+        Root.setLayout(new java.awt.CardLayout());
+
+        Inicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                InicioFocusGained(evt);
+            }
+        });
+
+        javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
+        Inicio.setLayout(InicioLayout);
+        InicioLayout.setHorizontalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 629, Short.MAX_VALUE)
+        );
+        InicioLayout.setVerticalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 303, Short.MAX_VALUE)
+        );
+
+        Root.add(Inicio, "inicio");
+
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "Ano", "Estado"
+                "Código", "Nome", "Possui Emprestimo", "Possui Atraso"
             }
         ) {
             Class[] types = new Class [] {
@@ -134,16 +180,337 @@ public class IUPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabela.getTableHeader().setResizingAllowed(false);
-        tabela.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tabela);
-        if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(0).setResizable(false);
-            tabela.getColumnModel().getColumn(1).setResizable(false);
-            tabela.getColumnModel().getColumn(3).setResizable(false);
-        }
+        jScrollPane1.setViewportView(tabela);
 
-        pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Todos Usuarios");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Professores");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Alunos");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton7);
+        jRadioButton7.setText("Usuarios com Atrasos");
+        jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton7ActionPerformed(evt);
+            }
+        });
+
+        pesquisa1.setText("Pesquisar por Nome dos Usuarios Cadastrados");
+        pesquisa1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pesquisa1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pesquisa1FocusLost(evt);
+            }
+        });
+        pesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisa1ActionPerformed(evt);
+            }
+        });
+        pesquisa1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pesquisa1KeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TodosUsuariosLayout = new javax.swing.GroupLayout(TodosUsuarios);
+        TodosUsuarios.setLayout(TodosUsuariosLayout);
+        TodosUsuariosLayout.setHorizontalGroup(
+            TodosUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TodosUsuariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TodosUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                    .addGroup(TodosUsuariosLayout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton7)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(TodosUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TodosUsuariosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(pesquisa1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        TodosUsuariosLayout.setVerticalGroup(
+            TodosUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TodosUsuariosLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(TodosUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButton7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(TodosUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TodosUsuariosLayout.createSequentialGroup()
+                    .addContainerGap(272, Short.MAX_VALUE)
+                    .addComponent(pesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+
+        Root.add(TodosUsuarios, "TodosUsuarios");
+
+        text1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        text1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                text1FocusLost(evt);
+            }
+        });
+        text1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                text1ActionPerformed(evt);
+            }
+        });
+        text1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                text1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                text1KeyTyped(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Código do Usuário:");
+
+        btn_confirmar.setText("Confirmar");
+        btn_confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_confirmarActionPerformed(evt);
+            }
+        });
+
+        tabelaEmprestado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código Livro", "Nome", "Situação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tabelaEmprestado);
+
+        javax.swing.GroupLayout LivrosEmprestadosUsuarioLayout = new javax.swing.GroupLayout(LivrosEmprestadosUsuario);
+        LivrosEmprestadosUsuario.setLayout(LivrosEmprestadosUsuarioLayout);
+        LivrosEmprestadosUsuarioLayout.setHorizontalGroup(
+            LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LivrosEmprestadosUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                    .addGroup(LivrosEmprestadosUsuarioLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_confirmar)))
+                .addContainerGap())
+        );
+        LivrosEmprestadosUsuarioLayout.setVerticalGroup(
+            LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LivrosEmprestadosUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_confirmar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+
+        Root.add(LivrosEmprestadosUsuario, "LivrosEmprestadosUsuario");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Código do Usuário:");
+
+        codText.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        codText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codTextFocusLost(evt);
+            }
+        });
+        codText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codTextActionPerformed(evt);
+            }
+        });
+        codText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codTextKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codTextKeyTyped(evt);
+            }
+        });
+
+        btn_confirmar1.setText("Confirmar");
+        btn_confirmar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_confirmar1ActionPerformed(evt);
+            }
+        });
+
+        tabelaNaoDevolvido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código Livro", "Nome", "Situação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane11.setViewportView(tabelaNaoDevolvido);
+
+        javax.swing.GroupLayout LivrosNaoDevolvidosUsuarioLayout = new javax.swing.GroupLayout(LivrosNaoDevolvidosUsuario);
+        LivrosNaoDevolvidosUsuario.setLayout(LivrosNaoDevolvidosUsuarioLayout);
+        LivrosNaoDevolvidosUsuarioLayout.setHorizontalGroup(
+            LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LivrosNaoDevolvidosUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                    .addGroup(LivrosNaoDevolvidosUsuarioLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_confirmar1)))
+                .addContainerGap())
+        );
+        LivrosNaoDevolvidosUsuarioLayout.setVerticalGroup(
+            LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LivrosNaoDevolvidosUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_confirmar1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        Root.add(LivrosNaoDevolvidosUsuario, "LivrosNaoDevolvidosUsuario");
+
+        tabelaLivros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Ano", "Situação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tabelaLivros);
+
+        buttonGroup2.add(jRadioButton4);
+        jRadioButton4.setSelected(true);
+        jRadioButton4.setText("Todos Livros");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(jRadioButton5);
+        jRadioButton5.setText("Emprestados");
+        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton5ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(jRadioButton6);
+        jRadioButton6.setText("Disponiveis");
+        jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton6ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(jRadioButton8);
+        jRadioButton8.setText("Livros Com Atraso");
+        jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton8ActionPerformed(evt);
+            }
+        });
+
+        pesquisa.setText("Pesquisar por Nome dos Alunos Cadastrados");
         pesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 pesquisaFocusGained(evt);
@@ -163,52 +530,50 @@ public class IUPrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-                    .addComponent(pesquisa))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout TodosLivrosLayout = new javax.swing.GroupLayout(TodosLivros);
+        TodosLivros.setLayout(TodosLivrosLayout);
+        TodosLivrosLayout.setHorizontalGroup(
+            TodosLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TodosLivrosLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jRadioButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addComponent(jRadioButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton8)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(TodosLivrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(TodosLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TodosLivrosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(pesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        TodosLivrosLayout.setVerticalGroup(
+            TodosLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TodosLivrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TodosLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton6)
+                    .addComponent(jRadioButton5)
+                    .addComponent(jRadioButton4)
+                    .addComponent(jRadioButton8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
+            .addGroup(TodosLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TodosLivrosLayout.createSequentialGroup()
+                    .addContainerGap(272, Short.MAX_VALUE)
+                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
-        alerta.setText("jLabel2");
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Todos");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Emprestado");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Livres");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
+        Root.add(TodosLivros, "TodosLivros");
 
         jMenu5.setText("Dados");
 
@@ -290,99 +655,41 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu4.setText("Relatórios");
-
-        todosUser.setText("Todos Usuários");
-        todosUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                todosUserActionPerformed(evt);
-            }
-        });
-        jMenu4.add(todosUser);
-
-        jMenuItem7.setText("Todos Alunos");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem7);
-
-        jMenuItem8.setText("Todos Professores");
-        jMenu4.add(jMenuItem8);
-
-        jMenuItem17.setText("Todos Livros já Emprestados para um Usuário");
-        jMenu4.add(jMenuItem17);
-
-        jMenuItem18.setText("Livros não Devolvidos por um Usuário");
-        jMenu4.add(jMenuItem18);
-        jMenu4.add(jSeparator1);
-
-        jMenuItem9.setText("Todos os Livros");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem9);
-
-        jMenuItem10.setText("Livros Disponíveis");
-        jMenu4.add(jMenuItem10);
-
-        jMenuItem11.setText("Livros Emprestados");
-        jMenu4.add(jMenuItem11);
-        jMenu4.add(jSeparator2);
-
-        jMenuItem12.setText("Livros com Atraso");
-        jMenu4.add(jMenuItem12);
-
-        jMenuItem13.setText("Usuários com Atraso");
-        jMenu4.add(jMenuItem13);
-
-        jMenuBar1.add(jMenu4);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(alerta, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(relatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(alerta, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                         .addGap(112, 112, 112)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3)
-                        .addGap(0, 253, Short.MAX_VALUE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Root, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(relatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(alerta)
                     .addComponent(jLabel1))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(46, 46, 46)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(32, Short.MAX_VALUE)))
+                    .addGap(55, 55, 55)
+                    .addComponent(Root, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(33, Short.MAX_VALUE)))
         );
 
         pack();
@@ -397,6 +704,17 @@ public class IUPrincipal extends javax.swing.JFrame {
         tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
         tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tabelaLivros.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabelaLivros.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabelaLivros.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tabelaLivros.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tabelaNaoDevolvido.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabelaNaoDevolvido.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabelaNaoDevolvido.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tabelaEmprestado.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabelaEmprestado.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tabelaEmprestado.getColumnModel().getColumn(2).setPreferredWidth(100);
+        
     }
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
@@ -440,8 +758,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         control.recuperarUsuarios();
         control.recuperarEmprestimos();
         control.recuperarConfig();
-        removerTabela();
-        completar();
+        relatorio.setSelectedIndex(0);
         alerta.setText("Dados Carregados com Sucesso");
         alerta.setVisible(true);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
@@ -477,6 +794,320 @@ public class IUPrincipal extends javax.swing.JFrame {
         devolucao.setLocationRelativeTo(this);
         devolucao.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+ 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        relatorio.setSelectedIndex(0);
+        alerta.setVisible(false);
+    }//GEN-LAST:event_formWindowGainedFocus
+    
+    private void relLivro(int qual){
+       Controlador control = new Controlador();
+       ArrayList<Livro> li=null;
+       DefaultTableModel model = (DefaultTableModel) tabelaLivros.getModel();
+       String estado = null;
+        Object linha[] = new Object[4];
+       li = control.buscarLivroTodos();
+       
+       if(li != null){
+           if(qual == 1){
+           for(Livro livro: li){
+               if(livro.estaEmprestado()) estado="Emprestado";      
+               else if(!livro.estaEmprestado()) estado="Livre";      
+                 
+               linha[0] = livro.getCodLivro();      
+               linha[1] = livro.getNome();        
+               linha[2] = livro.getAno();       
+               linha[3] = estado;    
+               model.addRow(linha);
+           }
+        }
+           else if(qual == 2){
+            for(int i=0;i<li.size();i++){
+            if(li.get(i).estaEmprestado()){
+                 linha[0] = li.get(i).getCodLivro();
+                 linha[1] = li.get(i).getNome();
+                 linha[2] = li.get(i).getAno();
+                 model.addRow(linha);
+            }
+            }
+           }
+            else if(qual == 3){
+                
+                for(int i=0;i<li.size();i++){
+                    if(li.get(i).estaEmprestado() == false){
+                         linha[0] = li.get(i).getCodLivro();
+                         linha[1] = li.get(i).getNome();
+                         linha[2] = li.get(i).getAno();
+                         model.addRow(linha);
+                    }
+
+                }  
+            }
+       }
+    }
+      
+    private void relUser(int qual){
+               
+       removerTabelaUsuarios();
+       Controlador control = new Controlador();
+       ArrayList<Usuario> usuario=null;
+       switch(qual){
+           case 1: 
+               usuario = control.buscarUsuarioTodos();
+               break;
+           case 2:
+               usuario = control.getUserBusca("Professor");
+               break;
+           case 3:
+               usuario = control.getUserBusca("Aluno");
+               break;
+       }
+       Emprestimo emprestimos;
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       Object linha[] = new Object[4];
+       Calendar d = Calendar.getInstance();
+       
+       if(usuario != null ){
+            for(int i = 0; i<usuario.size();i++){
+            
+                linha[0] = usuario.get(i).getCodUsuario();
+                linha[1] = usuario.get(i).getNome();
+                emprestimos = control.buscarEmprestimoUsuario(usuario.get(i).getCodUsuario());
+                if(emprestimos != null){
+                    linha[2] = "SIM";
+                    if(emprestimos.getDataDevolucao().compareTo(d) == -1){
+                       linha[3] = "SIM";
+                    }else{
+                        linha[3] = "NÃO";
+                    }
+                }else{
+                    linha[2] = "NÃO";
+                    linha[3] = "NÃO";
+                }
+                model.addRow(linha);
+           }
+        }
+       
+    }
+
+    private void relatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioActionPerformed
+        // TODO add your handling code here:
+        int rel = relatorio.getSelectedIndex();
+        CardLayout c1 = (CardLayout) Root.getLayout();
+        
+        removerTabelaLivros();
+        removerTabelaUsuarios();
+        removerTabelaNaoDevolvido();
+        removerTabelaEmprestado();
+                
+
+        System.out.println(rel);
+        switch(rel){
+            case 0:
+                c1.show(Root, "inicio");
+                break;
+            case 1:
+                c1.show(Root, "TodosUsuarios");
+                relUser(1);
+                break;
+            case 2:
+                c1.show(Root, "TodosLivros");
+                relLivro(1);
+                break;
+            case 3:
+                c1.show(Root, "LivrosEmprestadosUsuario");
+                break;
+            case 4:
+                c1.show(Root,"LivrosNaoDevolvidosUsuario");
+                break;
+        }
+    }//GEN-LAST:event_relatorioActionPerformed
+
+    private void InicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_InicioFocusGained
+        // TODO add your handling code here:
+//        menuTodosUsuarios.requestFocus();
+    }//GEN-LAST:event_InicioFocusGained
+
+    private void codTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codTextActionPerformed
+
+    private void codTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btn_confirmar1.requestFocus();
+        }
+    }//GEN-LAST:event_codTextKeyPressed
+
+    private void btn_confirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmar1ActionPerformed
+        // TODO add your handling code here:
+       Controlador control = new Controlador();
+       ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
+       ArrayList<Item> itens;
+       Livro livros;
+       DefaultTableModel model = (DefaultTableModel) tabelaNaoDevolvido.getModel();
+       Object linha[] = new Object[4];
+       Calendar d = Calendar.getInstance();
+       
+       if(emprestimos != null){
+        String codUsuario = codText.getText();
+        int tam = tabelaNaoDevolvido.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+        }
+        if(codUsuario != null){
+        
+            for(int i = 0; i<emprestimos.size();i++){
+            
+                if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
+                    itens = emprestimos.get(i).getItens();
+                    for(int j = 0; j<itens.size();j++){
+                        livros = control.buscaLivro(itens.get(j).getCodLivro());
+                        linha[0] = livros.getCodLivro();
+                        linha[1] = livros.getNome();
+
+                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() != null ){
+                            linha[2] = "DEVOLVIDO";
+                        }else if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
+                            linha[2] = "ATRASADO";
+                        }else{
+                            linha[2] = "EMPRESTADO";
+                        }
+
+
+                        model.addRow(linha);
+                    }
+
+               }
+             }
+            }
+        }
+       
+    }//GEN-LAST:event_btn_confirmar1ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+        removerTabelaUsuarios();
+        relUser(1);
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        removerTabelaUsuarios();
+        relUser(2);
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+        removerTabelaUsuarios();
+        relUser(3);
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        // TODO add your handling code here:
+        removerTabelaLivros();
+        relLivro(1);
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
+        // TODO add your handling code here:
+        removerTabelaLivros();
+        relLivro(2);
+    }//GEN-LAST:event_jRadioButton5ActionPerformed
+
+    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
+        // TODO add your handling code here:
+       removerTabelaLivros();
+        relLivro(3);
+       
+    }//GEN-LAST:event_jRadioButton6ActionPerformed
+
+    private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
+        // TODO add your handling code here:
+        CardLayout c1 = (CardLayout) Root.getLayout();
+        c1.show(Root,"Todos Usuarios");
+        
+        Controlador control = new Controlador();
+       
+       ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
+       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+       Object linha[] = new Object[4];
+       Calendar d = Calendar.getInstance();
+       
+       int tam = tabela.getRowCount();
+        for(int i=0; i<tam; i++){
+             model.removeRow(0);
+        }
+       if(emprestimos != null){
+           
+           for(int i = 0; i<emprestimos.size();i++){
+                if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
+                      linha[0] = emprestimos.get(i).getCodUsuario();
+                      linha[1] = control.buscarUsuario(emprestimos.get(i).getCodUsuario());
+                      linha[2] = "SIM";
+                      linha[3] = "SIM";
+                      model.addRow(linha);
+                }
+
+           }
+       }
+    }//GEN-LAST:event_jRadioButton7ActionPerformed
+
+    private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
+        // TODO add your handling code here:
+                CardLayout c1 = (CardLayout) Root.getLayout();
+        c1.show(Root,"TodosLivros");
+        
+        Controlador control = new Controlador();
+        ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
+        ArrayList<Item> itens;
+        Livro livros;
+        DefaultTableModel model = (DefaultTableModel) tabelaLivros.getModel();
+        Object linha[] = new Object[4];
+        Calendar d = Calendar.getInstance();
+ 
+        int tam = tabelaLivros.getRowCount();
+        for(int i=0; i<tam; i++){
+          model.removeRow(0);
+         }
+        if(emprestimos != null){
+            
+            for(int i = 0; i<emprestimos.size();i++){
+                itens = emprestimos.get(i).getItens();
+                if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
+                    for(int j = 0; j<itens.size();j++){
+                        livros = control.buscaLivro(itens.get(j).getCodLivro());
+                        linha[0] = livros.getCodLivro();
+                        linha[1] = livros.getNome();
+                        linha[2] = livros.getAno();
+                        linha[3] = "Emprestado";
+                        model.addRow(linha);
+                    }
+                }
+             }
+        }
+       
+ 
+    }//GEN-LAST:event_jRadioButton8ActionPerformed
+
+    private void codTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyTyped
+        // TODO add your handling code here:
+        if(codText.getText().length() == 6){
+            evt.consume();
+        }
+    }//GEN-LAST:event_codTextKeyTyped
+
+    private void codTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTextFocusLost
+        // TODO add your handling code here:
+       String codFormatar = codText.getText();
+       if(!codFormatar.isEmpty()){
+        while(codFormatar.length()<6){
+            codFormatar = "0"+codFormatar;
+        }
+     }
+       codText.setText(codFormatar);
+    }//GEN-LAST:event_codTextFocusLost
 
     private void pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusGained
         // TODO add your handling code here:
@@ -485,8 +1116,7 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
         // TODO add your handling code here:
-        pesquisa.setText("Pesquisar por Nome dos Livros Cadastrados");
-        tabela.setRowSorter(null);
+        pesquisa.setText("Pesquisar por Nome dos Alunos Cadastrados");
     }//GEN-LAST:event_pesquisaFocusLost
 
     private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
@@ -497,119 +1127,138 @@ public class IUPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
         TableRowSorter<TableModel> sorter = null;
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        DefaultTableModel model = (DefaultTableModel) tabelaLivros.getModel();
         sorter = new TableRowSorter<>(model);
-        tabela.setRowSorter(sorter);
+        tabelaLivros.setRowSorter(sorter);
         String texto = pesquisa.getText().toUpperCase();
         if(texto.length() != 0){
             sorter.setRowFilter(RowFilter.regexFilter(texto));
         }
     }//GEN-LAST:event_pesquisaKeyReleased
-    private void removerTabela(){
+
+    private void pesquisa1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisa1FocusGained
+        // TODO add your handling code here:
+        pesquisa1.setText("");
+    }//GEN-LAST:event_pesquisa1FocusGained
+
+    private void pesquisa1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisa1FocusLost
+        // TODO add your handling code here:
+        pesquisa1.setText("Pesquisar por Nome dos Usuarios Cadastrados");
+    }//GEN-LAST:event_pesquisa1FocusLost
+
+    private void pesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisa1ActionPerformed
+
+    private void pesquisa1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisa1KeyReleased
+        // TODO add your handling code here:
+        pesquisa1.setText(pesquisa1.getText().replaceAll("[^A-Z | ^a-z]",""));
+        TableRowSorter<TableModel> sorter = null;
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        sorter = new TableRowSorter<>(model);
+        tabela.setRowSorter(sorter);
+        String texto = pesquisa1.getText().toUpperCase();
+        if(texto.length() != 0){
+            sorter.setRowFilter(RowFilter.regexFilter(texto));
+        }
+    }//GEN-LAST:event_pesquisa1KeyReleased
+
+    private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
+        // TODO add your handling code here:
+        Controlador control = new Controlador();
+        ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
+        ArrayList<Item> itens;
+        Livro livros;
+        DefaultTableModel model = (DefaultTableModel) tabelaEmprestado.getModel();
+        Object linha[] = new Object[4];
+        Calendar d = Calendar.getInstance();
+
+        String codUsuario = text1.getText();
+        int tam = tabelaEmprestado.getRowCount();
+        for(int i=0; i<tam; i++){
+            model.removeRow(0);
+        }
+        if(codUsuario != null && emprestimos != null){
+            for(int i = 0; i<emprestimos.size();i++){
+
+                if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
+                    itens = emprestimos.get(i).getItens();
+                    for(int j = 0; j<itens.size();j++){
+                        livros = control.buscaLivro(itens.get(j).getCodLivro());
+                        linha[0] = livros.getCodLivro();
+                        linha[1] = livros.getNome();
+
+                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
+                            linha[2] = "ATRASADO";
+                        }else{
+                            linha[2] = "EMPRESTADO";
+                        }
+
+                        model.addRow(linha);
+                    }
+
+                }
+            }
+        }
+    }//GEN-LAST:event_btn_confirmarActionPerformed
+
+    private void text1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_text1KeyTyped
+
+    private void text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+                 btn_confirmar.requestFocus();
+        }
+    }//GEN-LAST:event_text1KeyPressed
+
+    private void text1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_text1ActionPerformed
+
+    private void text1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusLost
+        // TODO add your handling code here:
+        String codFormatar = text1.getText();
+        if(!codFormatar.isEmpty()){
+            while(codFormatar.length()<6){
+                codFormatar = "0"+codFormatar;
+            }
+        }
+        text1.setText(codFormatar);
+    }//GEN-LAST:event_text1FocusLost
+
+        private void removerTabelaLivros(){
+       DefaultTableModel model = (DefaultTableModel) tabelaLivros.getModel();
+       int tam = tabelaLivros.getRowCount();
+       for(int i=0; i<tam; i++){
+           model.removeRow(0);
+       }
+    }
+       private void removerTabelaUsuarios(){
        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
        int tam = tabela.getRowCount();
        for(int i=0; i<tam; i++){
            model.removeRow(0);
        }
     } 
-    private void completar(){
-       Controlador control = new Controlador();
-       ArrayList<Livro> li = control.getLivroBusca();
-       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-       String estado;
-       
-       if(li != null){    
-           for(Livro livro: li){      
-               if(livro.estaEmprestado()) estado="Emprestado";      
-               else estado="Livre";      
-               Object linha[] = new Object[4];       
-               linha[0] = livro.getCodLivro();      
-               linha[1] = livro.getNome();        
-               linha[2] = livro.getAno();       
-               linha[3] = estado;    
-               model.addRow(linha);
-        }
+      private void removerTabelaNaoDevolvido(){
+       codText.setText("");
+       DefaultTableModel model = (DefaultTableModel) tabelaNaoDevolvido.getModel();
+       int tam = tabelaNaoDevolvido.getRowCount();
+       for(int i=0; i<tam; i++){
+           model.removeRow(0);
        }
-    }
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        // TODO add your handling code here:
-        removerTabela();
-        completar();
-        alerta.setVisible(false);
-    }//GEN-LAST:event_formWindowGainedFocus
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-        alerta.setText("Livros Emprestados");
-        alerta.setVisible(true);
-        removerTabela();
-        Controlador control = new Controlador();
-       ArrayList<Livro> li = control.getLivroBusca();
-       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-       String estado;
-       
-       if(li != null){    
-           for(Livro livro: li){ 
-               if(livro.estaEmprestado()){ estado="Emprestado";            
-               Object linha[] = new Object[4];       
-               linha[0] = livro.getCodLivro();      
-               linha[1] = livro.getNome();        
-               linha[2] = livro.getAno();       
-               linha[3] = estado;    
-               model.addRow(linha);
-               }
-        }
+    } 
+      private void removerTabelaEmprestado(){
+          text1.setText("");
+       DefaultTableModel model = (DefaultTableModel) tabelaEmprestado.getModel();
+       int tam = tabelaEmprestado.getRowCount();
+       for(int i=0; i<tam; i++){
+           model.removeRow(0);
        }
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-        alerta.setText("Livros Livres");
-        alerta.setVisible(true);
-        removerTabela();
-        Controlador control = new Controlador();
-       ArrayList<Livro> li = control.getLivroBusca();
-       DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-       String estado;
+    } 
        
-       if(li != null){  
-           for(Livro livro: li){      
-               if(!livro.estaEmprestado()) {
-               estado="Livre";      
-               Object linha[] = new Object[4];       
-               linha[0] = livro.getCodLivro();      
-               linha[1] = livro.getNome();        
-               linha[2] = livro.getAno();       
-               linha[3] = estado;    
-               model.addRow(linha);
-               }
-        }
-       }
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-        alerta.setText("Todos os Livros");
-        alerta.setVisible(true);
-        removerTabela();
-        completar();
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void todosUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todosUserActionPerformed
-        IURelatorio relatorio = new IURelatorio();
-        relatorio.setLocationRelativeTo(this);
-        relatorio.setTitle("Relatorio");
-        relatorio.setVisible(true);
-    }//GEN-LAST:event_todosUserActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -622,50 +1271,61 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Inicio;
+    private javax.swing.JPanel LivrosEmprestadosUsuario;
+    private javax.swing.JPanel LivrosNaoDevolvidosUsuario;
+    private javax.swing.JPanel Root;
+    private javax.swing.JPanel TodosLivros;
+    private javax.swing.JPanel TodosUsuarios;
     private javax.swing.JLabel alerta;
     private javax.swing.JMenuItem botaoSair;
+    private javax.swing.JButton btn_confirmar;
+    private javax.swing.JButton btn_confirmar1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private java.awt.Canvas canvas1;
+    private javax.swing.JTextField codText;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton jRadioButton7;
+    private javax.swing.JRadioButton jRadioButton8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JTextField pesquisa;
+    private javax.swing.JTextField pesquisa1;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JComboBox<String> relatorio;
     private javax.swing.JTable tabela;
-    private javax.swing.JMenuItem todosUser;
+    private javax.swing.JTable tabelaEmprestado;
+    private javax.swing.JTable tabelaLivros;
+    private javax.swing.JTable tabelaNaoDevolvido;
+    private javax.swing.JTextField text1;
     // End of variables declaration//GEN-END:variables
 }

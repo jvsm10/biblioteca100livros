@@ -94,7 +94,7 @@ public class Controlador {
     public Emprestimo buscarEmprestimoUsuario(String codusuario){
         return user.buscarEmprestimoUsuario(codusuario);
     }
-    
+
     public boolean procuraEmprestimoUsuarioAtrasado(String codusuario){
        return user.procuraEmprestimoUsuarioAtrasado(codusuario);
     }
