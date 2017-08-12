@@ -13,7 +13,6 @@ package trabalho02.iu;
 
 
 import java.awt.CardLayout;
-import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,16 +73,16 @@ public class IUPrincipal extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton7 = new javax.swing.JRadioButton();
         pesquisa1 = new javax.swing.JTextField();
-        LivrosEmprestadosUsuario = new javax.swing.JPanel();
+        TodosLivrosNaoDevolvidos = new javax.swing.JPanel();
         text1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btn_confirmar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaEmprestado = new javax.swing.JTable();
-        LivrosNaoDevolvidosUsuario = new javax.swing.JPanel();
+        TodosLivrosEmprestados = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         codText = new javax.swing.JTextField();
-        btn_confirmar1 = new javax.swing.JButton();
+        confirmarTodosEmprestados = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
         tabelaNaoDevolvido = new javax.swing.JTable();
         TodosLivros = new javax.swing.JPanel();
@@ -282,6 +281,9 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         text1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         text1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                text1FocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 text1FocusLost(evt);
             }
@@ -294,6 +296,9 @@ public class IUPrincipal extends javax.swing.JFrame {
         text1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 text1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                text1KeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 text1KeyTyped(evt);
@@ -335,15 +340,15 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tabelaEmprestado);
 
-        javax.swing.GroupLayout LivrosEmprestadosUsuarioLayout = new javax.swing.GroupLayout(LivrosEmprestadosUsuario);
-        LivrosEmprestadosUsuario.setLayout(LivrosEmprestadosUsuarioLayout);
-        LivrosEmprestadosUsuarioLayout.setHorizontalGroup(
-            LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LivrosEmprestadosUsuarioLayout.createSequentialGroup()
+        javax.swing.GroupLayout TodosLivrosNaoDevolvidosLayout = new javax.swing.GroupLayout(TodosLivrosNaoDevolvidos);
+        TodosLivrosNaoDevolvidos.setLayout(TodosLivrosNaoDevolvidosLayout);
+        TodosLivrosNaoDevolvidosLayout.setHorizontalGroup(
+            TodosLivrosNaoDevolvidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TodosLivrosNaoDevolvidosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(TodosLivrosNaoDevolvidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
-                    .addGroup(LivrosEmprestadosUsuarioLayout.createSequentialGroup()
+                    .addGroup(TodosLivrosNaoDevolvidosLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -351,11 +356,11 @@ public class IUPrincipal extends javax.swing.JFrame {
                         .addComponent(btn_confirmar)))
                 .addContainerGap())
         );
-        LivrosEmprestadosUsuarioLayout.setVerticalGroup(
-            LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LivrosEmprestadosUsuarioLayout.createSequentialGroup()
+        TodosLivrosNaoDevolvidosLayout.setVerticalGroup(
+            TodosLivrosNaoDevolvidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TodosLivrosNaoDevolvidosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LivrosEmprestadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(TodosLivrosNaoDevolvidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_confirmar))
@@ -364,13 +369,16 @@ public class IUPrincipal extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        Root.add(LivrosEmprestadosUsuario, "LivrosEmprestadosUsuario");
+        Root.add(TodosLivrosNaoDevolvidos, "LivrosEmprestadosUsuario");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Código do Usuário:");
 
         codText.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         codText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                codTextFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codTextFocusLost(evt);
             }
@@ -384,15 +392,18 @@ public class IUPrincipal extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 codTextKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                codTextKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 codTextKeyTyped(evt);
             }
         });
 
-        btn_confirmar1.setText("Confirmar");
-        btn_confirmar1.addActionListener(new java.awt.event.ActionListener() {
+        confirmarTodosEmprestados.setText("Confirmar");
+        confirmarTodosEmprestados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_confirmar1ActionPerformed(evt);
+                confirmarTodosEmprestadosActionPerformed(evt);
             }
         });
 
@@ -421,36 +432,36 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
         jScrollPane11.setViewportView(tabelaNaoDevolvido);
 
-        javax.swing.GroupLayout LivrosNaoDevolvidosUsuarioLayout = new javax.swing.GroupLayout(LivrosNaoDevolvidosUsuario);
-        LivrosNaoDevolvidosUsuario.setLayout(LivrosNaoDevolvidosUsuarioLayout);
-        LivrosNaoDevolvidosUsuarioLayout.setHorizontalGroup(
-            LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LivrosNaoDevolvidosUsuarioLayout.createSequentialGroup()
+        javax.swing.GroupLayout TodosLivrosEmprestadosLayout = new javax.swing.GroupLayout(TodosLivrosEmprestados);
+        TodosLivrosEmprestados.setLayout(TodosLivrosEmprestadosLayout);
+        TodosLivrosEmprestadosLayout.setHorizontalGroup(
+            TodosLivrosEmprestadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TodosLivrosEmprestadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(TodosLivrosEmprestadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
-                    .addGroup(LivrosNaoDevolvidosUsuarioLayout.createSequentialGroup()
+                    .addGroup(TodosLivrosEmprestadosLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_confirmar1)))
+                        .addComponent(confirmarTodosEmprestados)))
                 .addContainerGap())
         );
-        LivrosNaoDevolvidosUsuarioLayout.setVerticalGroup(
-            LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LivrosNaoDevolvidosUsuarioLayout.createSequentialGroup()
+        TodosLivrosEmprestadosLayout.setVerticalGroup(
+            TodosLivrosEmprestadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TodosLivrosEmprestadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LivrosNaoDevolvidosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(TodosLivrosEmprestadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(codText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_confirmar1))
+                    .addComponent(confirmarTodosEmprestados))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        Root.add(LivrosNaoDevolvidosUsuario, "LivrosNaoDevolvidosUsuario");
+        Root.add(TodosLivrosEmprestados, "LivrosNaoDevolvidosUsuario");
 
         tabelaLivros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -828,7 +839,7 @@ public class IUPrincipal extends javax.swing.JFrame {
                  linha[0] = li.get(i).getCodLivro();
                  linha[1] = li.get(i).getNome();
                  linha[2] = li.get(i).getAno();
-                 linha[3] = "SIM";
+                 linha[3] = "Emprestado";
                  model.addRow(linha);
             }
             }
@@ -840,7 +851,7 @@ public class IUPrincipal extends javax.swing.JFrame {
                          linha[0] = li.get(i).getCodLivro();
                          linha[1] = li.get(i).getNome();
                          linha[2] = li.get(i).getAno();
-                         linha[3] = "NAO";
+                         linha[3] = "Livre";
                          model.addRow(linha);
                     }
 
@@ -938,54 +949,53 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void codTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            btn_confirmar1.requestFocus();
+            confirmarTodosEmprestados.requestFocus();
         }
     }//GEN-LAST:event_codTextKeyPressed
 
-    private void btn_confirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmar1ActionPerformed
+    private void confirmarTodosEmprestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarTodosEmprestadosActionPerformed
         // TODO add your handling code here:
-       Controlador control = new Controlador();
-       ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
-       ArrayList<Item> itens;
-       Livro livros;
-       DefaultTableModel model = (DefaultTableModel) tabelaNaoDevolvido.getModel();
-       Object linha[] = new Object[4];
-       Calendar d = Calendar.getInstance();
+//       Controlador control = new Controlador();
+//       ArrayList<Emprestimo> emprestimos;
+//       ArrayList<Item> itens;
+//       Livro livros;
+//       Usuario user;
+//       DefaultTableModel model = (DefaultTableModel) tabelaNaoDevolvido.getModel();
+//       Object linha[] = new Object[4];
+//       Calendar d = Calendar.getInstance();
+//       
+//        String codUsuario = codText.getText();
+//        user = control.buscarUsuario(codUsuario);
+//        int tam = tabelaNaoDevolvido.getRowCount();
+//        for(int i=0; i<tam; i++){
+//          model.removeRow(0);
+//        }
+//        if(user != null){
+//            if(emprestimos != null){
+//            for(int i = 0; i<emprestimos.size();i++){ 
+//                itens = emprestimos.get(i).getItens();
+//                for(int j = 0; j<itens.size();j++){
+//                    livros = control.buscaLivro(itens.get(j).getCodLivro());
+//                    linha[0] = livros.getCodLivro();
+//                    linha[1] = livros.getNome();
+//
+//                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() != null ){
+//                            linha[2] = "DEVOLVIDO";
+//                        }else if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
+//                            linha[2] = "ATRASADO";
+//                        }else{
+//                            linha[2] = "EMPRESTADO";
+//                        }
+//
+//                        model.addRow(linha);
+//                    }
+//
+//            }
+//            }
+//             
+//        }
        
-       if(emprestimos != null){
-        String codUsuario = codText.getText();
-        int tam = tabelaNaoDevolvido.getRowCount();
-        for(int i=0; i<tam; i++){
-          model.removeRow(0);
-        }
-        if(codUsuario != null){
-        
-            for(int i = 0; i<emprestimos.size();i++){
-            
-                if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
-                    itens = emprestimos.get(i).getItens();
-                    for(int j = 0; j<itens.size();j++){
-                        livros = control.buscaLivro(itens.get(j).getCodLivro());
-                        linha[0] = livros.getCodLivro();
-                        linha[1] = livros.getNome();
-
-                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() != null ){
-                            linha[2] = "DEVOLVIDO";
-                        }else if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
-                            linha[2] = "ATRASADO";
-                        }else{
-                            linha[2] = "EMPRESTADO";
-                        }
-
-                        model.addRow(linha);
-                    }
-
-               }
-             }
-            }
-        }
-       
-    }//GEN-LAST:event_btn_confirmar1ActionPerformed
+    }//GEN-LAST:event_confirmarTodosEmprestadosActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
@@ -1179,7 +1189,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         for(int i=0; i<tam; i++){
             model.removeRow(0);
         }
-        if(codUsuario != null && emprestimos != null){
+        if(codUsuario != null){
+            if(emprestimos != null){
             for(int i = 0; i<emprestimos.size();i++){
 
                 if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
@@ -1200,11 +1211,15 @@ public class IUPrincipal extends javax.swing.JFrame {
 
                 }
             }
-        }
+            }
+        }  
     }//GEN-LAST:event_btn_confirmarActionPerformed
 
     private void text1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyTyped
         // TODO add your handling code here:
+        if(text1.getText().length() == 6){
+            evt.consume();
+        }
     }//GEN-LAST:event_text1KeyTyped
 
     private void text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyPressed
@@ -1228,6 +1243,26 @@ public class IUPrincipal extends javax.swing.JFrame {
         }
         text1.setText(codFormatar);
     }//GEN-LAST:event_text1FocusLost
+
+    private void codTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyReleased
+        // TODO add your handling code here:
+         codText.setText(codText.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_codTextKeyReleased
+
+    private void codTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTextFocusGained
+        // TODO add your handling code here:
+        codText.setText("");
+    }//GEN-LAST:event_codTextFocusGained
+
+    private void text1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyReleased
+        // TODO add your handling code here:
+        text1.setText(text1.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_text1KeyReleased
+
+    private void text1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusGained
+        // TODO add your handling code here:
+        text1.setText("");
+    }//GEN-LAST:event_text1FocusGained
 
         private void removerTabelaLivros(){
        DefaultTableModel model = (DefaultTableModel) tabelaLivros.getModel();
@@ -1273,20 +1308,20 @@ public class IUPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Inicio;
-    private javax.swing.JPanel LivrosEmprestadosUsuario;
-    private javax.swing.JPanel LivrosNaoDevolvidosUsuario;
     private javax.swing.JPanel Root;
     private javax.swing.JPanel TodosLivros;
+    private javax.swing.JPanel TodosLivrosEmprestados;
+    private javax.swing.JPanel TodosLivrosNaoDevolvidos;
     private javax.swing.JPanel TodosUsuarios;
     private javax.swing.JLabel alerta;
     private javax.swing.JMenuItem botaoSair;
     private javax.swing.JButton btn_confirmar;
-    private javax.swing.JButton btn_confirmar1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private java.awt.Canvas canvas1;
     private javax.swing.JTextField codText;
+    private javax.swing.JButton confirmarTodosEmprestados;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

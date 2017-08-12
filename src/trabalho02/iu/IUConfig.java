@@ -126,10 +126,20 @@ public class IUConfig extends javax.swing.JDialog {
                 diasAluno_TextActionPerformed(evt);
             }
         });
+        diasAluno_Text.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                diasAluno_TextKeyReleased(evt);
+            }
+        });
 
         jLabel5.setText("Dias permitidos para Professor");
 
         diasProfessor_Text.setText("30");
+        diasProfessor_Text.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                diasProfessor_TextKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -731,6 +741,16 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         texto.setText(".\\");
     }//GEN-LAST:event_textoFocusGained
+
+    private void diasAluno_TextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diasAluno_TextKeyReleased
+        // TODO add your handling code here:
+        diasAluno_Text.setText(diasAluno_Text.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_diasAluno_TextKeyReleased
+
+    private void diasProfessor_TextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diasProfessor_TextKeyReleased
+        // TODO add your handling code here:
+        diasProfessor_Text.setText(diasProfessor_Text.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_diasProfessor_TextKeyReleased
 
     /**
     * @param args the command line arguments
