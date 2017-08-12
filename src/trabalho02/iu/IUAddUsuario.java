@@ -727,6 +727,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
     } 
     private void atualizarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBotaoActionPerformed
         // TODO add your handling code here:
+       tabela.setRowSorter(null);
         removerTabela();
         completar();
     }//GEN-LAST:event_atualizarBotaoActionPerformed
@@ -892,6 +893,7 @@ public class IUAddUsuario extends javax.swing.JDialog {
 
     private void atualizarBotao2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBotao2ActionPerformed
         // TODO add your handling code here:
+        tabela2.setRowSorter(null);
         removerTabelaProfessor();
         completarProfessor();
     }//GEN-LAST:event_atualizarBotao2ActionPerformed

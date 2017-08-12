@@ -122,6 +122,9 @@ public class IUConfig extends javax.swing.JDialog {
 
         diasAluno_Text.setText("10");
         diasAluno_Text.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                diasAluno_TextFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 diasAluno_TextFocusLost(evt);
             }
@@ -144,6 +147,9 @@ public class IUConfig extends javax.swing.JDialog {
 
         diasProfessor_Text.setText("30");
         diasProfessor_Text.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                diasProfessor_TextFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 diasProfessor_TextFocusLost(evt);
             }
@@ -795,6 +801,14 @@ public class IUConfig extends javax.swing.JDialog {
             evt.consume();
         }       
     }//GEN-LAST:event_diasProfessor_TextKeyTyped
+
+    private void diasAluno_TextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diasAluno_TextFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_diasAluno_TextFocusGained
+
+    private void diasProfessor_TextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diasProfessor_TextFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_diasProfessor_TextFocusGained
 
     /**
     * @param args the command line arguments

@@ -534,6 +534,7 @@ public class IUAddLivro extends javax.swing.JDialog {
     } 
     private void atualizarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBotaoActionPerformed
         // TODO add your handling code here:
+        tabela.setRowSorter(null);
         removerTabela();
         completar();
     }//GEN-LAST:event_atualizarBotaoActionPerformed
