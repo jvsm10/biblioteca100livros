@@ -56,6 +56,7 @@ public class IUEmprestimo extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         empretext.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -81,6 +82,9 @@ public class IUEmprestimo extends javax.swing.JDialog {
 
         jLabel2.setText("Código/Nome usuário");
 
+        lista2.setToolTipText("");
+        lista2.setEnabled(false);
+        lista2.setFocusable(false);
         jScrollPane1.setViewportView(lista2);
         lista2.getAccessibleContext().setAccessibleDescription("");
 
