@@ -206,7 +206,7 @@ public class IUConfig extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Usuarios");
+        jLabel2.setText("Usuários");
 
         usuariosText.setText("usuarios.dat");
         usuariosText.addFocusListener(new java.awt.event.FocusAdapter() {

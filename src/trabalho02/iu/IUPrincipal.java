@@ -128,7 +128,7 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         alerta.setText("jLabel2");
 
-        relatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Relatorios", "Usuarios", "Livros", "Todos Livros já Emprestados para um Usuário", "Livros não Devolvidos por um Usuário" }));
+        relatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Relatórios", "Usuários", "Livros", "Todos Livros já Emprestados para um Usuário", "Livros não Devolvidos por um Usuário" }));
         relatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 relatorioActionPerformed(evt);
@@ -208,7 +208,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(jRadioButton7);
-        jRadioButton7.setText("Usuarios com Atrasos");
+        jRadioButton7.setText("Usuários com Atrasos");
         jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton7ActionPerformed(evt);
