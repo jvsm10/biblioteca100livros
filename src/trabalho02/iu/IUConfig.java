@@ -121,6 +121,11 @@ public class IUConfig extends javax.swing.JDialog {
         jLabel4.setText("Dias permitidos para Aluno");
 
         diasAluno_Text.setText("10");
+        diasAluno_Text.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                diasAluno_TextFocusLost(evt);
+            }
+        });
         diasAluno_Text.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diasAluno_TextActionPerformed(evt);
@@ -130,14 +135,25 @@ public class IUConfig extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 diasAluno_TextKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                diasAluno_TextKeyTyped(evt);
+            }
         });
 
         jLabel5.setText("Dias permitidos para Professor");
 
         diasProfessor_Text.setText("30");
+        diasProfessor_Text.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                diasProfessor_TextFocusLost(evt);
+            }
+        });
         diasProfessor_Text.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 diasProfessor_TextKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                diasProfessor_TextKeyTyped(evt);
             }
         });
 
@@ -751,6 +767,34 @@ public class IUConfig extends javax.swing.JDialog {
         // TODO add your handling code here:
         diasProfessor_Text.setText(diasProfessor_Text.getText().replaceAll("[^0-9]",""));
     }//GEN-LAST:event_diasProfessor_TextKeyReleased
+
+    private void diasAluno_TextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diasAluno_TextFocusLost
+        // TODO add your handling code here:
+        if(diasAluno_Text.getText().isEmpty()){
+            diasAluno_Text.setText("10");
+        }
+    }//GEN-LAST:event_diasAluno_TextFocusLost
+
+    private void diasProfessor_TextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diasProfessor_TextFocusLost
+        // TODO add your handling code here:
+        if(diasProfessor_Text.getText().isEmpty()){
+            diasProfessor_Text.setText("10");
+        }
+    }//GEN-LAST:event_diasProfessor_TextFocusLost
+
+    private void diasAluno_TextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diasAluno_TextKeyTyped
+        // TODO add your handling code here:
+       if(diasAluno_Text.getText().length() == 2){
+            evt.consume();
+        }
+    }//GEN-LAST:event_diasAluno_TextKeyTyped
+
+    private void diasProfessor_TextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diasProfessor_TextKeyTyped
+        // TODO add your handling code here:
+        if(diasProfessor_Text.getText().length() == 2){
+            evt.consume();
+        }       
+    }//GEN-LAST:event_diasProfessor_TextKeyTyped
 
     /**
     * @param args the command line arguments

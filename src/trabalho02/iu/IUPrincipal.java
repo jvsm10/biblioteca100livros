@@ -10,10 +10,9 @@
  */
 package trabalho02.iu;
 
-
+//
 
 import java.awt.CardLayout;
-import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -180,6 +179,7 @@ public class IUPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabela);
 
         buttonGroup1.add(jRadioButton1);
@@ -282,6 +282,9 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         text1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         text1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                text1FocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 text1FocusLost(evt);
             }
@@ -294,6 +297,9 @@ public class IUPrincipal extends javax.swing.JFrame {
         text1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 text1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                text1KeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 text1KeyTyped(evt);
@@ -371,6 +377,9 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         codText.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         codText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                codTextFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codTextFocusLost(evt);
             }
@@ -383,6 +392,9 @@ public class IUPrincipal extends javax.swing.JFrame {
         codText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 codTextKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                codTextKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 codTextKeyTyped(evt);
@@ -475,6 +487,7 @@ public class IUPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaLivros.getTableHeader().setReorderingAllowed(false);
         jScrollPane6.setViewportView(tabelaLivros);
 
         buttonGroup2.add(jRadioButton4);
@@ -702,7 +715,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void tam(){
         tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(80);
         tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
         tabelaLivros.getColumnModel().getColumn(0).setPreferredWidth(50);
         tabelaLivros.getColumnModel().getColumn(1).setPreferredWidth(250);
@@ -897,7 +910,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int rel = relatorio.getSelectedIndex();
         CardLayout c1 = (CardLayout) Root.getLayout();
-        
+        alerta.setVisible(false);
         removerTabelaLivros();
         removerTabelaUsuarios();
         removerTabelaNaoDevolvido();
@@ -910,10 +923,12 @@ public class IUPrincipal extends javax.swing.JFrame {
                 c1.show(Root, "inicio");
                 break;
             case 1:
+                jRadioButton1.setSelected(true);
                 c1.show(Root, "TodosUsuarios");
                 relUser(1);
                 break;
             case 2:
+                jRadioButton4.setSelected(true);
                 c1.show(Root, "TodosLivros");
                 relLivro(1);
                 break;
@@ -942,7 +957,7 @@ public class IUPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_codTextKeyPressed
 
-    private void btn_confirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmar1ActionPerformed
+    private void btn_confirmar1ActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
         Controlador control = new Controlador();
         ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
@@ -957,7 +972,14 @@ public class IUPrincipal extends javax.swing.JFrame {
         for(int i=0; i<tam; i++){
             model.removeRow(0);
         }
-        if(codUsuario != null && emprestimos != null){
+        Usuario user =control.buscarUsuario(codUsuario);
+        if(user==null){
+            alerta.setText("Usuario Não Cadastrado");
+            alerta.setVisible(true);
+            text1.setText("");
+            text1.requestFocus();
+        }
+        else if(codUsuario != null && emprestimos != null){
             for(int i = 0; i<emprestimos.size();i++){
                 if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
                     
@@ -973,15 +995,17 @@ public class IUPrincipal extends javax.swing.JFrame {
                             linha[2] = "EMPRESTADO";
                         }
 
-                        model.addRow(linha);
+                        model.addRow(linha);         
                     }
-
+                    alerta.setText(user.getTipo()+"   "+user.getNome());
+                    alerta.setVisible(true);
                 }
+                
             }
         }
-       
-    }//GEN-LAST:event_btn_confirmar1ActionPerformed
-
+        
+    }
+                                        
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
         removerTabelaUsuarios();
@@ -1040,7 +1064,7 @@ public class IUPrincipal extends javax.swing.JFrame {
            for(int i = 0; i<emprestimos.size();i++){
                 if(emprestimos.get(i).getDataDevolucao().compareTo(d) == -1){
                       linha[0] = emprestimos.get(i).getCodUsuario();
-                      linha[1] = control.buscarUsuario(emprestimos.get(i).getCodUsuario());
+                      linha[1] = control.buscarUsuario(emprestimos.get(i).getCodUsuario()).getNome();
                       linha[2] = "SIM";
                       linha[3] = "SIM";
                       model.addRow(linha);
@@ -1113,6 +1137,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisaFocusLost
         // TODO add your handling code here:
         pesquisa.setText("Pesquisar por Nome dos Alunos Cadastrados");
+        tabelaLivros.setRowSorter(null);
     }//GEN-LAST:event_pesquisaFocusLost
 
     private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
@@ -1122,13 +1147,12 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
         // TODO add your handling code here:
         pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
-        TableRowSorter<TableModel> sorter = null;
         DefaultTableModel model = (DefaultTableModel) tabelaLivros.getModel();
-        sorter = new TableRowSorter<>(model);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         tabelaLivros.setRowSorter(sorter);
         String texto = pesquisa.getText().toUpperCase();
         if(texto.length() != 0){
-            sorter.setRowFilter(RowFilter.regexFilter(texto));
+            sorter.setRowFilter(RowFilter.regexFilter(texto));       
         }
     }//GEN-LAST:event_pesquisaKeyReleased
 
@@ -1140,6 +1164,7 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void pesquisa1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesquisa1FocusLost
         // TODO add your handling code here:
         pesquisa1.setText("Pesquisar por Nome dos Usuarios Cadastrados");
+        tabela.setRowSorter(null);
     }//GEN-LAST:event_pesquisa1FocusLost
 
     private void pesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisa1ActionPerformed
@@ -1174,7 +1199,14 @@ public class IUPrincipal extends javax.swing.JFrame {
         for(int i=0; i<tam; i++){
             model.removeRow(0);
         }
-        if(codUsuario != null && usu != null){
+        Usuario user=control.buscarUsuario(codUsuario);
+        if(user==null){
+            alerta.setText("Usuario Não Cadastrado");
+            alerta.setVisible(true);
+            text1.setText("");
+            text1.requestFocus();
+        }
+        else if(codUsuario != null && usu != null){
             for(int i = 0; i<usu.size();i++){
                 if(codUsuario.equals(usu.get(i).getCodUsuario())){
                     if(!usu.get(i).getHistorico().isEmpty()){
@@ -1199,6 +1231,8 @@ public class IUPrincipal extends javax.swing.JFrame {
                     }
                     model.addRow(linha);
                }
+                    alerta.setText(user.getTipo()+"   "+user.getNome());
+                    alerta.setVisible(true);
              }
             }
             }
@@ -1207,6 +1241,9 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void text1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyTyped
         // TODO add your handling code here:
+      if(text1.getText().length() == 6){
+            evt.consume();
+        } 
     }//GEN-LAST:event_text1KeyTyped
 
     private void text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyPressed
@@ -1230,6 +1267,26 @@ public class IUPrincipal extends javax.swing.JFrame {
         }
         text1.setText(codFormatar);
     }//GEN-LAST:event_text1FocusLost
+
+    private void codTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTextKeyReleased
+        // TODO add your handling code here:
+        codText.setText(codText.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_codTextKeyReleased
+
+    private void text1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyReleased
+        // TODO add your handling code here:
+        text1.setText(text1.getText().replaceAll("[^0-9]",""));
+    }//GEN-LAST:event_text1KeyReleased
+
+    private void text1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusGained
+        // TODO add your handling code here:
+        text1.setText("");
+    }//GEN-LAST:event_text1FocusGained
+
+    private void codTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTextFocusGained
+        // TODO add your handling code here:
+        codText.setText("");
+    }//GEN-LAST:event_codTextFocusGained
 
         private void removerTabelaLivros(){
        DefaultTableModel model = (DefaultTableModel) tabelaLivros.getModel();

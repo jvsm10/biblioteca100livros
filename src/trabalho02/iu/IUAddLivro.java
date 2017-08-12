@@ -516,7 +516,6 @@ public class IUAddLivro extends javax.swing.JDialog {
 
     private void pesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaKeyReleased
         // TODO add your handling code here:
-        pesquisa.setText(pesquisa.getText().replaceAll("[^A-Z | ^a-z]",""));
         TableRowSorter<TableModel> sorter = null;
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         sorter = new TableRowSorter<>(model);

@@ -59,6 +59,9 @@ public class IUEmprestimo extends javax.swing.JDialog {
         setResizable(false);
 
         empretext.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                empretextFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 empretextFocusLost(evt);
             }
@@ -318,6 +321,11 @@ public class IUEmprestimo extends javax.swing.JDialog {
     private void cb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cb1ActionPerformed
+
+    private void empretextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_empretextFocusGained
+        // TODO add your handling code here:
+        empretext.setText("");
+    }//GEN-LAST:event_empretextFocusGained
 
     /**
      * @param args the command line arguments

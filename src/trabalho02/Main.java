@@ -23,7 +23,7 @@ public class Main {
         // TODO code application logic here
         IUPrincipal principal = new IUPrincipal();
         principal.setLocationRelativeTo(null);
-        principal.setTitle("Sistema Biblioteca - Trabalho 02 - POO");
+        principal.setTitle("BLIBLIOTECA 100LIVROS - Trabalho 02 - POO");
         principal.setVisible(true);
 
 
