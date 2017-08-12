@@ -232,8 +232,8 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="5">
-            <StringItem index="0" value="Relatorios"/>
-            <StringItem index="1" value="Usuarios"/>
+            <StringItem index="0" value="Relat&#xf3;rios"/>
+            <StringItem index="1" value="Usu&#xe1;rios"/>
             <StringItem index="2" value="Livros"/>
             <StringItem index="3" value="Todos Livros j&#xe1; Emprestados para um Usu&#xe1;rio"/>
             <StringItem index="4" value="Livros n&#xe3;o Devolvidos por um Usu&#xe1;rio"/>
@@ -422,7 +422,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Usuarios com Atrasos"/>
+                <Property name="text" type="java.lang.String" value="Usu&#xe1;rios com Atrasos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton7ActionPerformed"/>

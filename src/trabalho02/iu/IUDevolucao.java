@@ -106,6 +106,7 @@ public class IUDevolucao extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabela1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabela1);
         if (tabela1.getColumnModel().getColumnCount() > 0) {
             tabela1.getColumnModel().getColumn(0).setResizable(false);
