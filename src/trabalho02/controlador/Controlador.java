@@ -98,6 +98,12 @@ public class Controlador {
     public boolean procuraEmprestimoUsuarioAtrasado(String codusuario){
        return user.procuraEmprestimoUsuarioAtrasado(codusuario);
     }
+    public Emprestimo buscarHistoricoUsuario(String codusuario){
+        return user.buscarHistoricoUsuario(codusuario);
+    }
+    public ArrayList<Emprestimo> buscarHistoricoTodos(){
+        return user.buscarHistoricoTodos();
+    }
     public void Devolver(String codlivro,String codempresta){
         user.Devolver(codlivro, codempresta);
     }

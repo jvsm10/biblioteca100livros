@@ -944,34 +944,30 @@ public class IUPrincipal extends javax.swing.JFrame {
 
     private void btn_confirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmar1ActionPerformed
         // TODO add your handling code here:
-       Controlador control = new Controlador();
-       ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
-       ArrayList<Item> itens;
-       Livro livros;
-       DefaultTableModel model = (DefaultTableModel) tabelaNaoDevolvido.getModel();
-       Object linha[] = new Object[4];
-       Calendar d = Calendar.getInstance();
-       
-       if(emprestimos != null){
+        Controlador control = new Controlador();
+        ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
+        ArrayList<Item> itens;
+        Livro livros;
+        DefaultTableModel model = (DefaultTableModel) tabelaNaoDevolvido.getModel();
+        Object linha[] = new Object[4];
+        Calendar d = Calendar.getInstance();
+            
         String codUsuario = codText.getText();
         int tam = tabelaNaoDevolvido.getRowCount();
         for(int i=0; i<tam; i++){
-          model.removeRow(0);
+            model.removeRow(0);
         }
-        if(codUsuario != null){
-        
+        if(codUsuario != null && emprestimos != null){
             for(int i = 0; i<emprestimos.size();i++){
-            
                 if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
+                    
                     itens = emprestimos.get(i).getItens();
                     for(int j = 0; j<itens.size();j++){
                         livros = control.buscaLivro(itens.get(j).getCodLivro());
                         linha[0] = livros.getCodLivro();
                         linha[1] = livros.getNome();
 
-                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() != null ){
-                            linha[2] = "DEVOLVIDO";
-                        }else if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
+                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
                             linha[2] = "ATRASADO";
                         }else{
                             linha[2] = "EMPRESTADO";
@@ -980,8 +976,7 @@ public class IUPrincipal extends javax.swing.JFrame {
                         model.addRow(linha);
                     }
 
-               }
-             }
+                }
             }
         }
        
@@ -1167,38 +1162,43 @@ public class IUPrincipal extends javax.swing.JFrame {
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
         // TODO add your handling code here:
         Controlador control = new Controlador();
-        ArrayList<Emprestimo> emprestimos = control.buscarEmprestimoTodos();
-        ArrayList<Item> itens;
-        Livro livros;
+        ArrayList<Usuario> usu = control.buscarUsuarioTodos();
+        Emprestimo emprestimo;
+        ArrayList<String> codlivro;
         DefaultTableModel model = (DefaultTableModel) tabelaEmprestado.getModel();
         Object linha[] = new Object[4];
         Calendar d = Calendar.getInstance();
-
+            
         String codUsuario = text1.getText();
         int tam = tabelaEmprestado.getRowCount();
         for(int i=0; i<tam; i++){
             model.removeRow(0);
         }
-        if(codUsuario != null && emprestimos != null){
-            for(int i = 0; i<emprestimos.size();i++){
-
-                if(codUsuario.equals(emprestimos.get(i).getCodUsuario())){
-                    itens = emprestimos.get(i).getItens();
-                    for(int j = 0; j<itens.size();j++){
-                        livros = control.buscaLivro(itens.get(j).getCodLivro());
-                        linha[0] = livros.getCodLivro();
-                        linha[1] = livros.getNome();
-
-                        if(emprestimos.get(i).getDataDevolucao().compareTo(d)== -1 && itens.get(j).getDataDevolucao() == null){
+        if(codUsuario != null && usu != null){
+            for(int i = 0; i<usu.size();i++){
+                if(codUsuario.equals(usu.get(i).getCodUsuario())){
+                    if(!usu.get(i).getHistorico().isEmpty()){
+                    codlivro = usu.get(i).getHistorico();
+                    for(int j = 0; j<codlivro.size();j++){
+                        linha[0] = codlivro.get(j);
+                        Livro livro = control.buscaLivro(codlivro.get(j));
+                        linha[1] = livro.getNome();
+                        if(livro.estaEmprestado() == false){
+                            linha[2] = "DEVOLVIDO";
+                        }else{
+                            emprestimo = control.buscarEmprestimoUsuario(usu.get(i).getCodUsuario());
+                            if(emprestimo.getDataDevolucao().compareTo(d)== -1){
                             linha[2] = "ATRASADO";
                         }else{
-                            linha[2] = "EMPRESTADO";
-                        }
-
-                        model.addRow(linha);
+                                if(usu.get(i).buscaLivro(codlivro.get(j),j)==false)
+                                linha[2] = "EMPRESTADO";
+                                else linha[2] = "DEVOLVIDO";
+                        }    
                     }
-
-                }
+                    model.addRow(linha);
+               }
+             }
+            }
             }
         }
     }//GEN-LAST:event_btn_confirmarActionPerformed

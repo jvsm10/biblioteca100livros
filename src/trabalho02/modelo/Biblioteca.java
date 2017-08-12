@@ -24,12 +24,14 @@ public class Biblioteca {
     private Config configuracoes;
     private ArrayList<Usuario> usuarios;
     private ArrayList<Emprestimo> emprestimos;
+    private ArrayList<Emprestimo> historico;
     private ArrayList<Livro> livros;
     private ArrayList<Item> itens;
 
     public Biblioteca() {
         this.usuarios = new ArrayList<Usuario>();
         this.emprestimos = new ArrayList<Emprestimo>();
+        this.historico = new ArrayList<Emprestimo>();
         this.livros = new ArrayList<Livro>();
         this.configuracoes = new Config();
     }
@@ -126,6 +128,10 @@ public class Biblioteca {
         int dia = usuario.getDiasEmprestimo();
         d.add(Calendar.DAY_OF_MONTH, dia);
         empresta.setDataDevolucao(d);
+        for(Item it: itens){
+            usuario.addHistorico(it.getCodLivro());
+        }
+        this.historico.add(empresta);
         this.emprestimos.add(empresta);
     }
     
@@ -149,6 +155,16 @@ public class Biblioteca {
         return null;
     }
     
+    public Emprestimo buscarHistoricoUsuario(String codusuario){
+        if(historico.isEmpty()) return null;
+        for (int i = 0; i < historico.size(); i++) {
+            if (historico.get(i).getCodUsuario().equals(codusuario)) {
+                return historico.get(i);
+            }
+        }
+        return null;
+    }
+    
     public boolean procuraEmprestimoUsuarioAtrasado(String codusuario){
         if(emprestimos.isEmpty()) return false;
         for (int i = 0; i < emprestimos.size(); i++) {
@@ -163,6 +179,11 @@ public class Biblioteca {
     public ArrayList<Emprestimo> buscarEmprestimosTodos(){
         if(emprestimos.isEmpty()) return null;
         else return emprestimos;
+    }
+    
+    public ArrayList<Emprestimo> buscarHistoricoTodos(){
+        if(historico.isEmpty()) return null;
+        else return historico;
     }
     
     public Emprestimo buscarEmprestimo(String codemprestimo){

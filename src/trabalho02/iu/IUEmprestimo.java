@@ -253,9 +253,6 @@ public class IUEmprestimo extends javax.swing.JDialog {
         int i;
         String msg;
         if(!empretext.getText().isEmpty() && cb1.getItemAt(cb1.getSelectedIndex()) != null && !list2.isEmpty()){
-        if(control.procuraEmprestimo(empretext.getText())==true)
-            JOptionPane.showMessageDialog(null, "Código ja existente, digite outro");
-        else{
         usuario = control.buscarUsuario(cb1.getItemAt(cb1.getSelectedIndex()).substring(0,6));
         int dia = usuario.getDiasEmprestimo();
         for(i=0;i<list2.getSize();i++){
@@ -271,7 +268,6 @@ public class IUEmprestimo extends javax.swing.JDialog {
         control.emprestimo(empretext.getText(), usuario,itens);
         JOptionPane.showMessageDialog(null, "Emprestimo realizado com sucesso");
         this.dispose();
-        }
         }
         else  JOptionPane.showMessageDialog(null, "Campo faltando");
     }//GEN-LAST:event_jButton4ActionPerformed
