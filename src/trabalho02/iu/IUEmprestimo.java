@@ -83,10 +83,8 @@ public class IUEmprestimo extends javax.swing.JDialog {
         jLabel2.setText("Código/Nome usuário");
 
         lista2.setToolTipText("");
-        lista2.setEnabled(false);
         lista2.setFocusable(false);
         jScrollPane1.setViewportView(lista2);
-        lista2.getAccessibleContext().setAccessibleDescription("");
 
         jScrollPane2.setViewportView(lista1);
 
