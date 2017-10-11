@@ -1188,7 +1188,9 @@ public class IUPrincipal extends javax.swing.JFrame {
                         }else{
                             emprestimo = control.buscarEmprestimoUsuario(usu.get(i).getCodUsuario());
                             if(emprestimo.getDataDevolucao().compareTo(d)== -1){
-                            linha[2] = "ATRASADO";
+                                if(usu.get(i).buscaLivro(codlivro.get(j),j)==false)
+                                linha[2] = "ATRASADO";
+                                else linha[2] = "DEVOLVIDO";
                         }else{
                                 if(usu.get(i).buscaLivro(codlivro.get(j),j)==false)
                                 linha[2] = "EMPRESTADO";
